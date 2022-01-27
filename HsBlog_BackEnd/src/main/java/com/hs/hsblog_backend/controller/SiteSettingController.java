@@ -18,7 +18,7 @@ public class SiteSettingController {
     SiteSettingService siteSettingService;
 
     @GetMapping("site")
-    public Result getSite(){
+    public Result<Map<String, Object>> getSite(){
         Map<String, Object> site = siteSettingService.getSite();
         return Result.success(site);
     }

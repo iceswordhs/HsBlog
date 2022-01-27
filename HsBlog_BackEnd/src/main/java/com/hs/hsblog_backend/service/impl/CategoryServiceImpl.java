@@ -33,6 +33,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category addNewBlogCategory(Category category) {
+        if(findCategoryByName(category.getName())==null){
+            addCategory(category);
+            return findCategoryByName(category.getName());
+        }else {
+            return category;
+        }
+    }
+
+    @Override
     public void deleteCategoryById(Integer id) {
         categoryMapper.deleteCategoryById(id);
     }

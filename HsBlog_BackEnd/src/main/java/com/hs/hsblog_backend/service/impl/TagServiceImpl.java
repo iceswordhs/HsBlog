@@ -6,6 +6,7 @@ import com.hs.hsblog_backend.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Integer addTag(Tag tag) {
+    public Tag addTag(Tag tag) {
         return tagMapper.addTag(tag);
     }
 
@@ -51,7 +52,9 @@ public class TagServiceImpl implements TagService {
                 if (tag.getColor()==null){
                     tag.setColor("red");
                 }
-                addTag(tag);
+                Tag addTag = addTag(tag);
+                tag.setTagId(addTag.getTagId());
+                tag.setTagName(addTag.getTagName());
             }else tag.setTagId(byIdOrName.getTagId());
         }
         return tags;

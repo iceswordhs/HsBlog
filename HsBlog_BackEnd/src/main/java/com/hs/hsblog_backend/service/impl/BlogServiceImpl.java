@@ -10,6 +10,7 @@ import com.hs.hsblog_backend.model.vo.ArchiveBlog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.repository.BlogMapper;
 import com.hs.hsblog_backend.service.BlogService;
+import com.hs.hsblog_backend.service.CategoryService;
 import com.hs.hsblog_backend.service.TagService;
 import com.hs.hsblog_backend.util.StringUtils;
 import com.hs.hsblog_backend.util.commarkUtil.MarkDownToHTMLUtil;
@@ -29,6 +30,8 @@ public class BlogServiceImpl implements BlogService {
     BlogMapper blogMapper;
     @Autowired
     TagService tagService;
+    @Autowired
+    CategoryService categoryService;
 
     // 博客简介列表排序方式
     private static final String orderBy = "top desc, create_time desc";
@@ -44,6 +47,14 @@ public class BlogServiceImpl implements BlogService {
     public Blog getBlogById(Integer id) {
         Blog blog = blogMapper.getBlogById(id);
         processBlog(blog);
+        return blog;
+    }
+
+    @Override
+    public Blog getBlogEditById(Integer id) {
+        Blog blog = blogMapper.getBlogEditById(id);
+        // 添加标签
+        blog.setTags(tagService.getTagByBlogId(blog.getId()));
         return blog;
     }
 
@@ -97,6 +108,9 @@ public class BlogServiceImpl implements BlogService {
         // 判断是否有空值
         checkBLog(blog);
 
+        // 判断博客category是否是新添加的
+        blog.setCategory(categoryService.addNewBlogCategory(blog.getCategory()));
+
         // 如果tag不存在，就新建tag,并返回带有主键的tags
         List<Tag> tags = tagService.saveNewBlogTags(blog.getTags());
 
@@ -123,7 +137,7 @@ public class BlogServiceImpl implements BlogService {
      */
     private void checkBLog(Blog blog){
         if (StringUtils.isEmpty(blog.getTitle(),blog.getContent(),
-                blog.getHomePicture(),blog.getDescription())||blog.getWords()<0){
+                blog.getDescription())||blog.getWords()<0){
             throw ServiceException.create("博客信息有误，正文或者标题为空！");
         }
         if (blog.getCategory()==null){

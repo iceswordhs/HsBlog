@@ -43,7 +43,7 @@ public class BlogAdminController {
 
     @GetMapping("/blog")
     public Result<Blog> getBlogById(@RequestParam Integer id){
-        Blog blogById = blogService.getBlogById(id);
+        Blog blogById = blogService.getBlogEditById(id);
         return Result.success(blogById);
     }
 

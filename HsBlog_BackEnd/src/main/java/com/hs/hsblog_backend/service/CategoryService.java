@@ -18,4 +18,6 @@ public interface CategoryService {
     void deleteCategoryById(Integer id);
 
     void updateCategory(Category category);
+
+    Category addNewBlogCategory(Category category);
 }

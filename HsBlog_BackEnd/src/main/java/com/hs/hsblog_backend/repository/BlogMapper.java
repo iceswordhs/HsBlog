@@ -17,6 +17,8 @@ public interface BlogMapper {
 
     Blog getBlogById(Integer id);
 
+    Blog getBlogEditById(Integer id);
+
     Integer saveBlog(Blog blog);
 
     void saveBlogTag(Integer blogId,Integer tagId);

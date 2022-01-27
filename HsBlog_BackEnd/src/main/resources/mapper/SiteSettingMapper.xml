@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.hsblog_backend.repository.SiteSettingMapper">
+
+    <resultMap id="SiteSettingBaseResultMap" type="com.hs.hsblog_backend.entity.SiteSetting">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="nameEn" column="name_en" jdbcType="VARCHAR"/>
+            <result property="nameZh" column="name_zh" jdbcType="VARCHAR"/>
+            <result property="value" column="value" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="SiteSetting_Base_Column_List">
+        id,name_en,name_zh,
+        value,type
+    </sql>
+    <insert id="insertSiteSetting">
+        insert into site_setting(name_en, name_zh, value, type)
+         VALUES(#{nameEn},#{nameZh},#{value},#{type})
+    </insert>
+    <update id="updateSiteSetting">
+        update site_setting set value=#{value} where id=#{id}
+    </update>
+    <delete id="deleteById">
+        delete from site_setting where id=#{id}
+    </delete>
+    <select id="getSiteSettingByZhName" resultMap="SiteSettingBaseResultMap">
+        select
+        <include refid="SiteSetting_Base_Column_List"/>
+        from site_setting
+        where name_zh=#{zhName}
+    </select>
+    <select id="getSiteSettingByEnName" resultMap="SiteSettingBaseResultMap">
+        select
+        <include refid="SiteSetting_Base_Column_List"/>
+        from site_setting
+        where name_en=#{enName}
+    </select>
+    <select id="getSiteSettingByType" resultType="com.hs.hsblog_backend.entity.SiteSetting">
+        select
+        <include refid="SiteSetting_Base_Column_List"/>
+        from site_setting
+        where type=#{type}
+    </select>
+
+</mapper>

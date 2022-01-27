@@ -1,0 +1,104 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE mapper-->
+<!--        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
+<!--        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!--<mapper namespace="com.hs.hsblog_backend.repository">-->
+
+<!--    <resultMap id="blog" type="Blog">-->
+<!--            <id property="id" column="id" jdbcType="INTEGER"/>-->
+<!--            <result property="title" column="articleTitle" jdbcType="VARCHAR"/>-->
+<!--            <result property="homePicture" column="firstPicture" jdbcType="VARCHAR"/>-->
+<!--            <result property="content" column="content" jdbcType="VARCHAR"/>-->
+<!--            <result property="description" column="description" jdbcType="VARCHAR"/>-->
+<!--            <result property="published" column="published" jdbcType="TINYINT"/>-->
+<!--            <result property="top" column="top" jdbcType="TINYINT"/>-->
+<!--            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>-->
+<!--            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>-->
+<!--            <result property="views" column="views" jdbcType="INTEGER"/>-->
+<!--            <result property="words" column="words" jdbcType="INTEGER"/>-->
+<!--            &lt;!&ndash;关联查询文章类别&ndash;&gt;-->
+<!--            <association property="category" javaType="Category">-->
+<!--                <id property="id" column="category_id"/>-->
+<!--                <result property="name" column="categoryName"/>-->
+<!--            </association>-->
+<!--    </resultMap>-->
+
+<!--    <resultMap id="categoryResult" type="category">-->
+<!--        <id property="id" column="id"/>-->
+<!--        <result property="name" column="categoryName"/>-->
+<!--    </resultMap>-->
+
+<!--    <sql id="Base_Column_List">-->
+<!--        id,articleTitle,firstPicture,-->
+<!--        articleContent,description,published,-->
+<!--        top,createTime,-->
+<!--        updateTime,articleTabloid,views,-->
+<!--        words-->
+<!--    </sql>-->
+
+<!--    <select id="findAllBlog" resultMap="blog">-->
+<!--        select-->
+<!--            b.id id ,b.articleTitle,b.firstPicture,-->
+<!--            # b.articleContent,-->
+<!--               b.articleTabloid,b.description,b.published,-->
+<!--            b.top,b.createTime,b.updateTime,b.views,b.words,-->
+<!--            c.id as category_id,c.categoryName-->
+<!--        from blog b join categories c on b.articleCategoryId = c.id-->
+<!--    </select>-->
+
+<!--    <select id="getBlogById" resultMap="blog">-->
+<!--        select-->
+<!--            b.id id ,b.articleTitle,b.firstPicture,-->
+<!--            b.articleContent,b.articleTabloid,b.description,b.published,-->
+<!--            b.top,b.createTime,b.updateTime,b.views,b.words,-->
+<!--            c.id as category_id,c.categoryName-->
+<!--        from blog b join categories c on b.articleCategoryId = c.id-->
+<!--        where b.id=#{id}-->
+<!--    </select>-->
+
+<!--    <insert id="saveBlog" parameterType="blog" useGeneratedKeys="true" keyColumn="id" keyProperty="id">-->
+<!--        insert into blog(articleContent,articleTitle,articleCategoryId,description,firstPicture,published,top,views,words,createTime,updateTime)-->
+<!--        values(#{articleContent},#{articleTitle},#{category.id},#{description},#{firstPicture},#{published},#{top},#{views},#{words},#{createTime},#{updateTime})-->
+<!--    </insert>-->
+
+
+<!--    <insert id="saveBlogTag">-->
+<!--        insert into blog_tag(blog_id, tag_id) values(#{blogId},#{tagId})-->
+<!--    </insert>-->
+
+<!--    <delete id="deleteBlogTag">-->
+<!--        delete from blog_tag where blog_id=#{blogId}-->
+<!--    </delete>-->
+
+<!--    &lt;!&ndash;根据标签Id查询博客&ndash;&gt;-->
+<!--    <select id="getBlogByTagId" resultMap="blog">-->
+<!--        select-->
+<!--            b.id id ,b.articleTitle,b.firstPicture,-->
+<!--            # b.articleContent,-->
+<!--            b.articleTabloid,b.description,b.published,-->
+<!--            b.top,b.createTime,b.updateTime,b.views,b.words,-->
+<!--            c.id as category_id,c.categoryName-->
+<!--        from blog b-->
+<!--                 join categories c on b.articleCategoryId = c.id-->
+<!--                 join blog_tag bt on b.id = bt.blog_id-->
+<!--        where tag_id=#{tagId}-->
+<!--    </select>-->
+
+<!--    <select id="getBlogByCategory" resultMap="blog">-->
+<!--        select-->
+<!--            b.id id ,b.articleTitle,b.firstPicture,-->
+<!--            # b.articleContent,-->
+<!--            b.articleTabloid,b.description,b.published,-->
+<!--            b.top,b.createTime,b.updateTime,b.views,b.words,-->
+<!--            c.id as category_id,c.categoryName-->
+<!--        from blog b-->
+<!--        join categories c on b.articleCategoryId=c.id-->
+<!--        where b.articleCategoryId=#{id} or c.categoryName=#{name}-->
+<!--    </select>-->
+
+<!--    <select id="getArchiveBlogIsPublished" resultMap="blog">-->
+<!--        select id,articleTitle,createTime-->
+<!--        from blog-->
+<!--        where published=1-->
+<!--    </select>-->
+<!--</mapper>-->

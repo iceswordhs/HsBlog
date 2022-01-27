@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.hsblog_backend.repository.AboutMapper">
+
+    <resultMap id="BaseResultMap" type="com.hs.hsblog_backend.entity.About">
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="commentEnable" column="comment_enable" jdbcType="BOOLEAN"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        title,content,comment_enable,
+        create_time,update_time
+    </sql>
+
+    <insert id="insertAbout">
+        insert into about(title, content, comment_enable, create_time, update_time)
+        VALUES (#{title},#{content},#{commentEnable},#{createTime},#{updateTime})
+    </insert>
+    <update id="updateAbout">
+        update
+        about
+        set title=#{title},content=#{content},comment_enable=#{commentEnable},update_time=#{updateTime}
+        where 1=1
+    </update>
+
+    <select id="findAbout" resultType="com.hs.hsblog_backend.entity.About">
+        select
+        <include refid="Base_Column_List"/>
+        from about
+    </select>
+</mapper>

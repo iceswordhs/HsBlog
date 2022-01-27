@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.hsblog_backend.repository.FriendItemMapper">
+
+    <resultMap id="FriendItem" type="com.hs.hsblog_backend.entity.FriendItem">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="websiteUrl" column="website_url" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="published" column="published" jdbcType="BOOLEAN"/>
+            <result property="views" column="views" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,nickname,description,
+        website_url,avatar,published,
+        views,create_time
+    </sql>
+    <insert id="saveFriendItem">
+        insert into friend_item(nickname, description, website_url, avatar, published, views, create_time)
+         VALUES(#{nickname},#{description},#{websiteUrl},#{avatar},#{published},#{views},#{createTime})
+    </insert>
+    <update id="updateFriendItem">
+        update friend_item set nickname=#{nickname}, description=#{description}, website_url=#{websiteUrl},
+                               avatar=#{avatar}, published=#{published}, views=#{views}
+        where id=#{id}
+    </update>
+    <delete id="deleteFriendItemById">
+        delete from friend_item where id=#{id}
+    </delete>
+    <select id="getFriendItemList" resultMap="FriendItem">
+        select
+        <include refid="Base_Column_List"/>
+        from friend_item
+    </select>
+</mapper>

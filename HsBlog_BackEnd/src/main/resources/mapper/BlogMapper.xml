@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.hsblog_backend.repository.BlogMapper">
+
+    <resultMap id="blog" type="com.hs.hsblog_backend.entity.Blog">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="homePicture" column="home_picture" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="views" column="views" jdbcType="INTEGER"/>
+            <result property="words" column="words" jdbcType="INTEGER"/>
+            <result property="published" column="published" jdbcType="BOOLEAN"/>
+            <result property="top" column="top" jdbcType="BOOLEAN"/>
+            <result property="commentEnable" column="comment_enable" jdbcType="BOOLEAN"/>
+        <!--关联查询文章类别-->
+        <association property="category" javaType="Category">
+            <id property="id" column="category_id"/>
+            <result property="name" column="categoryName"/>
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,home_picture,
+        description,content,category_id,
+        create_time,update_time,views,
+        words,published,top,
+        comment_enable
+    </sql>
+    <update id="updateBlogTopById">
+        update blog
+        set top=#{top}
+        where id=#{id}
+    </update>
+    <update id="updateBlogPublishedById">
+        update blog
+        set published=#{published}
+        where id=#{id}
+    </update>
+
+
+    <resultMap id="blogListItem" type="com.hs.hsblog_backend.model.vo.BlogListItem">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="homePicture" column="home_picture" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="views" column="views" jdbcType="INTEGER"/>
+        <result property="words" column="words" jdbcType="INTEGER"/>
+        <result property="published" column="published" jdbcType="BOOLEAN"/>
+        <result property="top" column="top" jdbcType="BOOLEAN"/>
+        <!--关联查询文章类别-->
+        <association property="category" javaType="Category">
+            <id property="id" column="category_id"/>
+            <result property="name" column="categoryName"/>
+        </association>
+    </resultMap>
+
+    <select id="findAllBlog" resultMap="blogListItem">
+        select
+            b.id id ,b.title,b.home_picture,
+            b.description,
+            b.create_time,
+            b.views,b.words,b.published,b.top,
+            c.id as category_id,c.categoryName
+        from blog b join category c on b.category_id = c.id
+    </select>
+
+    <select id="getBlogById" resultMap="blog">
+        select
+            b.id id ,b.title,b.home_picture,
+            b.content,
+            b.description,
+            b.create_time,b.update_time,
+            b.views,b.words,b.published,b.top,b.comment_enable,
+            c.id as category_id,c.categoryName
+        from blog b join category c on b.category_id = c.id
+        where b.id=#{id}
+    </select>
+
+    <insert id="saveBlog" parameterType="blog" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into blog(title,home_picture,description,content,category_id,create_time,update_time,views,words,published,top,comment_enable)
+        values(#{title},#{homePicture},#{description},#{content},#{category.id},#{createTime},#{updateTime},#{views},#{words},#{published},#{top},#{commentEnable})
+    </insert>
+
+
+    <insert id="saveBlogTag">
+        insert into blog_tag(blog_id, tag_id) values(#{blogId},#{tagId})
+    </insert>
+
+    <delete id="deleteBlogTag">
+        delete from blog_tag where blog_id=#{blogId}
+    </delete>
+
+    <!--根据标签Id查询博客-->
+    <select id="getBlogByTagId" resultMap="blogListItem">
+        select
+            b.id id ,b.title,b.home_picture,
+            b.description,
+            b.create_time,
+            b.views,b.words,b.published,b.top,
+            c.id as category_id,c.categoryName
+        from blog b join category c on b.category_id = c.id
+                    join blog_tag bt on b.id = bt.blog_id
+        where tag_id=#{tagId}
+    </select>
+
+    <select id="getBlogByCategory" resultMap="blog">
+        select
+            b.id id ,b.title,b.home_picture,
+            b.content,
+            b.description,
+            b.create_time,b.update_time,
+            b.views,b.words,b.published,b.top,b.comment_enable,
+            c.id as category_id,c.categoryName
+        from blog b join category c on b.category_id = c.id
+        where b.category_id=#{id} or c.categoryName=#{name}
+    </select>
+
+    <!--查询公开博客年月List-->
+    <select id="getGroupYearMonthByIsPublished" resultType="java.lang.String">
+        select date_format(create_time, "%Y年%m月")
+        from blog
+        where published=true
+        group by date_format(create_time, "%Y年%m月")
+        order by date_format(create_time, "%Y年%m月") desc
+    </select>
+
+    <resultMap id="archiveBlog" type="com.hs.hsblog_backend.model.vo.ArchiveBlog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="day" column="create_day"/>
+    </resultMap>
+
+    <!--按年月查询公开博客简要信息List-->
+    <select id="getArchiveBlogListByYearMonthAndIsPublished" resultMap="archiveBlog">
+        select id, title, date_format(create_time, "%d日") as create_day
+        from blog
+        where date_format(create_time, "%Y年%m月")=#{yearMonth} and published=true
+        order by create_time desc
+    </select>
+    <select id="getBlogListByTitleAndCategoryId" resultMap="blog">
+        <bind name="title" value="'%'+title+'%'"/>
+        select
+        b.id id ,b.title,b.home_picture,
+        b.content,
+        b.description,
+        b.create_time,b.update_time,
+        b.views,b.words,b.published,b.top,b.comment_enable,
+        c.id as category_id,c.categoryName
+        from blog b join category c on b.category_id = c.id
+        <where>
+            <if test="title!=null and title!=''">
+                b.title like #{title}
+            </if>
+            <if test="categoryId!=null">
+                c.category_id=#{categoryId}
+            </if>
+        </where>
+    </select>
+</mapper>

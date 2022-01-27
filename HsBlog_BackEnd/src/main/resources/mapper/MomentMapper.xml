@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.hsblog_backend.repository.MomentMapper">
+
+    <resultMap id="BaseResultMap" type="com.hs.hsblog_backend.entity.Moment">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="likes" column="likes" jdbcType="INTEGER"/>
+            <result property="published" column="published" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,content,create_time,
+        likes,published
+    </sql>
+
+    <insert id="createMoment">
+        insert into moment(content, create_time, likes, published)
+        values(#{content},#{createTime},#{likes},#{published})
+    </insert>
+    <update id="updateMomentContentAndPublished">
+        update moment set content=#{content},published=#{published},create_time=#{createTime} where id=#{id}
+    </update>
+    <update id="updateLikes">
+        update moment set likes=#{likes} where id=#{id}
+    </update>
+    <update id="updatePublishedById">
+        update moment set published=#{published} where id=#{id}
+    </update>
+    <delete id="deleteMomentById">
+        delete from moment where id=#{id}
+    </delete>
+    <select id="findAllMoment" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from moment
+    </select>
+    <select id="findMomentById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from moment
+        where id=#{id}
+    </select>
+
+
+</mapper>

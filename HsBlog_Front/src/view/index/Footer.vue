@@ -22,13 +22,20 @@
       </sui-grid>
 
       <sui-divider inverted section />
-      <p>
-        <span style="margin-right: 10px">Copyright © 2019 - 2022</span>
-        <router-link to="/" style="color:#ffe500">HS'BLOG</router-link>
-        <span style="margin: 0 15px">|</span>
-        <img src="/assets/img/beian.png" alt="" class="beian">
-        <a rel="external nofollow noopener" href="http://www.beian.miit.gov.cn/" target="_blank" style="color:#ffe500">闽ICP备20005222号</a>
+      <p class="m-text-thin m-text-spaced m-opacity-tiny">
+        <span style="margin-right: 10px" v-if="siteInfo.copyright">{{ siteInfo.copyright.value.title }}</span>
+        <router-link to="/" style="color:#ffe500" v-if="siteInfo.copyright">{{ siteInfo.copyright.value.siteName }}</router-link>
+        <span style="margin: 0 15px" v-if="siteInfo.copyright && siteInfo.beian">|</span>
+        <img src="/img/beian.png" alt="" class="beian" v-if="siteInfo.beian&&siteInfo.beian.value">
+        <a rel="external nofollow noopener" href="http://www.beian.miit.gov.cn/" target="_blank" style="color:#ffe500" v-if="siteInfo.beian&&siteInfo.beian.value">{{ siteInfo.beian.value }}</a>
       </p>
+
+      <div class="github-badge" v-for="(item,index) in badges" :key="index">
+        <a rel="external nofollow noopener" :href="item.url" target="_blank" :title="item.title">
+          <span class="badge-subject">{{ item.subject }}</span>
+          <span class="badge-value" :class="`bg-${item.color}`">{{ item.value }}</span>
+        </a>
+      </div>
 <!--      <p class="m-text-thin m-text-spaced m-opacity-tiny">-->
 <!--        <span style="margin-right: 10px" v-if="siteInfo.copyright">{{ siteInfo.copyright.title }}</span>-->
 <!--        <router-link to="/" style="color:#ffe500" v-if="siteInfo.copyright">{{ siteInfo.copyright.siteName }}</router-link>-->
@@ -56,6 +63,16 @@ export default {
   data () {
     return {
       runTime: ''
+    }
+  },
+  props: {
+    siteInfo: {
+      type: Object,
+      required: true
+    },
+    badges: {
+      type: Array,
+      required: true
     }
   },
   methods: {

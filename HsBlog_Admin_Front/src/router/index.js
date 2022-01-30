@@ -171,6 +171,12 @@ const routes = [
         name:'Friend',
         component:() => import('@/views/siteManage/FriendList'),
         meta: {title: '友链管理',icon: 'el-icon-picture'}
+      },
+      {
+        path: '/siteSetting',
+        name:'SiteSetting',
+        component:() => import('@/views/siteManage/SiteSetting'),
+        meta: {title: '页面设置',icon: 'el-icon-picture'}
       }
     ]
   },

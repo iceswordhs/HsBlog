@@ -21,7 +21,7 @@ public interface BlogService {
 
     Blog getBlogEditById(Integer id);
 
-    PageInfo<BlogListItem> getPageBlog(int pageNum);
+    PageInfo<BlogListItem> getPageBlogIsPublished(int pageNum);
 
     String saveBlog(Blog blog);
 

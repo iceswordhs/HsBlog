@@ -15,6 +15,8 @@ import java.util.List;
 public interface BlogMapper {
     List<BlogListItem> findAllBlog();
 
+    List<BlogListItem> findAllPublishedBlog();
+
     Blog getBlogById(Integer id);
 
     Blog getBlogEditById(Integer id);

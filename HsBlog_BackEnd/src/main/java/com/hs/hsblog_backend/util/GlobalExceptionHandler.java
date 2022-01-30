@@ -6,6 +6,7 @@ import com.hs.hsblog_backend.constants.exception.PasswordIncorrectException;
 import com.hs.hsblog_backend.constants.exception.ServiceException;
 import com.hs.hsblog_backend.constants.exception.UserNotExistException;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler {
         return Result.fail(CodeType.BAD_REQUEST, ex);
     }
 
-    // jwt过期
+    // jwt过期(无法捕捉！)
     @ExceptionHandler(ExpiredJwtException.class)
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @ResponseBody
@@ -69,6 +70,14 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @ResponseBody
     public Result<String> handlerServiceException(Exception ex){
+        return Result.fail(CodeType.SERVICE_ERROR, ex.getMessage());
+    }
+
+    // 存储层异常
+    @ExceptionHandler(PersistenceException.class)
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    @ResponseBody
+    public Result<String> handlerPersistenceException(Exception ex){
         return Result.fail(CodeType.SERVICE_ERROR, ex.getMessage());
     }
 

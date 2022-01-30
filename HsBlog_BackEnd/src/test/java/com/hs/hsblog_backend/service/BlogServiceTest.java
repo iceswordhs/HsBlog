@@ -25,7 +25,7 @@ public class BlogServiceTest {
 
     @Test
     void getPageBlog(){
-        PageInfo<BlogListItem> pageBlog = blogService.getPageBlog(2);
+        PageInfo<BlogListItem> pageBlog = blogService.getPageBlogIsPublished(2);
         // 获取总页数 6
         System.out.println(pageBlog.getPages());
         // 获取当前页数 2

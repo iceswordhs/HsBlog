@@ -3,7 +3,7 @@
     <div class="ui segments m-box">
       <div class="ui card">
         <div class="image">
-          <img :src="introduction.avatar">
+          <img :src="introduction.avatar.value">
         </div>
         <div class="content" align="center">
           <div class="header">{{ introduction.name }}</div>
@@ -12,7 +12,7 @@
         </div>
         <div>
           <el-collapse accordion>
-            <el-collapse-item :title="item.title" :name="index" v-if="item.title" v-for="(item,index) in introduction.favorites" :key="index">
+            <el-collapse-item :title="item.title" :name="index" v-if="item.title" v-for="(item,index) in introduction.customizes" :key="index">
               <div>{{ item.content }}</div>
             </el-collapse-item>
           </el-collapse>

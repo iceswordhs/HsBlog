@@ -1,7 +1,14 @@
 package com.hs.hsblog_backend.controller.admin;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.hs.hsblog_backend.entity.NullObject;
+import com.hs.hsblog_backend.service.SiteSettingService;
+import com.hs.hsblog_backend.util.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Hs
@@ -10,4 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("admin")
 public class SiteSettingAdminController {
+    @Autowired
+    SiteSettingService siteSettingService;
+
+    @GetMapping("/site")
+    public Result<Map<String,Object>> getAllTypeSiteSetting(){
+        Map<String, Object> siteSettings = siteSettingService.getAllTypeSiteSetting();
+        return Result.success(siteSettings);
+    }
+
+    @PostMapping("siteSettings")
+    public Result updateAll(@RequestBody Map<String, Object> map) {
+        List<LinkedHashMap> siteSettings = (List<LinkedHashMap>) map.get("settings");
+        List<Integer> deleteIds = (List<Integer>) map.get("deleteIds");
+        siteSettingService.updateSiteSetting(siteSettings, deleteIds);
+        return Result.success(NullObject.INSTANCE,"更新成功");
+    }
 }

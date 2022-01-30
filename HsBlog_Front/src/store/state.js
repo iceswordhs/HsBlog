@@ -1,10 +1,20 @@
 export default {
-  siteInfo: '',
+  siteInfo: {
+    copyright: {},
+    beian: {}
+  },
   introduction: {
     avatar: '',
     name: 'Hs',
     rollText: ['云鹤当归天，天不迎我妙木仙；', '游龙当归海，海不迎我自来也。']
   },
+  badges: [{
+    url: '',
+    title: '',
+    subject: '',
+    color: '',
+    value: ''
+  }],
   commentQuery: {
     // 用于后端判断该评论所在页面类型(文章、友链、关于我)
     page: 0,

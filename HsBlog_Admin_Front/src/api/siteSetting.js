@@ -1,14 +1,14 @@
-import request from "@/utils/request";
+import axios from '@/utils/request'
 
 export function getSiteSettingData() {
-    return request({
-        url: 'siteSettings',
+    return axios({
+        url: 'site',
         method: 'GET'
     })
 }
 
 export function update(settings, deleteIds) {
-    return request({
+    return axios({
         url: 'siteSettings',
         method: 'POST',
         data: {
@@ -19,7 +19,7 @@ export function update(settings, deleteIds) {
 }
 
 export function getWebTitleSuffix() {
-    return request({
+    return axios({
         url: 'webTitleSuffix',
         method: 'GET'
     })

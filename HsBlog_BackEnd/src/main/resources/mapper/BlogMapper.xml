@@ -70,6 +70,17 @@
         from blog b join category c on b.category_id = c.id
     </select>
 
+    <select id="findAllPublishedBlog" resultMap="blogListItem">
+        select
+            b.id id ,b.title,b.home_picture,
+            b.description,
+            b.create_time,
+            b.views,b.words,b.published,b.top,
+            c.id as category_id,c.categoryName
+        from blog b join category c on b.category_id = c.id
+        where published=1
+    </select>
+
     <select id="getBlogById" resultMap="blog">
         select
             b.id id ,b.title,b.home_picture,

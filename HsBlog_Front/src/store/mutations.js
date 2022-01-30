@@ -1,6 +1,7 @@
 import {
   SAVE_SITE_INFO,
   SAVE_INTRODUCTION,
+  SAVE_BADGES,
   SAVE_COMMENT_RESULT,
   SET_COMMENT_QUERY_PAGE_NUM,
   SET_PARENT_COMMENT_ID,
@@ -22,6 +23,9 @@ export default {
   },
   [SAVE_INTRODUCTION] (state, introduction) {
     state.introduction = introduction
+  },
+  [SAVE_BADGES] (state, badges) {
+    state.badges = badges
   },
   [SAVE_COMMENT_RESULT] (state, data) {
     state.allComment = data.allComment

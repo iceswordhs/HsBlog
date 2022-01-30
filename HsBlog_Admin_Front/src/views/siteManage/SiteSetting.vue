@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card>
@@ -20,12 +20,12 @@
           </div>
           <el-form label-position="right" label-width="100px">
             <el-form-item :label="item.nameZh" v-for="item in typeMap.type3" :key="item.id">
-              <div v-if="item.nameEn=='favorite'">
+              <div v-if="item.nameEn=='customize'">
                 <el-col :span="20">
                   <el-input v-model="item.value"></el-input>
                 </el-col>
                 <el-col :span="4">
-                  <el-button type="danger" icon="el-icon-delete" @click="deleteFavorite(item)">删除</el-button>
+                  <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteFavorite(item)">删除</el-button>
                 </el-col>
               </div>
               <div v-else>
@@ -60,7 +60,7 @@
             <el-input v-model="badge.value.color"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteBadge(badge)">删除</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteBadge(badge)">删除</el-button>
           </el-form-item>
         </el-form>
         <el-button type="primary" size="mini" icon="el-icon-plus" @click="addBadge">添加 badge</el-button>
@@ -101,13 +101,13 @@ export default {
           this.errorMsg(res.message)
         }
       }).catch(() => {
+        console.log("请求失败")
         this.errorMsg("请求失败")
       })
     },
     addFavorite() {
       this.typeMap.type3.push({
-        key: Date.now(),
-        nameEn: "favorite",
+        nameEn: "customize",
         nameZh: "自定义",
         type: 3,
         value: "{\"title\":\"\",\"content\":\"\"}"
@@ -115,7 +115,6 @@ export default {
     },
     addBadge() {
       this.typeMap.type2.push({
-        key: Date.now(),
         nameEn: "badge",
         nameZh: "徽标",
         type: 2,

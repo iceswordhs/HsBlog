@@ -6,7 +6,7 @@
         <div class="ui container">
           <div class="ui stackable grid">
             <!--左侧-->
-            <div class="three wide column m-mobile-hide">
+            <div class="three wide column m-mobile-hide decorator">
               <Introduction :class="{'m-display-none':focusMode}"/>
             </div>
             <!--中间-->
@@ -16,7 +16,7 @@
               </keep-alive>
             </div>
             <!--右侧-->
-            <div class="three wide column m-mobile-hide">
+            <div class="three wide column m-mobile-hide decorator">
 <!--              <RandomBlog :randomBlogList="randomBlogList" :class="{'m-display-none':focusMode}"/>-->
               <TagCloud :class="{'m-display-none':focusMode}"/>
               <TimeLife :class="{'m-display-none':focusMode}"/>
@@ -37,7 +37,7 @@
       <img src="/assets/img/paper-plane.png" style="width: 40px;height: 40px;">
     </el-backtop>
     <!--底部footer-->
-    <Footer></Footer>
+    <Footer :siteInfo="siteInfo" :badges="badges"></Footer>
 <!--    <Footer :siteInfo="siteInfo" :badges="badges" :newBlogList="newBlogList" :hitokoto="hitokoto"/>-->
   </div>
 </template>
@@ -54,14 +54,19 @@ import Introduction from '@/view/index/Introduction'
 
 import {getSite} from '@/api/index'
 import {mapState} from 'vuex'
-import {SAVE_CLIENT_SIZE, SAVE_INTRODUCTION, SAVE_SITE_INFO, RESTORE_COMMENT_FORM} from '@/store/mutations-types'
+import {SAVE_CLIENT_SIZE, SAVE_INTRODUCTION, RESTORE_COMMENT_FORM} from '@/store/mutations-types'
 
 export default {
   name: 'Index',
   components: {TagCloud, Nav, myCard, Footer, BlogItem, Tocbot, MyAPlayer, TimeLife, Introduction},
   data () {
     return {
-
+      siteInfo: {
+        blogName: ''
+      },
+      categoryList: [],
+      tagList: [],
+      badges: []
     }
   },
   created () {
@@ -83,9 +88,9 @@ export default {
     getSite () {
       getSite().then(res => {
         if (res.data.code === 200) {
-          this.siteInfo = res.data.data.siteInfo
+          this.siteInfo = res.data.data.siteSetting
+          this.siteInfo.copyright.value = JSON.parse(this.siteInfo.copyright.value)
           this.badges = res.data.data.badges
-          this.$store.commit(SAVE_SITE_INFO, this.siteInfo)
           this.$store.commit(SAVE_INTRODUCTION, res.data.data.introduction)
           // document.title = this.$route.meta.title + this.siteInfo.webTitleSuffix
         }
@@ -106,7 +111,7 @@ export default {
   flex: 1;
 }
 .main .ui.container {
-  width: 1400px !important;
+  width: 1400px!important;
   margin-left: auto !important;
   margin-right: auto !important;
   text-align: center;
@@ -114,7 +119,7 @@ export default {
 .ui.grid .three.column {
   padding: 0;
 }
-.ui.grid .ten.column {
+.ui.grid .nine.column {
   padding-top: 0;
 }
 .m-display-none {

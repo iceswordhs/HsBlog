@@ -28,8 +28,8 @@ public class BlogController {
     }
 
     @RequestMapping("/getPageBlog")
-    public Result<PageInfo<BlogListItem>> getPageBlog(@RequestParam(defaultValue = "1") int pageNum){
-        PageInfo<BlogListItem> allBlog = blogService.getPageBlog(pageNum);
+    public Result<PageInfo<BlogListItem>> getPageBlogIsPublished(@RequestParam(defaultValue = "1") int pageNum){
+        PageInfo<BlogListItem> allBlog = blogService.getPageBlogIsPublished(pageNum);
         return Result.success(allBlog);
     }
 

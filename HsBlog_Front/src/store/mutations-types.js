@@ -2,6 +2,7 @@
 // export const SAVE_WEB_TITLE_SUFFIX = 'saveWebTitleSuffix'
 export const SAVE_INTRODUCTION = 'saveIntroduction'
 export const SAVE_SITE_INFO = 'saveSiteInfo'
+export const SAVE_BADGES = 'saveBadges'
 export const SAVE_COMMENT_RESULT = 'saveCommentResult'
 export const SET_COMMENT_QUERY_PAGE = 'setCommentQueryPage'
 export const SET_COMMENT_QUERY_BLOG_ID = 'setCommentQueryBlogId'

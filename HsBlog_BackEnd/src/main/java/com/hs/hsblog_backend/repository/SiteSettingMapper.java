@@ -10,11 +10,11 @@ import java.util.List;
  */
 @Mapper
 public interface SiteSettingMapper {
-    void insertSiteSetting(SiteSetting setting);
+    Integer saveSiteSetting(SiteSetting setting);
 
-    void updateSiteSetting(SiteSetting setting);
+    Integer updateSiteSetting(SiteSetting setting);
 
-    void deleteById(Integer id);
+    Integer deleteById(Integer id);
 
     List<SiteSetting> getSiteSettingByZhName(String zhName);
 
@@ -22,6 +22,7 @@ public interface SiteSettingMapper {
 
     List<SiteSetting> getSiteSettingByType(Integer type);
 
+    List<Integer> getAllType();
 }
 
 

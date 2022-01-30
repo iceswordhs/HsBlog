@@ -16,7 +16,7 @@
         id,name_en,name_zh,
         value,type
     </sql>
-    <insert id="insertSiteSetting">
+    <insert id="saveSiteSetting">
         insert into site_setting(name_en, name_zh, value, type)
          VALUES(#{nameEn},#{nameZh},#{value},#{type})
     </insert>
@@ -38,11 +38,14 @@
         from site_setting
         where name_en=#{enName}
     </select>
-    <select id="getSiteSettingByType" resultType="com.hs.hsblog_backend.entity.SiteSetting">
+    <select id="getSiteSettingByType" resultMap="SiteSettingBaseResultMap">
         select
         <include refid="SiteSetting_Base_Column_List"/>
         from site_setting
         where type=#{type}
+    </select>
+    <select id="getAllType" resultType="java.lang.Integer">
+        select type from site_setting
     </select>
 
 </mapper>

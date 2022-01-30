@@ -65,7 +65,7 @@
           <el-col :span="12">
             <el-form-item label="分类"
                           prop="categoryList">
-              <el-select v-model="article.category"
+              <el-select v-model="article.category.name"
                          placeholder="请选择分类（输入可添加新分类）"
                          :allow-create="true"
                          :filterable="true"
@@ -147,7 +147,10 @@ export default {
         // 文章正文
         content: '',
         // 文章分类
-        category: '',
+        category: {
+          id:0,
+          name:''
+        },
         // 文章标签
         tags: [],
         // 文章字数

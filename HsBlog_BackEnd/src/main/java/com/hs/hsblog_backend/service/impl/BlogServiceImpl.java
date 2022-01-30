@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.constants.RedisKey;
 import com.hs.hsblog_backend.constants.exception.ServiceException;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
@@ -11,6 +12,7 @@ import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.repository.BlogMapper;
 import com.hs.hsblog_backend.service.BlogService;
 import com.hs.hsblog_backend.service.CategoryService;
+import com.hs.hsblog_backend.service.RedisService;
 import com.hs.hsblog_backend.service.TagService;
 import com.hs.hsblog_backend.util.StringUtils;
 import com.hs.hsblog_backend.util.commarkUtil.MarkDownToHTMLUtil;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 /**
@@ -32,10 +35,27 @@ public class BlogServiceImpl implements BlogService {
     TagService tagService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    RedisService redisService;
 
     // 博客简介列表排序方式
     private static final String orderBy = "top desc, create_time desc";
     private static final Integer pageSize=5;
+
+
+    /**
+     * 项目启动时，保存所有博客的浏览量到Redis
+     */
+    @PostConstruct
+    private void saveBlogViewsToRedis() {
+        String redisKey = RedisKey.BLOG_VIEWS_MAP;
+        //Redis中没有存储博客浏览量的Hash
+        if (!redisService.hasKey(redisKey)) {
+            //从数据库中读取并存入Redis
+            Map<Long, Integer> blogViewsMap = getBlogViewsMap();
+            redisService.saveMapToHash(redisKey, blogViewsMap);
+        }
+    }
 
     @Override
     public PageInfo<BlogListItem> getAllBlog() {
@@ -59,9 +79,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public PageInfo<BlogListItem> getPageBlog(int pageNum){
+    public PageInfo<BlogListItem> getPageBlogIsPublished(int pageNum){
         PageHelper.startPage(pageNum,pageSize,orderBy);
-        List<BlogListItem> blogs = blogMapper.findAllBlog();
+        List<BlogListItem> blogs = blogMapper.findAllPublishedBlog();
         processBlogListItem(blogs);
         return new PageInfo<>(blogs);
     }

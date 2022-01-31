@@ -42,20 +42,20 @@ public class BlogAdminController {
     }
 
     @GetMapping("/blog")
-    public Result<Blog> getBlogById(@RequestParam Integer id){
+    public Result<Blog> getBlogById(@RequestParam Long id){
         Blog blogById = blogService.getBlogEditById(id);
         return Result.success(blogById);
     }
 
     @PostMapping("/deleteBlogById")
-    public Result<NullObject> deleteBlogById(@RequestParam Integer id){
+    public Result<NullObject> deleteBlogById(@RequestParam Long id){
         blogService.deleteBlogById(id);
         return Result.success();
     }
 
     @GetMapping("/manageBlog")
     public Result<Map<String,Object>> manageBlog(@RequestParam(defaultValue = "") String title,
-                                                 @RequestParam(defaultValue = "") Integer categoryId,
+                                                 @RequestParam(defaultValue = "") Long categoryId,
                                                  @RequestParam(defaultValue = "1") Integer pageNum,
                                                  @RequestParam(defaultValue = "10") Integer pageSize){
         String orderBy = "create_time desc";
@@ -69,13 +69,13 @@ public class BlogAdminController {
     }
 
     @PostMapping("/updateBlogTop")
-    public Result<NullObject> updateBlogTop(@RequestParam Integer id, @RequestParam Boolean top){
+    public Result<NullObject> updateBlogTop(@RequestParam Long id, @RequestParam Boolean top){
         blogService.updateBlogTopById(id, top);
         return Result.success();
     }
 
     @PostMapping("/updateBlogPublished")
-    public Result<NullObject> updateBlogPublished(@RequestParam Integer id, @RequestParam Boolean published){
+    public Result<NullObject> updateBlogPublished(@RequestParam Long id, @RequestParam Boolean published){
         blogService.updateBlogPublishedById(id, published);
         return Result.success();
     }

@@ -49,12 +49,12 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public void deleteFriendItemById(Integer id) {
+    public void deleteFriendItemById(Long id) {
         friendItemMapper.deleteFriendItemById(id);
     }
 
     @Override
-    public void updatePublishedById(Integer id) {
+    public void updatePublishedById(Long id) {
         friendItemMapper.deleteFriendItemById(id);
     }
 

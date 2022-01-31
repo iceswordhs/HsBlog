@@ -33,7 +33,7 @@ public class MomentAdminController {
     }
 
     @GetMapping("/getMomentById")
-    public Result<Moment> getMomentById(Integer id){
+    public Result<Moment> getMomentById(Long id){
         return Result.success(momentService.findMomentById(id));
     }
 
@@ -47,13 +47,13 @@ public class MomentAdminController {
     }
 
     @PostMapping("/deleteMoment")
-    public Result<Integer> deleteMoment(@RequestParam Integer id){
+    public Result<Long> deleteMoment(@RequestParam Long id){
         momentService.deleteMomentById(id);
         return Result.success(id);
     }
 
     @PostMapping("/updateMomentPublished")
-    public Result<NullObject> updateMomentPublished(@RequestParam Integer id,@RequestParam Boolean publish){
+    public Result<NullObject> updateMomentPublished(@RequestParam Long id,@RequestParam Boolean publish){
         momentService.updatePublishedById(id, publish);
         return Result.success();
     }

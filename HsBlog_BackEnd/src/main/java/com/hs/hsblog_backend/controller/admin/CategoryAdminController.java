@@ -43,7 +43,7 @@ public class CategoryAdminController {
     }
 
     @DeleteMapping("/deleteCategory")
-    public Result<NullObject> deleteCategory(@RequestParam Integer id){
+    public Result<NullObject> deleteCategory(@RequestParam Long id){
         categoryService.deleteCategoryById(id);
         return Result.success();
     }

@@ -12,7 +12,7 @@ import java.util.List;
 public interface MomentService {
     void createMoment(Moment moment);
 
-    Moment findMomentById(Integer id);
+    Moment findMomentById(Long id);
 
     PageInfo<Moment> findMomentByPageNum(Integer pageNum, Boolean adminIdentity);
 
@@ -20,9 +20,9 @@ public interface MomentService {
 
     void updateMoment(Moment moment);
 
-    void updateMomentLikes(Integer id);
+    void updateMomentLikes(Long id);
 
-    void deleteMomentById(Integer id);
+    void deleteMomentById(Long id);
 
-    void updatePublishedById(Integer id,Boolean published);
+    void updatePublishedById(Long id,Boolean published);
 }

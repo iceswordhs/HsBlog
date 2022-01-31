@@ -10,7 +10,7 @@ public class Tag implements Serializable {
     /**
      * id
      */
-    private Integer tagId;
+    private Long tagId;
 
     /**
      * 标签名
@@ -32,12 +32,12 @@ public class Tag implements Serializable {
         this.tagName=tagName;
     }
 
-    public Tag(Integer tagId,String tagName){
+    public Tag(Long tagId,String tagName){
         this.tagId=tagId;
         this.tagName=tagName;
     }
 
-    public Tag(Integer tagId,String tagName,String color){
+    public Tag(Long tagId,String tagName,String color){
         this.tagId=tagId;
         this.tagName=tagName;
         this.color=color;
@@ -46,14 +46,14 @@ public class Tag implements Serializable {
     /**
      * id
      */
-    public Integer getTagId() {
+    public Long getTagId() {
         return tagId;
     }
 
     /**
      * id
      */
-    public void setTagId(Integer tagId) {
+    public void setTagId(Long tagId) {
         this.tagId = tagId;
     }
 

@@ -12,7 +12,7 @@ public class Blog implements Serializable {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 博客标题
@@ -84,14 +84,14 @@ public class Blog implements Serializable {
     /**
      * id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

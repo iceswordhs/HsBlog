@@ -20,7 +20,7 @@ public interface CategoryMapper {
 
     void addCategory(Category category);
 
-    void deleteCategoryById(Integer id);
+    void deleteCategoryById(Long id);
 
     void updateCategoryById(Category category);
 }

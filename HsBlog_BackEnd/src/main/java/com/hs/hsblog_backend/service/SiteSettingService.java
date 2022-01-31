@@ -19,5 +19,5 @@ public interface SiteSettingService {
      */
     Map<String,Object> getAllTypeSiteSetting();
 
-    void updateSiteSetting(List<LinkedHashMap> siteSettings, List<Integer> deleteIds);
+    void updateSiteSetting(List<LinkedHashMap> siteSettings, List<Long> deleteIds);
 }

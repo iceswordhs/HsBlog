@@ -7,6 +7,7 @@ import com.hs.hsblog_backend.constants.exception.ServiceException;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.Tag;
+import com.hs.hsblog_backend.model.dto.BlogView;
 import com.hs.hsblog_backend.model.vo.ArchiveBlog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.repository.BlogMapper;
@@ -14,6 +15,7 @@ import com.hs.hsblog_backend.service.BlogService;
 import com.hs.hsblog_backend.service.CategoryService;
 import com.hs.hsblog_backend.service.RedisService;
 import com.hs.hsblog_backend.service.TagService;
+import com.hs.hsblog_backend.util.JacksonUtils;
 import com.hs.hsblog_backend.util.StringUtils;
 import com.hs.hsblog_backend.util.commarkUtil.MarkDownToHTMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +51,21 @@ public class BlogServiceImpl implements BlogService {
     @PostConstruct
     private void saveBlogViewsToRedis() {
         String redisKey = RedisKey.BLOG_VIEWS_MAP;
-        //Redis中没有存储博客浏览量的Hash
+        // Redis中没有存储博客浏览量的Hash
         if (!redisService.hasKey(redisKey)) {
-            //从数据库中读取并存入Redis
+            // 从数据库中读取并存入Redis
             Map<Long, Integer> blogViewsMap = getBlogViewsMap();
             redisService.saveMapToHash(redisKey, blogViewsMap);
         }
+    }
+
+    private Map<Long, Integer> getBlogViewsMap() {
+        List<BlogView> blogViewList = blogMapper.getBlogViewsList();
+        Map<Long, Integer> blogViewsMap = new HashMap<>();
+        for (BlogView blogView : blogViewList) {
+            blogViewsMap.put(blogView.getId(), blogView.getViews());
+        }
+        return blogViewsMap;
     }
 
     @Override
@@ -64,14 +75,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog getBlogById(Integer id) {
+    public Blog getBlogById(Long id) {
         Blog blog = blogMapper.getBlogById(id);
         processBlog(blog);
         return blog;
     }
 
     @Override
-    public Blog getBlogEditById(Integer id) {
+    public Blog getBlogEditById(Long id) {
         Blog blog = blogMapper.getBlogEditById(id);
         // 添加标签
         blog.setTags(tagService.getTagByBlogId(blog.getId()));
@@ -80,10 +91,39 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public PageInfo<BlogListItem> getPageBlogIsPublished(int pageNum){
+        String redisKey = RedisKey.HOME_BLOG_INFO_LIST;
+        // redis已有当前页缓存
+        PageInfo<BlogListItem> getBlogListItemPageResultByHash = redisService.getBlogListItemPageResultByHash(redisKey, pageNum);
+        if (getBlogListItemPageResultByHash != null) {
+            setBlogViewsFromRedisToPageResult(getBlogListItemPageResultByHash);
+            System.out.println();
+            return getBlogListItemPageResultByHash;
+        }
+
         PageHelper.startPage(pageNum,pageSize,orderBy);
         List<BlogListItem> blogs = blogMapper.findAllPublishedBlog();
         processBlogListItem(blogs);
+
+        // 向Redis中添加缓存
+        redisService.saveKVToHash(redisKey, pageNum, blogs);
         return new PageInfo<>(blogs);
+    }
+
+    /**
+     * 将pageResult中博客对象的浏览量设置为Redis中的最新值
+     *
+     * @param pageResult
+     */
+    private void setBlogViewsFromRedisToPageResult(PageInfo<BlogListItem> pageResult) {
+        String redisKey = RedisKey.BLOG_VIEWS_MAP;
+        List<BlogListItem> blogInfos = pageResult.getList();
+        for (int i = 0; i < blogInfos.size(); i++) {
+            BlogListItem blogListItem = JacksonUtils.convertValue(blogInfos.get(i), BlogListItem.class);
+            Long blogId = blogListItem.getId();
+            int view = (int) redisService.getValueByHashKey(redisKey, blogId);
+            blogListItem.setViews(view);
+            blogInfos.set(i, blogListItem);
+        }
     }
 
     /**
@@ -138,7 +178,7 @@ public class BlogServiceImpl implements BlogService {
         blog.setCreateTime(new Date());
         blog.setUpdateTime(new Date());
         blogMapper.saveBlog(blog);
-        Integer blogId = blog.getId();
+        Long blogId = blog.getId();
 
         // 维护blog-tag表
         blogMapper.deleteBlogTag(blogId);
@@ -202,7 +242,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void deleteBlogById(Integer id) {
+    public void deleteBlogById(Long id) {
         // 删除blog
         blogMapper.deleteBlogTag(id);
         // 维护blog_tag表
@@ -210,17 +250,17 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> getBlogListByTitleAndCategoryId(String title, Integer categoryId) {
+    public List<Blog> getBlogListByTitleAndCategoryId(String title, Long categoryId) {
         return blogMapper.getBlogListByTitleAndCategoryId(title,categoryId);
     }
 
     @Override
-    public void updateBlogTopById(Integer id, Boolean top) {
+    public void updateBlogTopById(Long id, Boolean top) {
         blogMapper.updateBlogTopById(id,top);
     }
 
     @Override
-    public void updateBlogPublishedById(Integer id, Boolean published) {
+    public void updateBlogPublishedById(Long id, Boolean published) {
         blogMapper.updateBlogPublishedById(id, published);
     }
 }

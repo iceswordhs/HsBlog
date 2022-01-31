@@ -29,7 +29,7 @@ public class SiteSettingAdminController {
     @PostMapping("siteSettings")
     public Result updateAll(@RequestBody Map<String, Object> map) {
         List<LinkedHashMap> siteSettings = (List<LinkedHashMap>) map.get("settings");
-        List<Integer> deleteIds = (List<Integer>) map.get("deleteIds");
+        List<Long> deleteIds = (List<Long>) map.get("deleteIds");
         siteSettingService.updateSiteSetting(siteSettings, deleteIds);
         return Result.success(NullObject.INSTANCE,"更新成功");
     }

@@ -115,8 +115,8 @@ public class SiteSettingServiceImpl implements SiteSettingService {
     }
 
     @Override
-    public void updateSiteSetting(List<LinkedHashMap> siteSettings, List<Integer> deleteIds) {
-        for (Integer id : deleteIds) {//删除
+    public void updateSiteSetting(List<LinkedHashMap> siteSettings, List<Long> deleteIds) {
+        for (Long id : deleteIds) {//删除
             deleteOneSiteSettingById(id);
         }
         for (LinkedHashMap s : siteSettings) {
@@ -144,7 +144,7 @@ public class SiteSettingServiceImpl implements SiteSettingService {
     }
 
     @Transactional
-    public void deleteOneSiteSettingById(Integer id) {
+    public void deleteOneSiteSettingById(Long id) {
         if (siteSettingMapper.deleteById(id) != 1) {
             throw new PersistenceException("配置删除失败");
         }

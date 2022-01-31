@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategoryById(Integer id) {
+    public void deleteCategoryById(Long id) {
         categoryMapper.deleteCategoryById(id);
     }
 

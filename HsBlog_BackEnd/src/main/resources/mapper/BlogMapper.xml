@@ -184,4 +184,7 @@
         from blog b join category c on b.category_id = c.id
         where b.id=#{id}
     </select>
+    <select id="getBlogViewsList" resultType="com.hs.hsblog_backend.model.dto.BlogView">
+        select id,views from blog
+    </select>
 </mapper>

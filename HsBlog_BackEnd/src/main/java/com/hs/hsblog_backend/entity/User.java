@@ -11,7 +11,7 @@ public class User implements Serializable {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户手机号
@@ -73,14 +73,14 @@ public class User implements Serializable {
     /**
      * 
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * 
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

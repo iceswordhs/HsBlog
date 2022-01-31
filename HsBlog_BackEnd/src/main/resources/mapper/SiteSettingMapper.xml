@@ -5,7 +5,7 @@
 <mapper namespace="com.hs.hsblog_backend.repository.SiteSettingMapper">
 
     <resultMap id="SiteSettingBaseResultMap" type="com.hs.hsblog_backend.entity.SiteSetting">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="nameEn" column="name_en" jdbcType="VARCHAR"/>
             <result property="nameZh" column="name_zh" jdbcType="VARCHAR"/>
             <result property="value" column="value" jdbcType="VARCHAR"/>

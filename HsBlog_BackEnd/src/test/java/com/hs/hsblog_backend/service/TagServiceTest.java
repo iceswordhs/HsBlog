@@ -18,7 +18,7 @@ public class TagServiceTest {
 
     @Test
     void getTagByBlogId(){
-        List<Tag> tagByBlogId = tagService.getTagByBlogId(1);
+        List<Tag> tagByBlogId = tagService.getTagByBlogId(1L);
         System.out.println(tagByBlogId);
     }
 }

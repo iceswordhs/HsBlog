@@ -12,17 +12,17 @@ import java.util.List;
 public interface MomentMapper {
     void createMoment(Moment moment);
 
-    Moment findMomentById(Integer id);
+    Moment findMomentById(Long id);
 
     List<Moment> findAllMoment();
 
     void updateMomentContentAndPublished(Moment moment);
 
-    void updatePublishedById(Integer id,Boolean published);
+    void updatePublishedById(Long id,Boolean published);
 
-    void updateLikes(int likes,Integer id);
+    void updateLikes(int likes,Long id);
 
-    void deleteMomentById(Integer id);
+    void deleteMomentById(Long id);
 }
 
 

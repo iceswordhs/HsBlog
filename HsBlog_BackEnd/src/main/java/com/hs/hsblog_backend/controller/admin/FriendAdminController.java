@@ -41,13 +41,13 @@ public class FriendAdminController {
     }
 
     @DeleteMapping("friendItem")
-    public Result<NullObject> DeleteFriendItem(@RequestParam Integer id){
+    public Result<NullObject> DeleteFriendItem(@RequestParam Long id){
         friendService.deleteFriendItemById(id);
         return Result.success();
     }
 
     @PostMapping("friendItem/published")
-    public Result<NullObject> updatePublishedById(@RequestParam Integer id){
+    public Result<NullObject> updatePublishedById(@RequestParam Long id){
         friendService.deleteFriendItemById(id);
         return Result.success();
     }

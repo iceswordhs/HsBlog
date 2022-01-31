@@ -15,6 +15,7 @@ import java.io.InputStream;
 public class JacksonUtils {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
+    // 将类转换为字符串
     public static String toJSONString(Object value) {
         try {
             return objectMapper.writeValueAsString(value);
@@ -24,6 +25,7 @@ public class JacksonUtils {
         }
     }
 
+    // 从String中获取对应的类
     public static <T> T readValue(String content, Class<T> valueType) {
         try {
             return objectMapper.readValue(content, valueType);
@@ -42,6 +44,7 @@ public class JacksonUtils {
         }
     }
 
+    // 从输入流中获取类
     public static <T> T readValue(InputStream src, Class<T> valueType) {
         try {
             return objectMapper.readValue(src, valueType);
@@ -51,6 +54,7 @@ public class JacksonUtils {
         }
     }
 
+    // 将Object转换为给定的类
     public static <T> T convertValue(Object fromValue, Class<T> toValueType) {
         return objectMapper.convertValue(fromValue, toValueType);
     }

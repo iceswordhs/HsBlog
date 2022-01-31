@@ -39,7 +39,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public void deleteTagById(Integer tagId) {
+    public void deleteTagById(Long tagId) {
         tagMapper.deleteTagById(tagId);
     }
 
@@ -61,7 +61,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> getTagByBlogId(Integer blogId) {
+    public List<Tag> getTagByBlogId(Long blogId) {
         return tagMapper.getTagByBlogId(blogId);
     }
 }

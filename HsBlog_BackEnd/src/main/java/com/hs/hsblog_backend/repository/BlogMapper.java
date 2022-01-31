@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.repository;
 
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
+import com.hs.hsblog_backend.model.dto.BlogView;
 import com.hs.hsblog_backend.model.vo.ArchiveBlog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,17 +18,17 @@ public interface BlogMapper {
 
     List<BlogListItem> findAllPublishedBlog();
 
-    Blog getBlogById(Integer id);
+    Blog getBlogById(Long id);
 
-    Blog getBlogEditById(Integer id);
+    Blog getBlogEditById(Long id);
 
     Integer saveBlog(Blog blog);
 
-    void saveBlogTag(Integer blogId,Integer tagId);
+    void saveBlogTag(Long blogId,Long tagId);
 
-    void deleteBlogTag(Integer blogId);
+    void deleteBlogTag(Long blogId);
 
-    List<BlogListItem> getBlogByTagId(Integer tagId);
+    List<BlogListItem> getBlogByTagId(Long tagId);
 
     List<Blog> getBlogByCategory(Category category);
 
@@ -35,11 +36,13 @@ public interface BlogMapper {
 
     List<ArchiveBlog> getArchiveBlogListByYearMonthAndIsPublished(String yearMonth);
 
-    List<Blog> getBlogListByTitleAndCategoryId(String title, Integer categoryId);
+    List<Blog> getBlogListByTitleAndCategoryId(String title, Long categoryId);
 
-    void updateBlogTopById(Integer id, Boolean top);
+    void updateBlogTopById(Long id, Boolean top);
 
-    void updateBlogPublishedById(Integer id,Boolean published);
+    void updateBlogPublishedById(Long id,Boolean published);
+
+    List<BlogView> getBlogViewsList();
 }
 
 

@@ -16,7 +16,7 @@ public interface FriendItemMapper {
 
     void updateFriendItem(FriendItem friendItem);
 
-    void deleteFriendItemById(Integer id);
+    void deleteFriendItemById(Long id);
 }
 
 

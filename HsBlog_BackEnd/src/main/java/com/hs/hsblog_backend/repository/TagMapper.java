@@ -20,7 +20,7 @@ public interface TagMapper {
 
     Tag addTag(Tag tag);
 
-    void deleteTagById(Integer tagId);
+    void deleteTagById(Long tagId);
 
-    List<Tag> getTagByBlogId(Integer blogId);
+    List<Tag> getTagByBlogId(Long blogId);
 }

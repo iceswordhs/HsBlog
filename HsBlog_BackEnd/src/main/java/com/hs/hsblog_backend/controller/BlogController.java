@@ -34,7 +34,7 @@ public class BlogController {
     }
 
     @RequestMapping("/getBlogById")
-    public Result<Blog> getBlogById(@RequestParam Integer id){
+    public Result<Blog> getBlogById(@RequestParam Long id){
         Blog blogById = blogService.getBlogById(id);
         return Result.success(blogById);
     }

@@ -14,7 +14,7 @@ public interface SiteSettingMapper {
 
     Integer updateSiteSetting(SiteSetting setting);
 
-    Integer deleteById(Integer id);
+    Integer deleteById(Long id);
 
     List<SiteSetting> getSiteSettingByZhName(String zhName);
 

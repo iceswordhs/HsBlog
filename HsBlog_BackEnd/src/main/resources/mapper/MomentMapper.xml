@@ -5,7 +5,7 @@
 <mapper namespace="com.hs.hsblog_backend.repository.MomentMapper">
 
     <resultMap id="BaseResultMap" type="com.hs.hsblog_backend.entity.Moment">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="likes" column="likes" jdbcType="INTEGER"/>

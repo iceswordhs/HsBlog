@@ -32,7 +32,7 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public Moment findMomentById(Integer id) {
+    public Moment findMomentById(Long id) {
         return momentMapper.findMomentById(id);
     }
 
@@ -60,18 +60,18 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public void updateMomentLikes(Integer id) {
+    public void updateMomentLikes(Long id) {
         Moment moment = momentMapper.findMomentById(id);
         momentMapper.updateLikes(moment.getLikes()+1,id);
     }
 
     @Override
-    public void deleteMomentById(Integer id) {
+    public void deleteMomentById(Long id) {
         momentMapper.deleteMomentById(id);
     }
 
     @Override
-    public void updatePublishedById(Integer id, Boolean published) {
+    public void updatePublishedById(Long id, Boolean published) {
         momentMapper.updatePublishedById(id,published);
     }
 }

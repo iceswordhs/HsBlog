@@ -5,7 +5,7 @@
 <mapper namespace="com.hs.hsblog_backend.repository.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.hs.hsblog_backend.entity.User">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>

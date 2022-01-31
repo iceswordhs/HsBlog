@@ -5,7 +5,7 @@
 <mapper namespace="com.hs.hsblog_backend.repository.FriendItemMapper">
 
     <resultMap id="FriendItem" type="com.hs.hsblog_backend.entity.FriendItem">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="websiteUrl" column="website_url" jdbcType="VARCHAR"/>

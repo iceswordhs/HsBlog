@@ -53,7 +53,7 @@ public class MomentController {
     }
 
     @RequestMapping("/updateMomentLikes")
-    public Result<NullObject> updateMomentLikes(@RequestParam Integer id){
+    public Result<NullObject> updateMomentLikes(@RequestParam Long id){
         momentService.updateMomentLikes(id);
         return Result.success();
     }

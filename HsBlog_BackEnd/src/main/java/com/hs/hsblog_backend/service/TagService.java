@@ -54,7 +54,7 @@ public interface TagService {
      * @param null
      * @return
      */
-    void deleteTagById(Integer tagId);
+    void deleteTagById(Long tagId);
 
     /**
      * 当保存博客的时候调用这个方法，保存新增的标签
@@ -72,5 +72,5 @@ public interface TagService {
      * @param blogId
      * @return java.util.List<com.hs.hsblog_backend.entity.Tag>
      */
-    List<Tag> getTagByBlogId(Integer blogId);
+    List<Tag> getTagByBlogId(Long blogId);
 }

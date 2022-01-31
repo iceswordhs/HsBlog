@@ -50,7 +50,7 @@ public class TagAdminController {
     }
 
     @DeleteMapping("/deleteTagById")
-    public Result<NullObject> deleteTagById(@RequestParam Integer id){
+    public Result<NullObject> deleteTagById(@RequestParam Long id){
         tagService.deleteTagById(id);
         return Result.success();
     }

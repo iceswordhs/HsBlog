@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hs.hsblog_backend.repository.CategoryMapper">
     <resultMap id="category" type="Category">
-        <id property="id" column="id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="name" column="categoryName" jdbcType="VARCHAR"/>
     </resultMap>
 

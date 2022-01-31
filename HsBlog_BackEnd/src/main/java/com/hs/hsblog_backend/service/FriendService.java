@@ -20,9 +20,9 @@ public interface FriendService {
 
     void updateFriendItem(FriendItem friendItem);
 
-    void updatePublishedById(Integer id);
+    void updatePublishedById(Long id);
 
-    void deleteFriendItemById(Integer id);
+    void deleteFriendItemById(Long id);
 
     void updateContent(String content);
 

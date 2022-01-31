@@ -17,9 +17,9 @@ import java.util.Map;
 public interface BlogService {
     PageInfo<BlogListItem> getAllBlog();
 
-    Blog getBlogById(Integer id);
+    Blog getBlogById(Long id);
 
-    Blog getBlogEditById(Integer id);
+    Blog getBlogEditById(Long id);
 
     PageInfo<BlogListItem> getPageBlogIsPublished(int pageNum);
 
@@ -37,11 +37,11 @@ public interface BlogService {
      */
     Map<String,Object> getArchiveBlogIsPublished();
 
-    void deleteBlogById(Integer id);
+    void deleteBlogById(Long id);
 
-    List<Blog> getBlogListByTitleAndCategoryId(String title, Integer categoryId);
+    List<Blog> getBlogListByTitleAndCategoryId(String title, Long categoryId);
 
-    void updateBlogTopById(Integer id,Boolean top);
+    void updateBlogTopById(Long id,Boolean top);
 
-    void updateBlogPublishedById(Integer id,Boolean published);
+    void updateBlogPublishedById(Long id,Boolean published);
 }

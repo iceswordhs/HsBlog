@@ -13,7 +13,7 @@ import java.util.List;
  * @Date 2022/1/21 0:12
  */
 public class BlogListItem {
-    private Integer id;
+    private Long id;
     private String title;// 文章标题
     private String description;// 描述
     private String homePicture;// 首图
@@ -26,11 +26,11 @@ public class BlogListItem {
     private Category category;// 文章分类
     private List<Tag> tags = new ArrayList<>();//文章标签
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

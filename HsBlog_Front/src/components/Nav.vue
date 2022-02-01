@@ -32,9 +32,9 @@
                        class="right item m-search" :class="{'m-mobile-hide': mobileHide}"
                        popper-class="m-search-item" @select="handleSelect">
         <i class="search icon el-input__icon" slot="suffix"></i>
-        <template slot-scope="{ item }">
-          <div class="title">{{ item.title }}</div>
-          <span class="content">{{ item.content }}</span>
+        <template slot-scope="item">
+          <div class="title">{{ item.item.title}}</div>
+          <span class="content">{{ item.item.content }}</span>
         </template>
       </el-autocomplete>
     </div>
@@ -127,8 +127,8 @@ export default {
         return
       }
       getSearchBlogList(queryString).then(res => {
-        if (res.code === 200) {
-          this.queryResult = res.data
+        if (res.data.code === 200) {
+          this.queryResult = res.data.data
           if (this.queryResult.length === 0) {
             this.queryResult.push({title: '无相关搜索结果'})
           }

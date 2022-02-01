@@ -5,6 +5,7 @@ import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.model.dto.BlogView;
 import com.hs.hsblog_backend.model.vo.ArchiveBlog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
+import com.hs.hsblog_backend.model.vo.SearchBlog;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface BlogMapper {
     List<BlogListItem> findAllBlog();
 
     List<BlogListItem> findAllPublishedBlog();
+
+    List<SearchBlog> getSearchBlogListIsPublished(String query);
 
     Blog getBlogById(Long id);
 

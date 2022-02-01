@@ -27,6 +27,36 @@ public interface RedisService {
     // 根据hash及hashKey获取对应的值
     Object getValueByHashKey(String hash, Object hashKey);
 
+    // 对于hash中对应的key增加increment
+    void incrementByHashKey(String hash, Object key, int increment);
+
+    //void deleteByHashKey(String hash, Object key);
+    //
+    //<T> List<T> getListByValue(String key);
+    //
+    //<T> void saveListToValue(String key, List<T> list);
+    //
+    //<T> Map<String, T> getMapByValue(String key);
+    //
+    //<T> void saveMapToValue(String key, Map<String, T> map);
+    //
+    //<T> T getObjectByValue(String key, Class t);
+    //
+    //void incrementByKey(String key, int increment);
+    //
+    //void saveObjectToValue(String key, Object object);
+    //
+    //void saveValueToSet(String key, Object value);
+    //
+    //int countBySet(String key);
+    //
+    //void deleteValueBySet(String key, Object value);
+    //
+    //boolean hasValueInSet(String key, Object value);
+    //
+    //void deleteCacheByKey(String key);
+
+    // 判断是否包含这个key
     boolean hasKey(String key);
 
     // 给key设置过期时间

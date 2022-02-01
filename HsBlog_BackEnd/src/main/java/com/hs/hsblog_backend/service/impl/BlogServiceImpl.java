@@ -10,6 +10,7 @@ import com.hs.hsblog_backend.entity.Tag;
 import com.hs.hsblog_backend.model.dto.BlogView;
 import com.hs.hsblog_backend.model.vo.ArchiveBlog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
+import com.hs.hsblog_backend.model.vo.SearchBlog;
 import com.hs.hsblog_backend.repository.BlogMapper;
 import com.hs.hsblog_backend.service.BlogService;
 import com.hs.hsblog_backend.service.CategoryService;
@@ -75,8 +76,28 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public List<SearchBlog> getSearchBlogListIsPublished(String query) {
+        List<SearchBlog> searchBlogs = blogMapper.getSearchBlogListIsPublished(query);
+        for (SearchBlog searchBlog : searchBlogs) {
+            if (searchBlog.getTitle().contains(query)){
+                searchBlog.setContent("");
+                continue;
+            }
+            String content = searchBlog.getContent();
+            int contentLength = content.length();
+            int index = content.indexOf(query) - 10;
+            index = index < 0 ? 0 : index;
+            int end = index + 21;//以关键字字符串为中心返回21个字
+            end = end > contentLength - 1 ? contentLength - 1 : end;
+            searchBlog.setContent(content.substring(index, end));
+        }
+        return searchBlogs;
+    }
+
+    @Override
     public Blog getBlogById(Long id) {
         Blog blog = blogMapper.getBlogById(id);
+        updateViewsToRedis(id);
         processBlog(blog);
         return blog;
     }
@@ -90,23 +111,27 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public void updateViewsToRedis(Long blogId) {
+        redisService.incrementByHashKey(RedisKey.BLOG_VIEWS_MAP, blogId, 1);
+    }
+
+    @Override
     public PageInfo<BlogListItem> getPageBlogIsPublished(int pageNum){
         String redisKey = RedisKey.HOME_BLOG_INFO_LIST;
         // redis已有当前页缓存
         PageInfo<BlogListItem> getBlogListItemPageResultByHash = redisService.getBlogListItemPageResultByHash(redisKey, pageNum);
         if (getBlogListItemPageResultByHash != null) {
             setBlogViewsFromRedisToPageResult(getBlogListItemPageResultByHash);
-            System.out.println();
             return getBlogListItemPageResultByHash;
         }
 
         PageHelper.startPage(pageNum,pageSize,orderBy);
         List<BlogListItem> blogs = blogMapper.findAllPublishedBlog();
         processBlogListItem(blogs);
-
+        PageInfo<BlogListItem> blogListItemPageInfo = new PageInfo<>(blogs);
         // 向Redis中添加缓存
-        redisService.saveKVToHash(redisKey, pageNum, blogs);
-        return new PageInfo<>(blogs);
+        redisService.saveKVToHash(redisKey, pageNum, blogListItemPageInfo);
+        return blogListItemPageInfo;
     }
 
     /**
@@ -142,6 +167,9 @@ public class BlogServiceImpl implements BlogService {
             // 将描述转为html
             if(!StringUtils.isEmpty(blog.getDescription()))
             blog.setDescription(MarkDownToHTMLUtil.markdownToHtml(blog.getDescription()));
+            // 设置最新的view
+            int view = (int) redisService.getValueByHashKey(RedisKey.BLOG_VIEWS_MAP, blog.getId());
+            blog.setViews(view);
         }
     }
 
@@ -152,6 +180,9 @@ public class BlogServiceImpl implements BlogService {
         blog.setContent(MarkDownToHTMLUtil.markdownToHtml(blog.getContent()));
         // 将描述转为html
         blog.setDescription(MarkDownToHTMLUtil.markdownToHtml(blog.getDescription()));
+        // 设置最新的view
+        int view = (int) redisService.getValueByHashKey(RedisKey.BLOG_VIEWS_MAP, blog.getId());
+        blog.setViews(view);
     }
 
     private void processBlogListItem(List<BlogListItem> blogs){
@@ -160,6 +191,9 @@ public class BlogServiceImpl implements BlogService {
         blog.setTags(tagService.getTagByBlogId(blog.getId()));
         // 将描述转为html
         blog.setDescription(MarkDownToHTMLUtil.markdownToHtml(blog.getDescription()));
+        // 设置最新的view
+        int view = (int) redisService.getValueByHashKey(RedisKey.BLOG_VIEWS_MAP, blog.getId());
+        blog.setViews(view);
         }
     }
 

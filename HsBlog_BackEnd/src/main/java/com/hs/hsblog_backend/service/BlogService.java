@@ -6,6 +6,7 @@ import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.Tag;
 import com.hs.hsblog_backend.model.vo.ArchiveBlog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
+import com.hs.hsblog_backend.model.vo.SearchBlog;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ import java.util.Map;
  */
 public interface BlogService {
     PageInfo<BlogListItem> getAllBlog();
+
+    List<SearchBlog> getSearchBlogListIsPublished(String query);
 
     Blog getBlogById(Long id);
 
@@ -44,4 +47,8 @@ public interface BlogService {
     void updateBlogTopById(Long id,Boolean top);
 
     void updateBlogPublishedById(Long id,Boolean published);
+
+
+    // Redis
+    void updateViewsToRedis(Long blogId);
 }

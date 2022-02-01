@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisServiceImpl implements RedisService {
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<String,Object> redisTemplate;
 
     @Override
     public boolean hasKey(String key) {
@@ -41,6 +41,11 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
+    public void incrementByHashKey(String key, Object hashKey, int increment) {
+        redisTemplate.opsForHash().increment(key,hashKey,increment);
+    }
+
+    @Override
     public Map getMapByHash(String hash) {
         return redisTemplate.opsForHash().entries(hash);
     }
@@ -50,8 +55,7 @@ public class RedisServiceImpl implements RedisService {
         // 在这个key下是否有pageNum对应的hashKey
         if (redisTemplate.opsForHash().hasKey(key,pageNum)){
             Object blogList = redisTemplate.opsForHash().get(key, pageNum);
-            PageInfo<BlogListItem> blogListItemPageResult = JacksonUtils.convertValue(blogList, PageInfo.class);
-            return blogListItemPageResult;
+            return JacksonUtils.convertValue(blogList, PageInfo.class);
         }else {
             return null;
         }

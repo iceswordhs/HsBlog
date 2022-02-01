@@ -4,9 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
+import com.hs.hsblog_backend.model.vo.SearchBlog;
 import com.hs.hsblog_backend.service.BlogService;
 import com.hs.hsblog_backend.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,11 @@ public class BlogController {
     @RequestMapping("/getAllBlogs")
     public Result<PageInfo<BlogListItem>> getAllBlog(){
         return Result.success(blogService.getAllBlog());
+    }
+
+    @GetMapping("/searchBlog")
+    public Result<List<SearchBlog>> getSearchBlogListIsPublished(@RequestParam String query){
+        return Result.success(blogService.getSearchBlogListIsPublished(query));
     }
 
     @RequestMapping("/getPageBlog")

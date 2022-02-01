@@ -5,7 +5,7 @@
 <mapper namespace="com.hs.hsblog_backend.repository.BlogMapper">
 
     <resultMap id="blog" type="com.hs.hsblog_backend.entity.Blog">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="homePicture" column="home_picture" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
@@ -44,7 +44,7 @@
 
 
     <resultMap id="blogListItem" type="com.hs.hsblog_backend.model.vo.BlogListItem">
-        <id property="id" column="id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="homePicture" column="home_picture" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
@@ -186,5 +186,21 @@
     </select>
     <select id="getBlogViewsList" resultType="com.hs.hsblog_backend.model.dto.BlogView">
         select id,views from blog
+    </select>
+
+    <resultMap id="searchBlog" type="com.hs.hsblog_backend.model.vo.SearchBlog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
+    <!--按关键字根据文章内容或标题或描述搜索公开的博客文章-->
+    <select id="getSearchBlogListIsPublished" resultMap="searchBlog">
+        <bind name="queryPattern" value="'%' + query + '%'"/>
+        select id, title, content
+        from blog
+        where published=true
+          and (content like #{queryPattern}
+          or title like #{queryPattern})
     </select>
 </mapper>

@@ -13,7 +13,7 @@
       </div>
 
       <div>
-        <div class="title">本月已经过去了{{days}}天</div>
+        <div class="title">{{mouth}}月已经过去了{{daysOfMouth}}天</div>
         <el-progress class="progress2" :stroke-width="10" :percentage='percentMouth' ></el-progress>
       </div>
 
@@ -57,7 +57,7 @@ export default {
     styleInitialize () {
       document.getElementsByClassName('el-progress-bar__inner')[0].style.background = '#bde6ff linear-gradient(135deg, #50bfff 25%, transparent 25%, transparent 50%, #50bfff 50%, #50bfff 75%, transparent 75%, transparent 100%)'
       document.getElementsByClassName('el-progress-bar__inner')[0].style.backgroundSize = '30px 30px'
-      document.getElementsByClassName('el-progress-bar__inner')[1].style.background = '#ffd980 linear-gradient(135deg, #f7ba2a 25%, transparent 25%, transparent 50%, #f7ba2a 50%, #f7ba2a 75%, transparent 75%, transparent 100%)'
+      document.getElementsByClassName('el-progress-bar__inner')[1].style.background = '#67c23a linear-gradient(135deg, #4f9e28 25%, transparent 25%, transparent 50%, #4f9e28 50%, #4f9e28 75%, transparent 75%, transparent 100%)'
       document.getElementsByClassName('el-progress-bar__inner')[1].style.backgroundSize = '30px 30px'
       document.getElementsByClassName('el-progress-bar__inner')[2].style.background = '#ffa9a9 linear-gradient(135deg, #ff4949 25%, transparent 25%, transparent 50%, #ff4949 50%, #ff4949 75%, transparent 75%, transparent 100%)'
       document.getElementsByClassName('el-progress-bar__inner')[2].style.backgroundSize = '30px 30px'
@@ -73,7 +73,7 @@ export default {
       return new Date().getFullYear()
     },
     mouth () {
-      return new Date().getMonth()
+      return new Date().getMonth() + 1
     },
     days () {
       let start = new Date()
@@ -87,14 +87,17 @@ export default {
     daysOfWeek () {
       return new Date().getDay()
     },
+    daysOfMouth () {
+      return new Date().getDate()
+    },
     percentDay () {
-      return parseInt((this.hours / 24) * 100)
+      return parseInt(this.hours * 100 / 24)
     },
     percentWeek () {
-      return parseInt(((new Date().getDay() || 7) / 7).toFixed(1) * 100)
+      return parseInt((new Date().getDay() || 7) * 100 / 7)
     },
     percentMouth () {
-      return parseFloat((new Date().getDate() / this.getDayOfMouth()).toFixed(1) * 100)
+      return parseInt(new Date().getDate() * 100 / this.getDayOfMouth())
     },
     percentYear () {
       return parseFloat((this.days * 100 / this.getDayOfYear()).toFixed(1))

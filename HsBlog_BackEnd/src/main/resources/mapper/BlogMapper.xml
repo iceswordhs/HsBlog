@@ -90,7 +90,7 @@
             b.views,b.words,b.published,b.top,b.comment_enable,
             c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
-        where b.id=#{id}
+        where b.id=#{id} and published=true
     </select>
 
     <insert id="saveBlog" parameterType="blog" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -117,7 +117,7 @@
             c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
                     join blog_tag bt on b.id = bt.blog_id
-        where tag_id=#{tagId}
+        where tag_id=#{tagId} and published=true
     </select>
 
     <select id="getBlogByCategory" resultMap="blog">
@@ -129,7 +129,7 @@
             b.views,b.words,b.published,b.top,b.comment_enable,
             c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
-        where b.category_id=#{id} or c.categoryName=#{name}
+        where (b.category_id=#{id} or c.categoryName=#{name}) and published=true
     </select>
 
     <!--查询公开博客年月List-->
@@ -182,7 +182,7 @@
             b.views,b.words,b.published,b.top,b.comment_enable,
             c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
-        where b.id=#{id}
+        where b.id=#{id} and b.published=true
     </select>
     <select id="getBlogViewsList" resultType="com.hs.hsblog_backend.model.dto.BlogView">
         select id,views from blog

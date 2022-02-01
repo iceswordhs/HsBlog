@@ -23,7 +23,7 @@
                 <i class="small pencil alternate icon"></i><span>字数≈{{ blog.words }}字</span>
               </div>
               <div class="item m-common-black">
-                <i class="small clock icon"></i><span>阅读时长≈{{ blog.words/140 }}分</span>
+                <i class="small clock icon"></i><span>阅读时长≈{{ parseInt(blog.words/140) }}分</span>
               </div>
               <a class="item m-common-black" @click.prevent="bigFontSize=!bigFontSize">
                 <div data-inverted="" data-tooltip="点击切换字体大小" data-position="top center">

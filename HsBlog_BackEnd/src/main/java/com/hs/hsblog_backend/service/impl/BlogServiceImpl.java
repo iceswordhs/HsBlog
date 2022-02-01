@@ -158,7 +158,9 @@ public class BlogServiceImpl implements BlogService {
      * @param blogs 要处理的博客
      */
     private void processBlog(List<Blog> blogs){
+        if (CollectionUtils.isEmpty(blogs)) return;
         for (Blog blog : blogs) {
+            if (blog==null) continue;
             // 添加标签
             blog.setTags(tagService.getTagByBlogId(blog.getId()));
             // 将正文变为html
@@ -174,6 +176,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     private void processBlog(Blog blog){
+        if (blog==null) return;
         // 添加标签
         blog.setTags(tagService.getTagByBlogId(blog.getId()));
         // 将正文变为html
@@ -186,7 +189,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     private void processBlogListItem(List<BlogListItem> blogs){
+        if (CollectionUtils.isEmpty(blogs)) return;
         for (BlogListItem blog : blogs) {
+            if (blog==null) continue;
         // 添加标签
         blog.setTags(tagService.getTagByBlogId(blog.getId()));
         // 将描述转为html

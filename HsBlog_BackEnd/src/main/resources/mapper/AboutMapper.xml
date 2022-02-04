@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hs.hsblog_backend.repository.AboutMapper">
 
-    <resultMap id="BaseResultMap" type="com.hs.hsblog_backend.entity.About">
+    <resultMap id="AboutBaseResultMap" type="com.hs.hsblog_backend.entity.About">
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
             <result property="commentEnable" column="comment_enable" jdbcType="BOOLEAN"/>
@@ -28,7 +28,7 @@
         where 1=1
     </update>
 
-    <select id="findAbout" resultType="com.hs.hsblog_backend.entity.About">
+    <select id="findAbout" resultMap="AboutBaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from about

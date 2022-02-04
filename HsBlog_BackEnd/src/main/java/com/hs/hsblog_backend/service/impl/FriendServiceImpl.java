@@ -2,11 +2,13 @@ package com.hs.hsblog_backend.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.constants.RedisKey;
 import com.hs.hsblog_backend.entity.Friend;
 import com.hs.hsblog_backend.entity.FriendItem;
 import com.hs.hsblog_backend.repository.FriendItemMapper;
 import com.hs.hsblog_backend.repository.FriendMapper;
 import com.hs.hsblog_backend.service.FriendService;
+import com.hs.hsblog_backend.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ public class FriendServiceImpl implements FriendService {
     FriendMapper friendMapper;
     @Autowired
     FriendItemMapper friendItemMapper;
+    @Autowired
+    RedisService redisService;
 
     private String orderBy="create_time desc";
 
@@ -71,9 +75,13 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public Friend getFriendView() {
+        String friendInfoMap = RedisKey.FRIEND_INFO_MAP;
+        Friend friendResult = redisService.getObjectByKeyFromString(friendInfoMap, Friend.class);
+        if (friendResult!=null) return friendResult;
         List<FriendItem> friendItemList = friendItemMapper.getFriendItemList();
         Friend friend = friendMapper.getFriendInfo();
         friend.setFriendItemList(friendItemList);
+        redisService.saveObjectToString(friendInfoMap,friend);
         return friend;
     }
 }

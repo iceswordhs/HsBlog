@@ -41,6 +41,9 @@
         set published=#{published}
         where id=#{id}
     </update>
+    <update id="updateViews">
+        update blog set views=#{views} where id=#{id}
+    </update>
 
 
     <resultMap id="blogListItem" type="com.hs.hsblog_backend.model.vo.BlogListItem">

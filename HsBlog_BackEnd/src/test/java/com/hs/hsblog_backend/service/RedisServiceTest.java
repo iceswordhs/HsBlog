@@ -1,5 +1,7 @@
 package com.hs.hsblog_backend.service;
 
+import com.hs.hsblog_backend.entity.About;
+import com.hs.hsblog_backend.repository.AboutMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,11 +15,24 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class RedisServiceTest {
     @Autowired
     RedisTemplate redisTemplate;
+    @Autowired
+    RedisService redisService;
+    @Autowired
+    AboutMapper aboutMapper;
 
     @Test
     void test(){
         redisTemplate.opsForHash().put("k1","field1","hv1");
         String value=(String) redisTemplate.opsForHash().get("k1","field1");
+        redisTemplate.delete("k1");
         System.out.println(value);
+    }
+
+    @Test
+    void testAboutRedis(){
+        About about = aboutMapper.findAbout();
+        redisService.saveObjectToString("aObject",about);
+        About aObject = redisService.getObjectByKeyFromString("aObject",About.class);
+        System.out.println(aObject);
     }
 }

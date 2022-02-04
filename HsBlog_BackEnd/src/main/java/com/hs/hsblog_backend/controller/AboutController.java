@@ -20,7 +20,6 @@ public class AboutController {
     @GetMapping("/about")
     public Result<About> about(){
         About aboutInfo = aboutService.getAboutInfo();
-        aboutInfo.setContent(MarkDownToHTMLUtil.markdownToHtml(aboutInfo.getContent()));
         return Result.success(aboutInfo);
     }
 }

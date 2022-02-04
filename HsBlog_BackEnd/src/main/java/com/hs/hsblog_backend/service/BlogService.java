@@ -51,4 +51,7 @@ public interface BlogService {
 
     // Redis
     void updateViewsToRedis(Long blogId);
+
+    // 将view保存到数据库
+    void updateViews(Long blogId, Integer views);
 }

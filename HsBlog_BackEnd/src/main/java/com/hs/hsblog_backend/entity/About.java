@@ -104,4 +104,15 @@ public class About implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "About{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", commentEnable=" + commentEnable +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

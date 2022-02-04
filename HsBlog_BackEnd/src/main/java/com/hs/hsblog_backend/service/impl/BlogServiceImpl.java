@@ -19,8 +19,10 @@ import com.hs.hsblog_backend.service.TagService;
 import com.hs.hsblog_backend.util.JacksonUtils;
 import com.hs.hsblog_backend.util.StringUtils;
 import com.hs.hsblog_backend.util.commarkUtil.MarkDownToHTMLUtil;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
@@ -120,11 +122,13 @@ public class BlogServiceImpl implements BlogService {
         String redisKey = RedisKey.HOME_BLOG_INFO_LIST;
         // redis已有当前页缓存
         PageInfo<BlogListItem> getBlogListItemPageResultByHash = redisService.getBlogListItemPageResultByHash(redisKey, pageNum);
+        // 如果有缓存，将缓存中的view设为最新
         if (getBlogListItemPageResultByHash != null) {
             setBlogViewsFromRedisToPageResult(getBlogListItemPageResultByHash);
             return getBlogListItemPageResultByHash;
         }
 
+        // 没有缓存，将结果处理并设置最新的view放入Redis并返回
         PageHelper.startPage(pageNum,pageSize,orderBy);
         List<BlogListItem> blogs = blogMapper.findAllPublishedBlog();
         processBlogListItem(blogs);
@@ -202,6 +206,7 @@ public class BlogServiceImpl implements BlogService {
         }
     }
 
+    @Transactional
     @Override
     public String saveBlog(Blog blog) {
         // 判断是否有空值
@@ -224,6 +229,11 @@ public class BlogServiceImpl implements BlogService {
         for (Tag tag:tags){
             blogMapper.saveBlogTag(blogId,tag.getTagId());
         }
+
+        // 在Redis View Map中添加对应的view id
+        redisService.saveKVToHash(RedisKey.BLOG_VIEWS_MAP,blog.getId(),0);
+        // 删除原有缓存
+        deleteBlogRedisCache();
 
         return blog.getTitle();
     }
@@ -266,6 +276,13 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Map<String,Object> getArchiveBlogIsPublished(){
+        String redisKey = RedisKey.ARCHIVE_BLOG_MAP;
+        // 从Redis中获取archiveMap
+        Map<String, Object> mapFromRedis = redisService.getMapByKey(redisKey);
+        if (mapFromRedis != null) {
+            return mapFromRedis;
+        }
+
         Map<String, Object> map = new HashMap<>();
         List<String> groupYearMonth = blogMapper.getGroupYearMonthByIsPublished();
         Map<String, List<ArchiveBlog>> archiveBlogMap = new LinkedHashMap<>();
@@ -277,15 +294,23 @@ public class BlogServiceImpl implements BlogService {
         }
         map.put("blogMap", archiveBlogMap);
         map.put("count", count);
+
+        // 向Redis中放入archiveMap
+        redisService.saveMapToValue(redisKey, map);
         return map;
     }
 
+    @Transactional
     @Override
     public void deleteBlogById(Long id) {
         // 删除blog
         blogMapper.deleteBlogTag(id);
         // 维护blog_tag表
         blogMapper.deleteBlogTag(id);
+        // 清除缓存
+        deleteBlogRedisCache();
+        // 删除view hash中本博客对应的hashkey及value
+        redisService.deleteByHashKey(RedisKey.BLOG_VIEWS_MAP, id);
     }
 
     @Override
@@ -296,10 +321,31 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void updateBlogTopById(Long id, Boolean top) {
         blogMapper.updateBlogTopById(id,top);
+        redisService.deleteCacheByKey(RedisKey.HOME_BLOG_INFO_LIST);
     }
 
     @Override
     public void updateBlogPublishedById(Long id, Boolean published) {
         blogMapper.updateBlogPublishedById(id, published);
+
+        // 删除Redis缓存
+        deleteBlogRedisCache();
+    }
+
+
+    /**
+     * 删除首页缓存、最新推荐缓存、归档页面缓存、博客浏览量缓存
+     */
+    private void deleteBlogRedisCache() {
+        redisService.deleteCacheByKey(RedisKey.HOME_BLOG_INFO_LIST);
+        redisService.deleteCacheByKey(RedisKey.ARCHIVE_BLOG_MAP);
+    }
+
+    @Transactional
+    @Override
+    public void updateViews(Long blogId, Integer views) {
+        if (blogMapper.updateViews(blogId, views) != 1) {
+            throw new PersistenceException("更新失败");
+        }
     }
 }

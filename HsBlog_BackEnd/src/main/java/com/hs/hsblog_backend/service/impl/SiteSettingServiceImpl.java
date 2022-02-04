@@ -1,8 +1,10 @@
 package com.hs.hsblog_backend.service.impl;
 
+import com.hs.hsblog_backend.constants.RedisKey;
 import com.hs.hsblog_backend.entity.SiteSetting;
 import com.hs.hsblog_backend.model.bean.Badge;
 import com.hs.hsblog_backend.repository.SiteSettingMapper;
+import com.hs.hsblog_backend.service.RedisService;
 import com.hs.hsblog_backend.service.SiteSettingService;
 import com.hs.hsblog_backend.util.JacksonUtils;
 import com.hs.hsblog_backend.util.StringUtils;
@@ -23,11 +25,19 @@ import java.util.regex.Pattern;
 public class SiteSettingServiceImpl implements SiteSettingService {
     @Autowired
     SiteSettingMapper siteSettingMapper;
+    @Autowired
+    RedisService redisService;
 
     private static final Pattern PATTERN = Pattern.compile("\"(.*?)\"");
 
     @Override
     public Map<String, Object> getSite() {
+        String siteInfoMap = RedisKey.SITE_INFO_MAP;
+        Map<String, Object> mapByKey = redisService.getMapByKey(siteInfoMap);
+        if (mapByKey!=null){
+            return mapByKey;
+        }
+
         HashMap<String, Object> map = new HashMap<>();
         //List<Integer> types = siteSettingMapper.getAllType();
         //for (Integer type : types) {
@@ -53,6 +63,7 @@ public class SiteSettingServiceImpl implements SiteSettingService {
         map.put("introduction",getIntroduction());
         map.put("badges",getBadges());
         map.put("siteSetting",getSiteSetting());
+        redisService.saveMapToValue(siteInfoMap,map);
         return map;
     }
     @Override

@@ -18,6 +18,13 @@ public interface RedisService {
     // 将一个键值对保存到hash中
     void saveKVToHash(String key, Object field, Object value);
 
+    // 保存对象到hash中
+    void saveObjectToString(String key,Object object);
+    // 根据key使value增长
+    void incrementByKey(String key, int increment);
+    // 从String中获取对象
+    <T> T getObjectByKeyFromString(String key,Class t);
+
     // 将Map保存到Redis中
     void saveMapToHash(String key, Map map);
 
@@ -26,25 +33,23 @@ public interface RedisService {
 
     // 根据hash及hashKey获取对应的值
     Object getValueByHashKey(String hash, Object hashKey);
-
     // 对于hash中对应的key增加increment
     void incrementByHashKey(String hash, Object key, int increment);
+    //删除hash中对应的hashkey的值
+    void deleteByHashKey(String key, Object hashKey);
 
-    //void deleteByHashKey(String hash, Object key);
-    //
-    //<T> List<T> getListByValue(String key);
-    //
-    //<T> void saveListToValue(String key, List<T> list);
-    //
-    //<T> Map<String, T> getMapByValue(String key);
-    //
-    //<T> void saveMapToValue(String key, Map<String, T> map);
-    //
-    //<T> T getObjectByValue(String key, Class t);
-    //
-    //void incrementByKey(String key, int increment);
-    //
-    //void saveObjectToValue(String key, Object object);
+
+     <T> List<T> getListByValue(String key);
+
+     <T> void saveListToValue(String key, List<T> list);
+
+
+    // 根据key获取对应值转为Map
+    <T> Map<String, T> getMapByKey(String key);
+    // 将map存入Redis
+    <T> void saveMapToValue(String key, Map<String, T> map);
+
+
     //
     //void saveValueToSet(String key, Object value);
     //
@@ -53,8 +58,9 @@ public interface RedisService {
     //void deleteValueBySet(String key, Object value);
     //
     //boolean hasValueInSet(String key, Object value);
-    //
-    //void deleteCacheByKey(String key);
+
+    // 根据key清除key对应的值(缓存)
+    void deleteCacheByKey(String key);
 
     // 判断是否包含这个key
     boolean hasKey(String key);

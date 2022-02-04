@@ -1,7 +1,9 @@
 package com.hs.hsblog_backend.service.impl;
 
+import com.hs.hsblog_backend.constants.RedisKey;
 import com.hs.hsblog_backend.entity.Tag;
 import com.hs.hsblog_backend.repository.TagMapper;
+import com.hs.hsblog_backend.service.RedisService;
 import com.hs.hsblog_backend.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,15 +19,27 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
     @Autowired
     TagMapper tagMapper;
+    @Autowired
+    RedisService redisService;
 
     @Override
     public void updateTagById(Tag tag) {
+        redisService.deleteCacheByKey(RedisKey.TAG_CLOUD_LIST);
+        //修改了标签名或颜色，可能有首页文章关联了标签，也要更新首页缓存
+        redisService.deleteCacheByKey(RedisKey.HOME_BLOG_INFO_LIST);
         tagMapper.updateTagById(tag);
     }
 
     @Override
     public List<Tag> getAllTags() {
-        return tagMapper.getAllTag();
+        String tagCloudList = RedisKey.TAG_CLOUD_LIST;
+        List<Tag> listByValue = redisService.getListByValue(tagCloudList);
+        if (listByValue!=null){
+            return listByValue;
+        }
+        List<Tag> allTag = tagMapper.getAllTag();
+        redisService.saveListToValue(tagCloudList,allTag);
+        return allTag;
     }
 
     @Override
@@ -35,11 +49,13 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag addTag(Tag tag) {
+        redisService.deleteCacheByKey(RedisKey.TAG_CLOUD_LIST);
         return tagMapper.addTag(tag);
     }
 
     @Override
     public void deleteTagById(Long tagId) {
+        redisService.deleteCacheByKey(RedisKey.TAG_CLOUD_LIST);
         tagMapper.deleteTagById(tagId);
     }
 

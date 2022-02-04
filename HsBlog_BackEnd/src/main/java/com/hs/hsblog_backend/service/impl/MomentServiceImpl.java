@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.hs.hsblog_backend.entity.Moment;
 import com.hs.hsblog_backend.repository.MomentMapper;
 import com.hs.hsblog_backend.service.MomentService;
+import com.hs.hsblog_backend.service.RedisService;
 import com.hs.hsblog_backend.util.commarkUtil.MarkDownToHTMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ import java.util.List;
 public class MomentServiceImpl implements MomentService {
     @Autowired
     MomentMapper momentMapper;
+    @Autowired
+    RedisService redisService;
+
     //每页显示5条动态
     private static final int pageSize = 5;
     //动态列表排序方式

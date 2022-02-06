@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.hsblog_backend.repository.ScheduleJobLogMapper">
+
+    <resultMap id="ScheduleLogBaseResultMap" type="com.hs.hsblog_backend.entity.ScheduleJobLog">
+            <id property="logId" column="log_id" jdbcType="BIGINT"/>
+            <result property="jobId" column="job_id" jdbcType="BIGINT"/>
+            <result property="beanName" column="bean_name" jdbcType="VARCHAR"/>
+            <result property="methodName" column="method_name" jdbcType="VARCHAR"/>
+            <result property="params" column="params" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="error" column="error" jdbcType="VARCHAR"/>
+            <result property="times" column="times" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        log_id,job_id,bean_name,
+        method_name,params,status,
+        error,times,create_time
+    </sql>
+
+    <select id="getJobLogListByDate" resultMap="ScheduleLogBaseResultMap">
+        select log_id, job_id, bean_name, method_name, params, status, error, times, create_time
+        from schedule_job_log
+        <where>
+            <if test="startDate!=null and startDate!='' and endDate!=null and endDate!=''">
+                create_time between #{startDate} and #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveJobLog" parameterType="com.hs.hsblog_backend.entity.ScheduleJobLog" useGeneratedKeys="true" keyProperty="logId">
+        insert into schedule_job_log (job_id, bean_name, method_name, params, status, error, times, create_time)
+        values (#{jobId}, #{beanName}, #{methodName}, #{params}, #{status}, #{error}, #{times}, #{createTime})
+    </insert>
+
+    <delete id="deleteJobLogByLogId">
+        delete from schedule_job_log where log_id=#{logId}
+    </delete>
+</mapper>

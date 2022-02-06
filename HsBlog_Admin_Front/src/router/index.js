@@ -182,6 +182,22 @@ const routes = [
   },
 
   {
+    path: '/system',
+    name:'System',
+    redirect: '/system/scheduleList',
+    component:Layout,
+    meta:{title: '系统设置',icon: 'el-icon-picture'},
+    children: [
+      {
+        path: '/scheduleList',
+        name:'ScheduleList',
+        component:() => import('@/views/system/ScheduleJobList'),
+        meta: {title: '定时任务',icon: 'el-icon-picture'}
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

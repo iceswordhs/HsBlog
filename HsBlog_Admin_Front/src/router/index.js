@@ -198,6 +198,21 @@ const routes = [
   },
 
   {
+    path: '/log',
+    name:'Log',
+    component:Layout,
+    meta:{title: '日志',icon: 'el-icon-picture'},
+    children: [
+      {
+        path: '/exceptionLog',
+        name:'ExceptionLog',
+        component:() => import('@/views/log/ExceptionLog'),
+        meta: {title: '异常日志',icon: 'el-icon-picture'}
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

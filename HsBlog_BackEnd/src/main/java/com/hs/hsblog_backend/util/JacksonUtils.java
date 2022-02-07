@@ -15,6 +15,16 @@ import java.io.InputStream;
 public class JacksonUtils {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
+    // 将Object转换为字符串
+    public static String writeValueAsString(Object value) {
+        try {
+            return objectMapper.writeValueAsString(value);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
     // 将类转换为字符串
     public static String toJSONString(Object value) {
         try {

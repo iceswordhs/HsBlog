@@ -133,6 +133,8 @@ export default {
             this.queryResult.push({title: '无相关搜索结果'})
           }
           callback(this.queryResult)
+        } else {
+          this.errorMsg(res.data.message)
         }
       }).catch(() => {
         this.errorMsg('请求失败')

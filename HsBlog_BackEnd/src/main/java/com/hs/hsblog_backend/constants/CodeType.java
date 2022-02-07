@@ -20,7 +20,8 @@ public enum CodeType {
     Password_Incorrect(412,"密码错误"),
     USER_NOT_EXIST(413,"用户不存在"),
     NO_HAVE_AUTHORITY(414,"没有相应权限"),
-    Http_Message_Convert_FAIL(415,"http参数转换失败")
+    Http_Message_Convert_FAIL(415,"http参数转换失败"),
+    PARAMS_ERROR(416,"参数错误")
     ;
 
     private final int code;

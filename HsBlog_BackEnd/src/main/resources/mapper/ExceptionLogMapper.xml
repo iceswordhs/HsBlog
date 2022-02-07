@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.hsblog_backend.repository.ExceptionLogMapper">
+
+    <resultMap id="LogBaseResultMap" type="com.hs.hsblog_backend.entity.ExceptionLog">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="uri" column="uri" jdbcType="VARCHAR"/>
+            <result property="method" column="method" jdbcType="VARCHAR"/>
+            <result property="param" column="param" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="error" column="error" jdbcType="VARCHAR"/>
+            <result property="ip" column="ip" jdbcType="VARCHAR"/>
+            <result property="ipSource" column="ip_source" jdbcType="VARCHAR"/>
+            <result property="os" column="os" jdbcType="VARCHAR"/>
+            <result property="browser" column="browser" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,uri,method,
+        param,description,error,
+        ip,ip_source,os,
+        browser,create_time,user_agent
+    </sql>
+
+    <!--查询日志-->
+    <select id="getExceptionLogListByDate" resultMap="LogBaseResultMap">
+        select id, uri, method, param, description, error, ip, ip_source, os, browser, create_time
+        from exception_log
+        <where>
+            <if test="startDate!=null and startDate!='' and endDate!=null and endDate!=''">
+                create_time between #{startDate} and #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <!--添加日志-->
+    <insert id="saveExceptionLog" parameterType="com.hs.hsblog_backend.entity.ExceptionLog" useGeneratedKeys="true" keyProperty="id">
+        insert into exception_log (uri, method, param, description, error, ip, ip_source, os, browser, create_time, user_agent)
+        values (#{uri}, #{method}, #{param}, #{description}, #{error}, #{ip}, #{ipSource}, #{os}, #{browser}, #{createTime}, #{userAgent})
+    </insert>
+
+    <!--删除日志-->
+    <delete id="deleteExceptionLogById">
+        delete from exception_log where id=#{id}
+    </delete>
+</mapper>

@@ -1,5 +1,6 @@
 package com.hs.hsblog_backend.controller;
 
+import com.hs.hsblog_backend.annotation.VisitLogger;
 import com.hs.hsblog_backend.entity.About;
 import com.hs.hsblog_backend.service.AboutService;
 import com.hs.hsblog_backend.util.Result;
@@ -17,6 +18,7 @@ public class AboutController {
     @Autowired
     AboutService aboutService;
 
+    @VisitLogger(behavior = "访问页面", content = "关于我")
     @GetMapping("/about")
     public Result<About> about(){
         About aboutInfo = aboutService.getAboutInfo();

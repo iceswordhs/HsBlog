@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.VisitLogger;
 import com.hs.hsblog_backend.constants.CodeType;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
@@ -31,6 +32,7 @@ public class BlogController {
         return Result.success(blogService.getAllBlog());
     }
 
+    @VisitLogger(behavior = "搜索博客")
     @GetMapping("/searchBlog")
     public Result getSearchBlogListIsPublished(@RequestParam String query){
         //校验关键字字符串合法性
@@ -41,12 +43,14 @@ public class BlogController {
         return Result.success(searchBlogs);
     }
 
+    @VisitLogger(behavior = "访问页面", content = "首页")
     @RequestMapping("/getPageBlog")
     public Result<PageInfo<BlogListItem>> getPageBlogIsPublished(@RequestParam(defaultValue = "1") int pageNum){
         PageInfo<BlogListItem> allBlog = blogService.getPageBlogIsPublished(pageNum);
         return Result.success(allBlog);
     }
 
+    @VisitLogger(behavior = "查看博客")
     @RequestMapping("/getBlogById")
     public Result<Blog> getBlogById(@RequestParam Long id){
         Blog blogById = blogService.getBlogById(id);

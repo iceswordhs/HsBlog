@@ -220,6 +220,12 @@ const routes = [
         name:'ScheduleJobLog',
         component:() => import('@/views/log/ScheduleJobLog'),
         meta: {title: '任务日志',icon: 'el-icon-picture'}
+      },
+      {
+        path: '/visitLog',
+        name:'VisitLog',
+        component:() => import('@/views/log/VisitLog'),
+        meta: {title: '访客日志',icon: 'el-icon-picture'}
       }
     ]
   },

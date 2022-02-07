@@ -1,5 +1,6 @@
 package com.hs.hsblog_backend.controller;
 
+import com.hs.hsblog_backend.annotation.VisitLogger;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.service.BlogService;
 import com.hs.hsblog_backend.util.Result;
@@ -20,6 +21,7 @@ public class ArchiveController {
     @Autowired
     BlogService blogService;
 
+    @VisitLogger(behavior = "访问页面", content = "文章归档")
     @GetMapping("/archive")
     public Result<Map<String, Object>> getArchive(){
         Map<String, Object> archiveBlogs = blogService.getArchiveBlogIsPublished();

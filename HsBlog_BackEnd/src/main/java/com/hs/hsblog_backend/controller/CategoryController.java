@@ -1,6 +1,7 @@
 package com.hs.hsblog_backend.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.VisitLogger;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.service.BlogService;
@@ -32,6 +33,7 @@ public class CategoryController {
         return Result.success(categories);
     }
 
+    @VisitLogger(behavior = "查看分类下的所有博客")
     @GetMapping("/category")
     public Result<PageInfo<Blog>> getBLogByCategory(String categoryName,@RequestParam(defaultValue = "1") Integer pageNum){
         Category categoryByName = categoryService.findCategoryByName(categoryName);

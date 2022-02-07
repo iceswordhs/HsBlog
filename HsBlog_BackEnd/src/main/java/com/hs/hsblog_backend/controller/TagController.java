@@ -1,6 +1,7 @@
 package com.hs.hsblog_backend.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.VisitLogger;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Tag;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
@@ -25,6 +26,7 @@ public class TagController {
     @Autowired
     BlogService blogService;
 
+    @VisitLogger(behavior = "查看标签下的所有博客")
     @GetMapping("/tag")
     public Result<PageInfo<BlogListItem>> getAllTags(@RequestParam String tagName, @RequestParam(defaultValue = "1") Integer pageNum){
         PageInfo<BlogListItem> blogs = blogService.getBlogByTag(new Tag(tagName),pageNum);

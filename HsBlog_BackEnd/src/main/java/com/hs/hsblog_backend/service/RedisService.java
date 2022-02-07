@@ -50,14 +50,14 @@ public interface RedisService {
     <T> void saveMapToValue(String key, Map<String, T> map);
 
 
-    //
-    //void saveValueToSet(String key, Object value);
-    //
-    //int countBySet(String key);
-    //
-    //void deleteValueBySet(String key, Object value);
-    //
-    //boolean hasValueInSet(String key, Object value);
+
+    void saveValueToSet(String key, Object value);
+
+    int countBySet(String key);
+
+    void deleteValueBySet(String key, Object value);
+
+    boolean hasValueInSet(String key, Object value);
 
     // 根据key清除key对应的值(缓存)
     void deleteCacheByKey(String key);

@@ -1,5 +1,6 @@
 package com.hs.hsblog_backend.controller.admin;
 
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.About;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.service.AboutService;
@@ -25,6 +26,7 @@ public class AboutAdminController {
         return Result.success(aboutService.getAboutInfo());
     }
 
+    @OperationAnnotation("修改关于我页面")
     @PostMapping("/updateAbout")
     public Result<NullObject> updateAbout(@RequestBody About about){
         aboutService.updateAbout(about);

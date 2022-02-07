@@ -18,7 +18,7 @@ import java.util.Map;
  * @Date 2022/2/6 19:04
  */
 @Service
-public class ExceptionServiceLogImpl implements ExceptionLogService {
+public class ExceptionLogServiceImpl implements ExceptionLogService {
     @Autowired
     ExceptionLogMapper exceptionLogMapper;
     @Autowired

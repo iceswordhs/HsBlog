@@ -208,6 +208,18 @@ const routes = [
         name:'ExceptionLog',
         component:() => import('@/views/log/ExceptionLog'),
         meta: {title: '异常日志',icon: 'el-icon-picture'}
+      },
+      {
+        path: '/operationLog',
+        name:'OperationLog',
+        component:() => import('@/views/log/OperationLog'),
+        meta: {title: '操作日志',icon: 'el-icon-picture'}
+      },
+      {
+        path: '/scheduleJobLog',
+        name:'ScheduleJobLog',
+        component:() => import('@/views/log/ScheduleJobLog'),
+        meta: {title: '任务日志',icon: 'el-icon-picture'}
       }
     ]
   },

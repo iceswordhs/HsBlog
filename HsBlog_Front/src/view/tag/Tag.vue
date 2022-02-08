@@ -47,7 +47,7 @@ export default {
 							Prism.highlightAll()
           })
         } else {
-          this.errorMsg(res.data.msg)
+          this.errorMsg(res.data.message)
         }
       }).catch(() => {
         this.errorMsg('请求失败')

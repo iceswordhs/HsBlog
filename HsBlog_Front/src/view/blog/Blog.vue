@@ -162,7 +162,7 @@ export default {
             this.$store.commit(SET_IS_BLOG_RENDER_COMPLETE, true)
           })
         } else {
-          this.errorMsg(res.msg)
+          this.errorMsg(res.data.message)
         }
       }).catch(() => {
         this.errorMsg('请求失败')

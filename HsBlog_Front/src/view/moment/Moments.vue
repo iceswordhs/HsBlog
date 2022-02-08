@@ -71,7 +71,7 @@ export default {
           this.momentList = res.data.data.list
           this.totalPage = res.data.data.pages
         } else {
-          this.errorMsg(res.msg)
+          this.errorMsg(res.data.message)
         }
       }).catch(() => {
         this.errorMsg('请求失败')

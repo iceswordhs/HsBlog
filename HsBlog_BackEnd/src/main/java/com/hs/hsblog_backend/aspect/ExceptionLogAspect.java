@@ -34,7 +34,7 @@ public class ExceptionLogAspect {
     @Autowired
     ExceptionLogService exceptionLogService;
 
-    @Pointcut(value = "execution(* com.hs.hsblog_backend.controller.*.*(..))")
+    @Pointcut(value = "execution(* com.hs.hsblog_backend.controller..*.*(..))")
     public void exceptionLogCut(){
     }
 

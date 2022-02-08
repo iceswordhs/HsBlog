@@ -8,6 +8,8 @@ import org.lionsoul.ip2region.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +23,7 @@ import java.net.UnknownHostException;
  * @author Hs
  * @Date 2022/2/6 19:06
  */
+@Component
 public class IpAddressUtils {
     private static final Logger log = LoggerFactory.getLogger(IpAddressUtils.class);
 
@@ -70,7 +73,11 @@ public class IpAddressUtils {
     @PostConstruct
     private void initIp2regionResource() {
         try {
-            InputStream inputStream = new ClassPathResource("/ipdb/ip2region.db").getInputStream();
+            ClassPathResource classPathResource = new ClassPathResource("/ipdb/ip2region.db");
+            System.out.println(classPathResource.getFilename());
+            InputStream inputStream = classPathResource.getInputStream();
+            System.out.println("*************************************************************");
+
             //将 ip2region.db 转为 ByteArray
             byte[] dbBinStr = FileCopyUtils.copyToByteArray(inputStream);
             DbConfig dbConfig = new DbConfig();

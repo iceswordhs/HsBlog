@@ -81,6 +81,7 @@ public class ExceptionLog implements Serializable {
         this.description=description;
         this.error=error;
         this.ip=ip;
+        this.createTime=new Date();
         this.userAgent=userAgent;
     }
 

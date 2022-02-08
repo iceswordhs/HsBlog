@@ -29,4 +29,7 @@ public interface FriendService {
     void updateCommentEnable(Boolean commentEnable);
 
     Friend getFriendView();
+
+
+    void updateViewsByNickname(String nickName);
 }

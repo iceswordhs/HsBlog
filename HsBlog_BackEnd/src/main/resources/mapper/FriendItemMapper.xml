@@ -37,4 +37,8 @@
         <include refid="Base_Column_List"/>
         from friend_item
     </select>
+
+    <update id="updateViewsByNickName">
+        update friend_item set views=views+1 where nickname=#{nickName}
+    </update>
 </mapper>

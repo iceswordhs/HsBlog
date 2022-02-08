@@ -9,6 +9,7 @@ import com.hs.hsblog_backend.repository.FriendItemMapper;
 import com.hs.hsblog_backend.repository.FriendMapper;
 import com.hs.hsblog_backend.service.FriendService;
 import com.hs.hsblog_backend.service.RedisService;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,5 +84,12 @@ public class FriendServiceImpl implements FriendService {
         friend.setFriendItemList(friendItemList);
         redisService.saveObjectToString(friendInfoMap,friend);
         return friend;
+    }
+
+    @Override
+    public void updateViewsByNickname(String nickName) {
+        if(friendItemMapper.updateViewsByNickName(nickName)!=1){
+            throw new PersistenceException("更新友链点击数失败");
+        }
     }
 }

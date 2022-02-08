@@ -1,5 +1,6 @@
 package com.hs.hsblog_backend.controller.admin;
 
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.service.SiteSettingService;
 import com.hs.hsblog_backend.util.Result;
@@ -26,6 +27,7 @@ public class SiteSettingAdminController {
         return Result.success(siteSettings);
     }
 
+    @OperationAnnotation("更新网站设置")
     @PostMapping("siteSettings")
     public Result updateAll(@RequestBody Map<String, Object> map) {
         List<LinkedHashMap> siteSettings = (List<LinkedHashMap>) map.get("settings");

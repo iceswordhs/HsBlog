@@ -92,6 +92,15 @@ public class Result<T> {
         return new Result<>(codeType.getCode(),codeType.getMessage(), NullObject.INSTANCE);
     }
 
+    /**
+     * 失败方法，有message
+     * @param <T>
+     * @return
+     */
+    public static <T> Result<NullObject> fail(String message){
+        return new Result<>(200,message, NullObject.INSTANCE);
+    }
+
     ///**
     // * 失败方法，有数据
     // * @author huangshuai

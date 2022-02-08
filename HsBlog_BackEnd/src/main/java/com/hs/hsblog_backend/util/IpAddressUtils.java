@@ -74,10 +74,7 @@ public class IpAddressUtils {
     private void initIp2regionResource() {
         try {
             ClassPathResource classPathResource = new ClassPathResource("/ipdb/ip2region.db");
-            System.out.println(classPathResource.getFilename());
             InputStream inputStream = classPathResource.getInputStream();
-            System.out.println("*************************************************************");
-
             //将 ip2region.db 转为 ByteArray
             byte[] dbBinStr = FileCopyUtils.copyToByteArray(inputStream);
             DbConfig dbConfig = new DbConfig();

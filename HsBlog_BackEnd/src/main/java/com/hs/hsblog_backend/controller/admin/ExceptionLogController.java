@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.ExceptionLog;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.service.ExceptionLogService;
@@ -51,6 +52,7 @@ public class ExceptionLogController {
      * @param id 异常日志id
      * @return com.hs.hsblog_backend.util.Result
      */
+    @OperationAnnotation("根据Id删除操作日志")
     @DeleteMapping("/exceptionLog")
     public Result<NullObject> delete(@RequestParam Long id) {
         exceptionLogService.deleteExceptionLogById(id);

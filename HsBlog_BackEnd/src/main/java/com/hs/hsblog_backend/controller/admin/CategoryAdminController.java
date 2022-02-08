@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.service.CategoryService;
@@ -36,18 +37,21 @@ public class CategoryAdminController {
         return Result.success(categoryPageInfo);
     }
 
+    @OperationAnnotation("添加分类")
     @PostMapping("/addCategory")
     public Result<NullObject> addCategory(@RequestBody Category category){
         categoryService.addCategory(category);
         return Result.success();
     }
 
+    @OperationAnnotation("根据Id删除分类")
     @DeleteMapping("/deleteCategory")
     public Result<NullObject> deleteCategory(@RequestParam Long id){
         categoryService.deleteCategoryById(id);
         return Result.success();
     }
 
+    @OperationAnnotation("更新分类")
     @PostMapping("/updateCategory")
     public Result<NullObject> updateCategory(@RequestBody Category category){
         categoryService.updateCategory(category);

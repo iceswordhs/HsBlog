@@ -52,8 +52,11 @@ public class BlogController {
 
     @VisitLogger(behavior = "查看博客")
     @RequestMapping("/getBlogById")
-    public Result<Blog> getBlogById(@RequestParam Long id){
+    public Result getBlogById(@RequestParam Long id){
         Blog blogById = blogService.getBlogById(id);
+        if (blogById==null){
+            return Result.fail(CodeType.BLOG_EXIST);
+        }
         return Result.success(blogById);
     }
 }

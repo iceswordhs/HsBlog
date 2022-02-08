@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.NullObject;
@@ -35,6 +36,7 @@ public class BlogAdminController {
      * @param blog
      * @return com.hs.hsblog_backend.util.Result<String>
      */
+    @OperationAnnotation("/保存博客")
     @PostMapping("/saveBlog")
     public Result<String> saveBlog(@RequestBody Blog blog){
         String blogTitle = blogService.saveBlog(blog);
@@ -47,6 +49,7 @@ public class BlogAdminController {
         return Result.success(blogById);
     }
 
+    @OperationAnnotation("/按Id删除博客")
     @PostMapping("/deleteBlogById")
     public Result<NullObject> deleteBlogById(@RequestParam Long id){
         blogService.deleteBlogById(id);
@@ -68,12 +71,14 @@ public class BlogAdminController {
         return Result.success(map);
     }
 
+    @OperationAnnotation("更新博客置顶状态")
     @PostMapping("/updateBlogTop")
     public Result<NullObject> updateBlogTop(@RequestParam Long id, @RequestParam Boolean top){
         blogService.updateBlogTopById(id, top);
         return Result.success();
     }
 
+    @OperationAnnotation("更新博客公开状态")
     @PostMapping("/updateBlogPublished")
     public Result<NullObject> updateBlogPublished(@RequestParam Long id, @RequestParam Boolean published){
         blogService.updateBlogPublishedById(id, published);

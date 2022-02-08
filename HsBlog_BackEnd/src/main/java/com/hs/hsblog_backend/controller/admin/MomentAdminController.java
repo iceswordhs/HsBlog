@@ -1,6 +1,7 @@
 package com.hs.hsblog_backend.controller.admin;
 
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.Moment;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.service.MomentService;
@@ -20,12 +21,14 @@ public class MomentAdminController {
     @Autowired
     MomentService momentService;
 
+    @OperationAnnotation("添加动态")
     @PostMapping("/createMoment")
     public Result<NullObject> createMoment(@RequestBody Moment moment){
         momentService.createMoment(moment);
         return Result.success();
     }
 
+    @OperationAnnotation("更改动态")
     @PostMapping("/updateMoment")
     public Result<NullObject> updateMoment(@RequestBody Moment moment){
         momentService.updateMoment(moment);
@@ -46,12 +49,14 @@ public class MomentAdminController {
         return Result.success(moments);
     }
 
+    @OperationAnnotation("根据Id删除动态")
     @PostMapping("/deleteMoment")
     public Result<Long> deleteMoment(@RequestParam Long id){
         momentService.deleteMomentById(id);
         return Result.success(id);
     }
 
+    @OperationAnnotation("更新动态公开状态")
     @PostMapping("/updateMomentPublished")
     public Result<NullObject> updateMomentPublished(@RequestParam Long id,@RequestParam Boolean publish){
         momentService.updatePublishedById(id, publish);

@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.ScheduleJob;
 import com.hs.hsblog_backend.entity.ScheduleJobLog;
 import com.hs.hsblog_backend.service.ScheduleJobService;
@@ -46,7 +47,7 @@ public class ScheduleController {
      * @param scheduleJob
      * @return
      */
-    //@OperationLogger("新建定时任务")
+    @OperationAnnotation("新建定时任务")
     @PostMapping("/job")
     public Result saveJob(@RequestBody ScheduleJob scheduleJob) {
         scheduleJob.setStatus(false);
@@ -62,7 +63,7 @@ public class ScheduleController {
      * @param scheduleJob
      * @return
      */
-    //@OperationLogger("修改定时任务")
+    @OperationAnnotation("修改定时任务")
     @PutMapping("/job")
     public Result updateJob(@RequestBody ScheduleJob scheduleJob) {
         scheduleJob.setStatus(false);
@@ -77,7 +78,7 @@ public class ScheduleController {
      * @param jobId 任务id
      * @return
      */
-    //@OperationLogger("删除定时任务")
+    @OperationAnnotation("删除定时任务")
     @DeleteMapping("/job")
     public Result deleteJob(@RequestParam Long jobId) {
         scheduleJobService.deleteJobById(jobId);
@@ -90,7 +91,7 @@ public class ScheduleController {
      * @param jobId 任务id
      * @return
      */
-    //@OperationLogger("立即执行定时任务")
+    @OperationAnnotation("立即执行定时任务")
     @PostMapping("/job/run")
     public Result runJob(@RequestParam Long jobId) {
         scheduleJobService.runJobById(jobId);
@@ -104,7 +105,7 @@ public class ScheduleController {
      * @param status 状态
      * @return
      */
-    //@OperationLogger("更新任务状态")
+    @OperationAnnotation("更新任务状态")
     @PutMapping("/job/status")
     public Result updateJobStatus(@RequestParam Long jobId, @RequestParam Boolean status) {
         scheduleJobService.updateJobStatusById(jobId, status);
@@ -141,6 +142,7 @@ public class ScheduleController {
      * @param logId 日志id
      * @return
      */
+    @OperationAnnotation("按id删除任务日志")
     @DeleteMapping("/job/log")
     public Result delete(@RequestParam Long logId) {
         scheduleJobService.deleteJobLogByLogId(logId);

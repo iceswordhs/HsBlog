@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.entity.Tag;
 import com.hs.hsblog_backend.service.TagService;
@@ -37,18 +38,21 @@ public class TagAdminController {
         return Result.success(tagPageInfo);
     }
 
+    @OperationAnnotation("添加标签")
     @PostMapping("/addTag")
     public Result<NullObject> addTag(@RequestBody Tag tag){
         tagService.addTag(tag);
         return Result.success();
     }
 
+    @OperationAnnotation("更新标签")
     @PostMapping("/updateTag")
     public Result<NullObject> updateTag(@RequestBody Tag tag){
         tagService.updateTagById(tag);
         return Result.success();
     }
 
+    @OperationAnnotation("根据Id删除标签")
     @DeleteMapping("/deleteTagById")
     public Result<NullObject> deleteTagById(@RequestParam Long id){
         tagService.deleteTagById(id);

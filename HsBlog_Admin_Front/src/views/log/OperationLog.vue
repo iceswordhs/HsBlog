@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <!--搜索-->
     <el-form inline>
       <el-form-item label="操作时间">

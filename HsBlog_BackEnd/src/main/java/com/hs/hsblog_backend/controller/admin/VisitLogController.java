@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.OperationAnnotation;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.entity.VisitLog;
 import com.hs.hsblog_backend.service.VisitLogService;
@@ -54,6 +55,7 @@ public class VisitLogController {
      * @param id 日志Id
      * @return com.hs.hsblog_backend.util.Result
      */
+    @OperationAnnotation("按Id删除访问日志")
     @DeleteMapping("/visitLog")
     public Result<NullObject> delete(@RequestParam Long id) {
         visitLogService.deleteVisitLogById(id);

@@ -38,7 +38,7 @@ export default {
         if (res.data.code === 200) {
           this.about = res.data.data
         } else {
-          this.errorMsg(res.data.message)
+          this.errorMsg(res.data.message + ': ' + res.data.data)
         }
       }).catch(() => {
         this.errorMsg('请求失败')

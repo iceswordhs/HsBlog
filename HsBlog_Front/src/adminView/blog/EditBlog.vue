@@ -186,14 +186,14 @@ export default {
         if (res.data.code === 200) {
           this.tagList = res.data.data
         } else {
-          this.errorMsg(res.data.message)
+          this.errorMsg(res.data.message + ': ' + res.data.data)
         }
       })
       getAllCategories().then(res => {
         if (res.data.code === 200) {
           this.categoryList = res.data.data
         } else {
-          this.errorMsg(res.data.message)
+          this.errorMsg(res.data.message + ': ' + res.data.data)
         }
       })
     }

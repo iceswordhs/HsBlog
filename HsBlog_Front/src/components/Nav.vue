@@ -134,7 +134,7 @@ export default {
           }
           callback(this.queryResult)
         } else {
-          this.errorMsg(res.data.message)
+          this.errorMsg(res.data.message + ': ' + res.data.data)
         }
       }).catch(() => {
         this.errorMsg('请求失败')

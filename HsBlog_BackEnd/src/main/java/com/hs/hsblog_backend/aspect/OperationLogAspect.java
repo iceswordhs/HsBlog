@@ -42,7 +42,7 @@ public class OperationLogAspect {
      * @return
      * @throws Throwable
      */
-    @Around("logPointcut(operationAnnotation)")
+    @Around(value = "logPointcut(operationAnnotation)", argNames = "joinPoint,operationAnnotation")
     public Object logAround(ProceedingJoinPoint joinPoint, OperationAnnotation operationAnnotation) throws Throwable {
         currentTime.set(System.currentTimeMillis());
         Object result = joinPoint.proceed();

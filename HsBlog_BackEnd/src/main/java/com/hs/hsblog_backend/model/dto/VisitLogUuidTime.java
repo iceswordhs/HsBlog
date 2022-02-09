@@ -11,6 +11,16 @@ public class VisitLogUuidTime {
     private Date time;
     private Integer pv;
 
+    public VisitLogUuidTime(){
+
+    }
+
+    public VisitLogUuidTime(String uuid, Date date, Integer integer) {
+        this.uuid=uuid;
+        this.time=date;
+        this.pv=integer;
+    }
+
     public String getUuid() {
         return uuid;
     }

@@ -161,19 +161,19 @@ const routes = [
     meta:{title: '站点管理',icon: 'el-icon-picture'},
     children: [
       {
-        path: '/about',
+        path: 'about',
         name:'About',
         component:() => import('@/views/siteManage/About'),
         meta: {title: '关于我',icon: 'el-icon-picture'}
       },
       {
-        path: '/friend',
+        path: 'friend',
         name:'Friend',
         component:() => import('@/views/siteManage/FriendList'),
         meta: {title: '友链管理',icon: 'el-icon-picture'}
       },
       {
-        path: '/siteSetting',
+        path: 'siteSetting',
         name:'SiteSetting',
         component:() => import('@/views/siteManage/SiteSetting'),
         meta: {title: '页面设置',icon: 'el-icon-picture'}
@@ -189,7 +189,7 @@ const routes = [
     meta:{title: '系统设置',icon: 'el-icon-picture'},
     children: [
       {
-        path: '/scheduleList',
+        path: 'scheduleList',
         name:'ScheduleList',
         component:() => import('@/views/system/ScheduleJobList'),
         meta: {title: '定时任务',icon: 'el-icon-picture'}
@@ -198,36 +198,51 @@ const routes = [
   },
 
   {
-    path: '/log',
+    path: '/log/',
     name:'Log',
     component:Layout,
     meta:{title: '日志',icon: 'el-icon-picture'},
     children: [
       {
-        path: '/exceptionLog',
+        path: 'exceptionLog',
         name:'ExceptionLog',
         component:() => import('@/views/log/ExceptionLog'),
         meta: {title: '异常日志',icon: 'el-icon-picture'}
       },
       {
-        path: '/operationLog',
+        path: 'operationLog',
         name:'OperationLog',
         component:() => import('@/views/log/OperationLog'),
         meta: {title: '操作日志',icon: 'el-icon-picture'}
       },
       {
-        path: '/scheduleJobLog',
+        path: 'scheduleJobLog',
         name:'ScheduleJobLog',
         component:() => import('@/views/log/ScheduleJobLog'),
         meta: {title: '任务日志',icon: 'el-icon-picture'}
       },
       {
-        path: '/visitLog',
+        path: 'visitLog',
         name:'VisitLog',
         component:() => import('@/views/log/VisitLog'),
         meta: {title: '访客日志',icon: 'el-icon-picture'}
       }
     ]
+  },
+
+  {
+    path: '/dataStatistics',
+    name:'DataStatistics',
+    component:Layout,
+    meta:{title: '数据统计',icon: 'el-icon-picture'},
+    children: [
+      {
+        path: 'visitor',
+        name:'Visitor',
+        component:() => import('@/views/dataStatistics/Visitor'),
+        meta: {title: '访客统计',icon: 'el-icon-picture'}
+      }
+      ]
   },
 
   {

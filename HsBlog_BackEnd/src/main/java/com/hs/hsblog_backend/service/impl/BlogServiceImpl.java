@@ -99,6 +99,9 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog getBlogById(Long id) {
         Blog blog = blogMapper.getBlogById(id);
+        if (blog==null){
+            throw ServiceException.create("该博客不存在");
+        }
         updateViewsToRedis(id);
         processBlog(blog);
         return blog;

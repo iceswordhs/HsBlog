@@ -60,7 +60,7 @@ export default {
           this.friendList = res.data.data.friendItemList
           this.info = res.data.data
         } else {
-          this.errorMsg(res.data.message)
+          this.errorMsg(res.data.message + ': ' + res.data.data)
         }
       }).catch(() => {
         this.errorMsg('请求失败')

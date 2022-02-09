@@ -59,7 +59,7 @@ export default {
             this.blogMap = res.data.data.blogMap
             this.count = res.data.data.count
           } else {
-            this.errorMsg(res.data.message)
+            this.errorMsg(res.data.message + ': ' + res.data.data)
           }
         })
         .catch(() => {

@@ -55,4 +55,9 @@ public class AboutServiceImpl implements AboutService {
     private void deleteAboutRedisCache() {
         redisService.deleteCacheByKey(RedisKey.ABOUT_INFO_MAP);
     }
+
+    @Override
+    public Boolean getAboutCommentEnabled() {
+        return aboutMapper.getAboutCommentEnabled();
+    }
 }

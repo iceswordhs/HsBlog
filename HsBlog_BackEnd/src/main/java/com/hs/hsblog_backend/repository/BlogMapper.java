@@ -4,6 +4,7 @@ import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.model.dto.BlogView;
 import com.hs.hsblog_backend.model.vo.ArchiveBlog;
+import com.hs.hsblog_backend.model.vo.BlogIdAndTitle;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.model.vo.SearchBlog;
 import org.apache.ibatis.annotations.Mapper;
@@ -48,6 +49,14 @@ public interface BlogMapper {
     List<BlogView> getBlogViewsList();
 
     int updateViews(Long id, Integer views);
+
+    String getTitleById(Long id);
+
+    Boolean getCommentEnabledByBlogId(Long id);
+
+    Boolean getPublishedByBlogId(Long id);
+
+    List<BlogIdAndTitle> getIdAndTitleList();
 }
 
 

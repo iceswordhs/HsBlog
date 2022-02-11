@@ -49,6 +49,7 @@ public class JwtFilter extends GenericFilterBean {
             try{
             Claims tokenBody = JwtUtil.getTokenBody(jwt);
             String username = tokenBody.getSubject();
+                System.out.println("后台检查时username="+username);
             // 从token中获取对应权限
             List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) tokenBody.get("authorities"));
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,null, authorities);

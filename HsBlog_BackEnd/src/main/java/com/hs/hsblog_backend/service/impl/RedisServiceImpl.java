@@ -86,7 +86,7 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public <T> void saveListToValue(String key, List<T> list) {
-
+        redisTemplate.opsForValue().set(key, list);
     }
 
     @Override

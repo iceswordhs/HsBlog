@@ -6,7 +6,7 @@ export default {
   introduction: {
     avatar: '',
     name: 'Hs',
-    rollText: ['云鹤当归天，天不迎我妙木仙；', '游龙当归海，海不迎我自来也。']
+    rollText: []
   },
   badges: [{
     url: '',

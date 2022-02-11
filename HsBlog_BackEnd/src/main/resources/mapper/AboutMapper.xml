@@ -33,4 +33,7 @@
         <include refid="Base_Column_List"/>
         from about
     </select>
+    <select id="getAboutCommentEnabled" resultType="java.lang.Boolean">
+        select comment_enable from about
+    </select>
 </mapper>

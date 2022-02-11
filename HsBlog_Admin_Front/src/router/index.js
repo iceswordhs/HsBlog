@@ -104,7 +104,13 @@ const routes = [
         name: 'TagList',
         component: () => import('@/views/blog/tag/TagList'),
         meta: {title: '标签管理',icon: 'el-icon-edit'}
-      }
+      },
+      {
+        path: 'commentList',
+        name: 'CommentList',
+        component: () => import('@/views/blog/comment/CommentList'),
+        meta: {title: '评论管理',icon: 'el-icon-edit'}
+      },
     ]
   },
 

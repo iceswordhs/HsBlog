@@ -21,4 +21,6 @@ public interface AboutService {
     void updateAbout(About about);
 
     void insertAbout(About about);
+
+    Boolean getAboutCommentEnabled();
 }

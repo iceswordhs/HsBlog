@@ -206,4 +206,22 @@
           and (content like #{queryPattern}
           or title like #{queryPattern})
     </select>
+    <select id="getTitleById" resultType="java.lang.String">
+        select title
+        from blog
+        where id=#{id}
+    </select>
+    <select id="getCommentEnabledByBlogId" resultType="java.lang.Boolean">
+        select comment_enable
+        from blog
+        where id=#{id}
+    </select>
+    <select id="getPublishedByBlogId" resultType="java.lang.Boolean">
+        select published
+        from blog
+        where id=#{id}
+    </select>
+    <select id="getIdAndTitleList" resultType="com.hs.hsblog_backend.model.vo.BlogIdAndTitle">
+        select id,title from blog
+    </select>
 </mapper>

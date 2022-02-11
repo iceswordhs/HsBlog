@@ -9,6 +9,7 @@ import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.Tag;
 import com.hs.hsblog_backend.model.dto.BlogView;
 import com.hs.hsblog_backend.model.vo.ArchiveBlog;
+import com.hs.hsblog_backend.model.vo.BlogIdAndTitle;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.model.vo.SearchBlog;
 import com.hs.hsblog_backend.repository.BlogMapper;
@@ -335,6 +336,25 @@ public class BlogServiceImpl implements BlogService {
         deleteBlogRedisCache();
     }
 
+    @Override
+    public String getBlogTitleById(Long id) {
+        return blogMapper.getTitleById(id);
+    }
+
+    @Override
+    public Boolean getCommentEnabledByBlogId(Long id) {
+        return blogMapper.getCommentEnabledByBlogId(id);
+    }
+
+    @Override
+    public Boolean getPublishedByBlogId(Long id) {
+        return blogMapper.getPublishedByBlogId(id);
+    }
+
+    @Override
+    public List<BlogIdAndTitle> getIdAndTitleList() {
+        return blogMapper.getIdAndTitleList();
+    }
 
     /**
      * 删除首页缓存、最新推荐缓存、归档页面缓存、博客浏览量缓存

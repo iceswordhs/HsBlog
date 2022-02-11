@@ -98,7 +98,7 @@ public class Result<T> {
      * @return
      */
     public static <T> Result<NullObject> fail(String message){
-        return new Result<>(200,message, NullObject.INSTANCE);
+        return new Result<>(400,message, NullObject.INSTANCE);
     }
 
     ///**

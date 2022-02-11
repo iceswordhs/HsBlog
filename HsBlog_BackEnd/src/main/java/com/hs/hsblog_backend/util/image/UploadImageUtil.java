@@ -1,12 +1,16 @@
 package com.hs.hsblog_backend.util.image;
 
+import com.hs.hsblog_backend.constants.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -98,5 +102,89 @@ public class UploadImageUtil {
 
         // 返回url
         return String.format(cdnUrl4Github,githubUsername,githubRepos,folderPath,fileName);
+    }
+
+
+    static class ImageResource {
+        byte[] data;
+        //图片拓展名 jpg png
+        String type;
+
+        public byte[] getData() {
+            return data;
+        }
+
+        public void setData(byte[] data) {
+            this.data = data;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public ImageResource(byte[] data, String type) {
+            this.data=data;
+            this.type=type;
+        }
+    }
+
+    /**
+     * 通过url获取图片
+     * @author huangshuai
+     * @Date 2022/2/10 20:00
+     * @param url url
+     * @return com.hs.hsblog_backend.util.image.UploadImageUtil.ImageResource
+     */
+    public static ImageResource getImageByRequest(String url) {
+        ResponseEntity<byte[]> responseEntity = restTemplate.getForEntity(url, byte[].class);
+        if ("image".equals(responseEntity.getHeaders().getContentType().getType())) {
+            return new ImageResource(responseEntity.getBody(), responseEntity.getHeaders().getContentType().getSubtype());
+        }
+        throw new BadRequestException("返回的类型不是图片");
+    }
+
+    //public static String saveImage(ImageResource image) throws IOException {
+    //    File folder = new File(serverUploadPath);
+    //    if (!folder.exists()) {
+    //        folder.mkdirs();
+    //    }
+    //    String fileName = UUID.randomUUID() + "." + image.getType();
+    //    FileOutputStream fileOutputStream = new FileOutputStream(serverUploadPath + fileName);
+    //    fileOutputStream.write(image.getData());
+    //    fileOutputStream.close();
+    //    return serverUrl + "/image/" + fileName;
+    //}
+
+    /**
+     * 将图片上传至github
+     * @author huangshuai
+     * @Date 2022/2/10 20:03
+     * @param image 图片
+     * @return java.lang.String
+     */
+    public static String push2Github(ImageResource image) {
+        // 通过当前时间生成图片名
+        LocalDateTime time = LocalDateTime.now();
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        String format = timeFormatter.format(time);
+        String fileName = format+ "." + image.getType();
+        String url = String.format(githubUploadApi, githubUsername, githubRepos, githubReposPath, fileName);
+        String imgBase64 = Base64.getEncoder().encodeToString(image.getData());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Authorization", Collections.singletonList("token " + githubToken));
+
+        HashMap<String, String> body = new HashMap<>();
+        body.put("message", "Add image to HsResource");
+        body.put("content", imgBase64);
+
+        HttpEntity httpEntity = new HttpEntity(body, headers);
+        restTemplate.put(url, httpEntity);
+
+        return String.format(cdnUrl4Github, githubUsername, githubRepos, githubReposPath, fileName);
     }
 }

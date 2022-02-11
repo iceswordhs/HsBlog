@@ -10,7 +10,7 @@
               <Introduction :class="{'m-display-none':focusMode}"/>
             </div>
             <!--中间-->
-            <div class="nine wide column site">
+            <div class="ten wide column site">
               <keep-alive include="Home">
                 <router-view/>
               </keep-alive>
@@ -119,7 +119,7 @@ export default {
 .ui.grid .three.column {
   padding: 0;
 }
-.ui.grid .nine.column {
+.ui.grid .ten.column {
   padding-top: 0;
 }
 .m-display-none {

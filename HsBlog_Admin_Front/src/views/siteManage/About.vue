@@ -9,7 +9,7 @@
       <el-row :gutter="20" style="width: 50%">
         <el-col>
           <el-form-item label="评论开关">
-            <el-switch v-model="form.commentEnabled" active-text="评论"></el-switch>
+            <el-switch v-model="form.commentEnable" active-text="评论"></el-switch>
           </el-form-item>
         </el-col>
       </el-row>
@@ -34,15 +34,15 @@ export default {
   components:{SimplifyMarkdownEditor},
   data(){
     return{
-      about:{
-        title:'',
-        content:'',
-        commentEnable: false
-      },
+      // about:{
+      //   title:'',
+      //   content:'',
+      //   commentEnable: false
+      // },
       form: {
         title: '',
         content: '',
-        commentEnabled: false
+        commentEnable: true
       },
       formRules: {
         title: [{required: true, message: '请输入标题', trigger: 'change'}],

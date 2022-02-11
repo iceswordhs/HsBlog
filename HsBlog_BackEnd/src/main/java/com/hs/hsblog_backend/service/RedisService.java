@@ -18,7 +18,7 @@ public interface RedisService {
     // 将一个键值对保存到hash中
     void saveKVToHash(String key, Object field, Object value);
 
-    // 保存对象到hash中
+    // 保存对象到keyValue中
     void saveObjectToString(String key,Object object);
     // 根据key使value增长
     void incrementByKey(String key, int increment);

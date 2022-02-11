@@ -5,6 +5,7 @@ import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.Tag;
 import com.hs.hsblog_backend.model.vo.ArchiveBlog;
+import com.hs.hsblog_backend.model.vo.BlogIdAndTitle;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.model.vo.SearchBlog;
 
@@ -48,6 +49,13 @@ public interface BlogService {
 
     void updateBlogPublishedById(Long id,Boolean published);
 
+    String getBlogTitleById(Long id);
+
+    Boolean getCommentEnabledByBlogId(Long id);
+
+    Boolean getPublishedByBlogId(Long id);
+
+    List<BlogIdAndTitle> getIdAndTitleList();
 
     // Redis
     void updateViewsToRedis(Long blogId);

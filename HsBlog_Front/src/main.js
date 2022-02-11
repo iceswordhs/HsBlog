@@ -22,6 +22,9 @@ import Viewer from 'v-viewer'
 import './assets/css/typo.css'
 import './assets/css/base.css'
 
+// 防抖节流js
+import './util/directive'
+
 Vue.use(SuiVue)
 Vue.use(Viewer)
 Vue.use(ElementUI)

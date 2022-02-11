@@ -1,7 +1,10 @@
 package com.hs.hsblog_backend.config;
 
+import com.hs.hsblog_backend.interceptor.AccessLimitInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -11,6 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    @Autowired
+    AccessLimitInterceptor accessLimitInterceptor;
+
     /**
      * 配置拦截器支持跨域
      * @author huangshuai
@@ -24,5 +30,14 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowedMethods("GET","POST","PUT","DELETE","HEAD","OPTIONS")
                 .maxAge(3600);
+    }
+
+    /**
+     * 添加请求限制拦截器
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(accessLimitInterceptor);
     }
 }

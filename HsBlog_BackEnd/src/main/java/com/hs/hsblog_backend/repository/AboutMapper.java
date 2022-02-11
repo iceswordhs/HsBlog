@@ -13,6 +13,8 @@ public interface AboutMapper {
     About findAbout();
 
     void updateAbout(About about);
+
+    Boolean getAboutCommentEnabled();
 }
 
 

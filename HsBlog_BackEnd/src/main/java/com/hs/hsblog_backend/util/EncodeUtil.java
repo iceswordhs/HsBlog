@@ -1,5 +1,6 @@
 package com.hs.hsblog_backend.util;
 
+import org.apache.commons.codec.digest.MurmurHash3;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -15,5 +16,11 @@ public class EncodeUtil {
 
     public static boolean matchPassword(CharSequence rawPassword,String encodePassword){
         return bc.matches(rawPassword, encodePassword);
+    }
+
+    public static long getMurmurHash32(String str) {
+        int i = MurmurHash3.hash32(str);
+        long num = i < 0 ? Integer.MAX_VALUE - (long) i : i;
+        return num;
     }
 }

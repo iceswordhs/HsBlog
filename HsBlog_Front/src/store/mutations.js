@@ -30,7 +30,7 @@ export default {
   [SAVE_COMMENT_RESULT] (state, data) {
     state.allComment = data.allComment
     state.closeComment = data.closeComment
-    state.commentTotalPage = data.comments.totalPage
+    state.commentTotalPage = data.comments.total
     state.comments = data.comments.list
   },
   [SET_COMMENT_QUERY_PAGE] (state, page) {

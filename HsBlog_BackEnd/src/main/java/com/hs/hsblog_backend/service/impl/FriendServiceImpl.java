@@ -38,6 +38,12 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
+    public PageInfo<FriendItem> getPublishedFriendList(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize,orderBy);
+        return new PageInfo<>(friendItemMapper.getFriendItemList());
+    }
+
+    @Override
     public Friend getFriendInfo() {
         return friendMapper.getFriendInfo();
     }
@@ -46,31 +52,48 @@ public class FriendServiceImpl implements FriendService {
     public void saveFriendItem(FriendItem friendItem) {
         friendItem.setCreateTime(new Date());
         friendItemMapper.saveFriendItem(friendItem);
+
+        // 删除Redis缓存
+        deleteRedisCache();
     }
 
     @Override
     public void updateFriendItem(FriendItem friendItem) {
         friendItemMapper.updateFriendItem(friendItem);
+        // 删除Redis缓存
+        deleteRedisCache();
     }
 
     @Override
     public void deleteFriendItemById(Long id) {
         friendItemMapper.deleteFriendItemById(id);
+
+        // 删除Redis缓存
+        deleteRedisCache();
     }
 
     @Override
     public void updatePublishedById(Long id) {
         friendItemMapper.deleteFriendItemById(id);
+
+        // 删除Redis缓存
+        deleteRedisCache();
     }
 
     @Override
     public void updateContent(String content) {
         friendMapper.updateContent(content);
+
+        // 删除Redis缓存
+        deleteRedisCache();
     }
 
     @Override
     public void updateCommentEnable(Boolean commentEnable) {
         friendMapper.updateCommentEnable(commentEnable);
+
+        // 删除Redis缓存
+        deleteRedisCache();
     }
 
 
@@ -79,7 +102,7 @@ public class FriendServiceImpl implements FriendService {
         String friendInfoMap = RedisKey.FRIEND_INFO_MAP;
         Friend friendResult = redisService.getObjectByKeyFromString(friendInfoMap, Friend.class);
         if (friendResult!=null) return friendResult;
-        List<FriendItem> friendItemList = friendItemMapper.getFriendItemList();
+        List<FriendItem> friendItemList = friendItemMapper.getPublishedFriendItemList();
         Friend friend = friendMapper.getFriendInfo();
         friend.setFriendItemList(friendItemList);
         redisService.saveObjectToString(friendInfoMap,friend);
@@ -91,5 +114,9 @@ public class FriendServiceImpl implements FriendService {
         if(friendItemMapper.updateViewsByNickName(nickName)!=1){
             throw new PersistenceException("更新友链点击数失败");
         }
+    }
+
+    private void deleteRedisCache(){
+        redisService.deleteCacheByKey(RedisKey.FRIEND_INFO_MAP);
     }
 }

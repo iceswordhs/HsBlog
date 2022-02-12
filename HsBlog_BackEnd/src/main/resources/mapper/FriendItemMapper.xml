@@ -38,6 +38,12 @@
         from friend_item
     </select>
 
+    <select id="getPublishedFriendItemList" resultMap="FriendItem">
+        select
+        <include refid="Base_Column_List"/>
+        from friend_item
+        where published=true
+    </select>
     <update id="updateViewsByNickName">
         update friend_item set views=views+1 where nickname=#{nickName}
     </update>

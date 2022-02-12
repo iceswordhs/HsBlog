@@ -18,6 +18,12 @@ public interface AboutService {
      */
     About getAboutInfo();
 
+    /**
+     * 管理页面获取About
+     * @return
+     */
+    public About getAboutInfoManage();
+
     void updateAbout(About about);
 
     void insertAbout(About about);

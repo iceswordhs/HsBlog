@@ -14,6 +14,8 @@ import java.util.List;
 public interface FriendService {
     PageInfo<FriendItem> getFriendList(Integer pageNum, Integer pageSize);
 
+    PageInfo<FriendItem> getPublishedFriendList(Integer pageNum, Integer pageSize);
+
     Friend getFriendInfo();
 
     void saveFriendItem(FriendItem friendItem);

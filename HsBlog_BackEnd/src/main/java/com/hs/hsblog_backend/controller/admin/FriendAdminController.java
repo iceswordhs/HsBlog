@@ -53,7 +53,7 @@ public class FriendAdminController {
     @OperationAnnotation("更新友链公开状态")
     @PostMapping("friendItem/published")
     public Result<NullObject> updatePublishedById(@RequestParam Long id){
-        friendService.deleteFriendItemById(id);
+        friendService.updatePublishedById(id);
         return Result.success();
     }
 

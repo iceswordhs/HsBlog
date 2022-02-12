@@ -37,6 +37,11 @@ public class AboutServiceImpl implements AboutService {
     }
 
     @Override
+    public About getAboutInfoManage() {
+        return aboutMapper.findAbout();
+    }
+
+    @Override
     public void updateAbout(About about) {
         about.setUpdateTime(new Date());
         aboutMapper.updateAbout(about);

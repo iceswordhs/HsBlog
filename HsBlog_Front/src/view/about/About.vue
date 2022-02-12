@@ -5,7 +5,7 @@
 <!--      <meting-js server="netease" type="song" :id="about.musicId" theme="#25CCF7" v-if="about.musicId!==''"></meting-js>-->
       <div class="typo content m-margin-top-large" v-viewer v-html="about.content"></div>
     </div>
-    评论
+    <!--评论-->
     <div class="ui bottom teal attached segment threaded comments">
       <CommentList :page="1" :blogId="null" v-if="about.commentEnable===true"/>
       <h3 class="ui header" v-else>评论已关闭</h3>

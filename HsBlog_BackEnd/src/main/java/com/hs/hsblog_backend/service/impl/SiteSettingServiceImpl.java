@@ -138,6 +138,9 @@ public class SiteSettingServiceImpl implements SiteSettingService {
                 saveOneSiteSetting(siteSetting);
             }
         }
+
+        // 删除Redis缓存
+        deleteRedisCache();
     }
 
     @Transactional
@@ -159,5 +162,9 @@ public class SiteSettingServiceImpl implements SiteSettingService {
         if (siteSettingMapper.deleteById(id) != 1) {
             throw new PersistenceException("配置删除失败");
         }
+    }
+
+    private void deleteRedisCache(){
+        redisService.deleteCacheByKey(RedisKey.SITE_INFO_MAP);
     }
 }

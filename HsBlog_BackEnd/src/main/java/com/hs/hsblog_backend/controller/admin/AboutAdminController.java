@@ -23,7 +23,7 @@ public class AboutAdminController {
 
     @RequestMapping("/about")
     public Result<About> getAbout(){
-        return Result.success(aboutService.getAboutInfo());
+        return Result.success(aboutService.getAboutInfoManage());
     }
 
     @OperationAnnotation("修改关于我页面")

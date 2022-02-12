@@ -20,8 +20,6 @@ import java.util.List;
 public class MomentServiceImpl implements MomentService {
     @Autowired
     MomentMapper momentMapper;
-    @Autowired
-    RedisService redisService;
 
     //每页显示5条动态
     private static final int pageSize = 5;

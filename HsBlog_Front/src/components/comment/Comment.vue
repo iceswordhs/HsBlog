@@ -30,12 +30,10 @@
             <div class="metadata">
               <strong class="date">{{ reply.createTime | dateFormat('YYYY-MM-DD HH:mm') }}</strong>
             </div>
+            <el-button size="mini" type="primary" @click="setReply(reply.id)">回复</el-button>
             <div class="text">
               <a :href="`#comment-${reply.parentCommentId}`">@{{ reply.parentCommentNickname }}</a>
               <div v-html="reply.content"></div>
-            </div>
-            <div class="actions">
-              <el-button size="mini" type="primary" @click="setReply(reply.id)">回复</el-button>
             </div>
           </div>
           <CommentForm v-if="parentCommentId===reply.id"/>
@@ -83,7 +81,7 @@ export default {
 }
 
 .comment {
-  padding-right: 2em !important;
+  padding-right: 1em !important;
   padding-left: 1em !important;
 }
 
@@ -103,6 +101,18 @@ export default {
   top: -48px;
 }
 
+.comments .comment:first-child {
+  margin-top: 0 !important;
+}
+
+.comment .comments .comment {
+  box-shadow: 0 0 5px rgb(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 12px;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
 .comment .comments .comment > .anchor {
   top: -55px;
 }
@@ -114,7 +124,6 @@ export default {
 
 .ui.comments .comment .text {
   white-space: pre-wrap !important;
-  margin-top: 7px;
   line-height: 1.5;
 }
 
@@ -137,9 +146,5 @@ export default {
 
 .comment .form {
   margin-top: 20px;
-}
-
-.content {
-text-align: left;
 }
 </style>

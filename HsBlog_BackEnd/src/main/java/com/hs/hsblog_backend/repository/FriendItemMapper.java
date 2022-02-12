@@ -12,6 +12,8 @@ import java.util.List;
 public interface FriendItemMapper {
     List<FriendItem> getFriendItemList();
 
+    List<FriendItem> getPublishedFriendItemList();
+
     void saveFriendItem(FriendItem friendItem);
 
     void updateFriendItem(FriendItem friendItem);

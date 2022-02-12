@@ -178,9 +178,9 @@ export default {
         if (res.code === 200) {
           this.deleteIds = []
           this.getData()
-          this.successMsg(res.msg)
+          this.successMsg(res.message)
         } else {
-          this.errorMsg(res.msg)
+          this.errorMsg(res.message)
         }
       }).catch(() => {
         this.errorMsg("请求失败")

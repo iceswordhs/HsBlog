@@ -95,7 +95,6 @@ import {SET_FOCUS_MODE, SET_IS_BLOG_RENDER_COMPLETE} from '@/store/mutations-typ
 export default {
   name: 'Blog',
   components: {CommentList},
-  // components: {CommentList},
   data () {
     return {
       blog: {},

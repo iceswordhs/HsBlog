@@ -42,7 +42,6 @@
   </div>
 </template>
 <script>
-import myCard from '@/view/index/MyCard'
 import Nav from '@/components/Nav'
 import Footer from '@/view/index/Footer'
 import BlogItem from '@/view/blog/BlogItem'
@@ -58,7 +57,7 @@ import {SAVE_CLIENT_SIZE, SAVE_INTRODUCTION, RESTORE_COMMENT_FORM} from '@/store
 
 export default {
   name: 'Index',
-  components: {TagCloud, Nav, myCard, Footer, BlogItem, Tocbot, MyAPlayer, TimeLife, Introduction},
+  components: {TagCloud, Nav, Footer, BlogItem, Tocbot, MyAPlayer, TimeLife, Introduction},
   data () {
     return {
       siteInfo: {

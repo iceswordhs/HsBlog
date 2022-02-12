@@ -5,16 +5,9 @@ import Home from '@/view/index/Home'
 import Index from '@/view/index/Index'
 import Comment from '@/view/comment/Comment'
 
-// import Blog from '../view/blog/Blog'
-
-import Login from '@/adminView/Login'
-import AdminHome from '@/adminView/AdminHome'
-import Dashboard from '@/adminView/dashboard/Dashboard'
-import EditBlog from '@/adminView/blog/EditBlog'
-
 // import {SAVE_NAV_STATE} from '@/store/mutations-types'
 import store from '@/store'
-import MyBlogItem from '../view/myblog/MyBlogItem'
+// import MyBlogItem from '../view/myblog/MyBlogItem'
 
 Vue.use(Router)
 
@@ -23,14 +16,6 @@ const routes = [
     path: '/comment',
     name: 'Comment',
     component: Comment
-  },
-  {
-    path: '/admin/login',
-    name: 'Login',
-    component: Login,
-    meta: {
-      title: '登录'
-    }
   },
   {
     path: '/',
@@ -101,39 +86,16 @@ const routes = [
         meta: {
           title: '动态'
         }
-      },
-      {
-        path: '/testBlog',
-        name: 'TestBlog',
-        component: MyBlogItem,
-        meta: {
-          title: '动态'
-        }
       }
-    ]
-  },
-  {
-    path: '/admin',
-    name: '后台管理',
-    component: AdminHome,
-    redirect: '/admin/dashboard',
-    children: [
-      {
-        path: '/admin/dashboard',
-        name: '仪表盘',
-        meta: {
-          title: '仪表盘'
-        },
-        component: Dashboard
-      },
-      {
-        path: '/admin/editblog',
-        name: 'editblog',
-        meta: {
-          title: '写博客'
-        },
-        component: EditBlog
-      }
+      // ,
+      // {
+      //   path: '/testBlog',
+      //   name: 'TestBlog',
+      //   component: MyBlogItem,
+      //   meta: {
+      //     title: '动态'
+      //   }
+      // }
     ]
   }
 ]
@@ -147,13 +109,6 @@ const router = new Router({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  // // 如果没有登录，自动跳转到登录页面
-  // if (to.path !== '/admin/login') {
-  //   // 获取token
-  //   const tokenStr = window.localStorage.getItem('token')
-  //   if (!tokenStr) return next('/admin/login')
-  // }
-
   // 如果要跳转的页面有标题
   if (to.meta.title) {
     // 如果网站标题前缀存在

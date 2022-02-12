@@ -36,13 +36,13 @@
               </div>
               <div class="emoji-tabs">
                 <a class="tab-link" :class="{'on':activeEmojiTab===0}" @click="activeEmojiTab=0">
-                  <img src="https://cdn.jsdelivr.net/gh/Naccl/blog-resource/img/tv/1.png">
+                  <img src="https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/tv/1.png">
                 </a>
                 <a class="tab-link" :class="{'on':activeEmojiTab===1}" @click="activeEmojiTab=1">
-                  <img src="https://cdn.jsdelivr.net/gh/Naccl/blog-resource/img/aru/1.png">
+                  <img src="https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/aru/1.png">
                 </a>
                 <a class="tab-link" :class="{'on':activeEmojiTab===2}" @click="activeEmojiTab=2">
-                  <img src="https://cdn.jsdelivr.net/gh/Naccl/blog-resource/img/paopao/1.png">
+                  <img src="https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/paopao/1.png">
                 </a>
               </div>
             </div>

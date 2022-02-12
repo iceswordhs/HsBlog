@@ -1,9 +1,9 @@
 import {
   SAVE_COMMENT_RESULT,
   SET_PARENT_COMMENT_ID,
-  RESET_COMMENT_FORM,
-  SET_BLOG_PASSWORD_DIALOG_VISIBLE,
-  SET_BLOG_PASSWORD_FORM
+  RESET_COMMENT_FORM
+  // SET_BLOG_PASSWORD_DIALOG_VISIBLE,
+  // SET_BLOG_PASSWORD_FORM
 } from './mutations-types'
 
 import {getCommentListByQuery, submitComment} from '@/api/comment'
@@ -16,7 +16,6 @@ import paopaoMapper from '@/plugins/paopaoMapper.json'
 
 export default {
   getCommentList ({commit, rootState}) {
-    console.log('方法getCommentList被调用')
     // 密码保护的文章，需要发送密码验证通过后保存在localStorage的Token
     const blogToken = window.localStorage.getItem(`blog${rootState.commentQuery.blogId}`)
     // 如果有则发送博主身份Token
@@ -40,7 +39,6 @@ export default {
     }
 
     getCommentListByQuery(token, rootState.commentQuery).then(res => {
-      console.log('getCommentListByQuery被调用' + res.data.code)
       if (res.data.code === 200) {
         // let sanitizeHtmlConfig = {
         //   allowedTags: [],
@@ -48,7 +46,6 @@ export default {
         //   disallowedTagsMode: 'recursiveEscape'
         // }
         res.data.data.comments.list.forEach(comment => {
-          console.log(comment)
           // 转义评论中的html
           // comment.content = sanitizeHtml(comment.content, sanitizeHtmlConfig)
           // 查找评论中是否有表情
@@ -64,7 +61,6 @@ export default {
             }
           })
         })
-        console.log(res.data.data)
         commit(SAVE_COMMENT_RESULT, res.data.data)
       }
     }).catch(() => {
@@ -108,8 +104,8 @@ export default {
       if (adminToken || blogToken) {
         return router.push(`/blog/${blog.id}`)
       }
-      commit(SET_BLOG_PASSWORD_FORM, {blogId: blog.id, password: ''})
-      commit(SET_BLOG_PASSWORD_DIALOG_VISIBLE, true)
+      // commit(SET_BLOG_PASSWORD_FORM, {blogId: blog.id, password: ''})
+      // commit(SET_BLOG_PASSWORD_DIALOG_VISIBLE, true)
     } else {
       router.push(`/blog/${blog.id}`)
     }

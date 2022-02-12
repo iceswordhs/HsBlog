@@ -10,8 +10,8 @@ import {
   SET_COMMENT_QUERY_PAGE,
   SET_COMMENT_QUERY_BLOG_ID,
   SET_IS_BLOG_RENDER_COMPLETE,
-  SET_BLOG_PASSWORD_DIALOG_VISIBLE,
-  SET_BLOG_PASSWORD_FORM,
+  // SET_BLOG_PASSWORD_DIALOG_VISIBLE,
+  // SET_BLOG_PASSWORD_FORM,
   SET_FOCUS_MODE,
   SET_IS_BLOG_TO_HOME,
   SAVE_CLIENT_SIZE
@@ -67,12 +67,12 @@ export default {
   [SET_IS_BLOG_RENDER_COMPLETE] (state, ok) {
     state.isBlogRenderComplete = ok
   },
-  [SET_BLOG_PASSWORD_DIALOG_VISIBLE] (state, visible) {
-    state.blogPasswordDialogVisible = visible
-  },
-  [SET_BLOG_PASSWORD_FORM] (state, form) {
-    state.blogPasswordForm = form
-  },
+  // [SET_BLOG_PASSWORD_DIALOG_VISIBLE] (state, visible) {
+  //   state.blogPasswordDialogVisible = visible
+  // },
+  // [SET_BLOG_PASSWORD_FORM] (state, form) {
+  //   state.blogPasswordForm = form
+  // },
   [SET_FOCUS_MODE] (state, focusMode) {
     state.focusMode = focusMode
   },

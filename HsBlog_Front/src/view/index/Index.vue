@@ -114,7 +114,7 @@ export default {
   width: 1400px!important;
   margin-left: auto !important;
   margin-right: auto !important;
-  text-align: center;
+  text-align: left;
 }
 .ui.grid .three.column {
   padding: 0;

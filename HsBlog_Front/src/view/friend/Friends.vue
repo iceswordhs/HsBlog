@@ -23,7 +23,7 @@
     </div>
     <!--评论-->
     <div class="ui bottom teal attached segment threaded comments">
-      <CommentList :page="2" :blogId="null" v-if="info.commentEnabled"/>
+      <CommentList :page="2" :blogId="null" v-if="info.commentEnable"/>
       <h3 class="ui header" v-else>评论已关闭</h3>
     </div>
   </div>
@@ -31,11 +31,11 @@
 
 <script>
 import {getData, addViewsByNickname} from '@/api/friend'
-// import CommentList from '@/components/comment/CommentList'
+import CommentList from '@/components/comment/CommentList'
 
 export default {
   name: 'Friends',
-  // components: {CommentList},
+  components: {CommentList},
   data () {
     return {
       friendList: [],

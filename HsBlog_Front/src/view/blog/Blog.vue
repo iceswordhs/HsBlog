@@ -79,21 +79,22 @@
       </ul>
     </div>
     <!--评论-->
-<!--    <div class="ui bottom teal attached segment threaded comments">-->
-<!--      <CommentList :page="0" :blogId="blogId" v-if="blog.commentEnabled"/>-->
-<!--      <h3 class="ui header" v-else>评论已关闭</h3>-->
-<!--    </div>-->
+    <div class="ui bottom teal attached segment threaded comments">
+      <CommentList :page="0" :blogId="blogId" v-if="blog.commentEnable"/>
+      <h3 class="ui header" v-else>评论已关闭</h3>
+    </div>
   </div>
 </template>
 
 <script>
 import {getBlogById} from '@/api/blog'
-// import CommentList from '@/components/comment/CommentList'
+import CommentList from '@/components/comment/CommentList'
 import {mapState} from 'vuex'
 import {SET_FOCUS_MODE, SET_IS_BLOG_RENDER_COMPLETE} from '@/store/mutations-types'
 
 export default {
   name: 'Blog',
+  components: {CommentList},
   // components: {CommentList},
   data () {
     return {

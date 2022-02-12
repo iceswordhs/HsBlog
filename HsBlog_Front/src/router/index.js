@@ -64,7 +64,7 @@ const routes = [
       },
       {
         path: '/friends',
-        name: 'About',
+        name: 'Friends',
         component: () => import('@/view/friend/Friends'),
         meta: {
           title: '友链'

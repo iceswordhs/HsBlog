@@ -215,7 +215,7 @@ export default {
       })
     },
     goLogPage () {
-      this.$router.push('/log/job')
+      this.$router.push('/log/scheduleJobLog')
     }
   }
 }

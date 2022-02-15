@@ -32,7 +32,7 @@ export function saveBlog (blog) {
 
 export function deleteBlogById(id){
   return axios({
-    url:'',
+    url:'deleteBlogById',
     method:'POST',
     params:{
       id
@@ -45,7 +45,7 @@ export function getDataByQuery(queryInfo){
     url:'manageBlog',
     method:'GET',
     params:{
-      queryInfo
+      ...queryInfo
     }
   })
 }

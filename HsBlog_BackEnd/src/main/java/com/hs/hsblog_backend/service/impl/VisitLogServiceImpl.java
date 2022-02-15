@@ -22,7 +22,6 @@ import java.util.Map;
  */
 @Service
 public class VisitLogServiceImpl implements VisitLogService {
-    private final static Logger log=LoggerFactory.getLogger(VisitLogServiceImpl.class);
 
     @Autowired
     VisitLogMapper visitLogMapper;
@@ -43,7 +42,6 @@ public class VisitLogServiceImpl implements VisitLogService {
     @Override
     public void saveVisitLog(VisitLog log) {
         String ipSource = IpAddressUtils.getCityInfo(log.getIp());
-        System.out.println("****************************"+ipSource+"*************");
         Map<String, String> userAgentMap = userAgentUtils.parseOsAndBrowser(log.getUserAgent());
         String os = userAgentMap.get("os");
         String browser = userAgentMap.get("browser");

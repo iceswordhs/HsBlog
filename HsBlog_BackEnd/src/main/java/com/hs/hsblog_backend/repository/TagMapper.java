@@ -18,7 +18,7 @@ public interface TagMapper {
 
     Tag findByIdOrName(Tag tag);
 
-    Tag addTag(Tag tag);
+    void addTag(Tag tag);
 
     void deleteTagById(Long tagId);
 

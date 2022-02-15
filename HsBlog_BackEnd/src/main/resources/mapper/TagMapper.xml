@@ -33,7 +33,7 @@
         where tag_name=#{tagName} or tag_id=#{tagId}
     </select>
 
-    <insert id="addTag" useGeneratedKeys="true" keyColumn="tag_id" parameterType="tag">
+    <insert id="addTag" useGeneratedKeys="true" keyColumn="tag_id" parameterType="tag" keyProperty="tagId">
         insert into tag(tag_name,color) values(#{tagName},#{color})
     </insert>
 

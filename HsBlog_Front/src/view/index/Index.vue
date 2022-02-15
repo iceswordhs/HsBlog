@@ -34,7 +34,7 @@
     </div>
     <!--回到顶部-->
     <el-backtop style="box-shadow: none;background: none;">
-      <img src="/assets/img/paper-plane.png" style="width: 40px;height: 40px;">
+      <img src="/static/paper-plane.png" style="width: 40px;height: 40px;">
     </el-backtop>
     <!--底部footer-->
     <Footer :siteInfo="siteInfo" :badges="badges"></Footer>

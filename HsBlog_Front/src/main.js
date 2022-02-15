@@ -30,6 +30,7 @@ Vue.use(Viewer)
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+// axios.defaults.baseURL = 'https://backend.smarths.cn'
 axios.defaults.baseURL = 'http://localhost:10000'
 Vue.prototype.$axios = axios
 

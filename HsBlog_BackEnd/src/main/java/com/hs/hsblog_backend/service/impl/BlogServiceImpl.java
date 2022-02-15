@@ -13,10 +13,7 @@ import com.hs.hsblog_backend.model.vo.BlogIdAndTitle;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.model.vo.SearchBlog;
 import com.hs.hsblog_backend.repository.BlogMapper;
-import com.hs.hsblog_backend.service.BlogService;
-import com.hs.hsblog_backend.service.CategoryService;
-import com.hs.hsblog_backend.service.RedisService;
-import com.hs.hsblog_backend.service.TagService;
+import com.hs.hsblog_backend.service.*;
 import com.hs.hsblog_backend.util.JacksonUtils;
 import com.hs.hsblog_backend.util.StringUtils;
 import com.hs.hsblog_backend.util.commarkUtil.MarkDownToHTMLUtil;
@@ -223,9 +220,15 @@ public class BlogServiceImpl implements BlogService {
         List<Tag> tags = tagService.saveNewBlogTags(blog.getTags());
 
         // 设置更新时间
-        blog.setCreateTime(new Date());
         blog.setUpdateTime(new Date());
-        blogMapper.saveBlog(blog);
+        // 如果是新建
+        if (blogMapper.getBlogById(blog.getId())==null){
+            blog.setCreateTime(new Date());
+            blogMapper.saveBlog(blog);
+        }else {
+            blogMapper.updateBlogById(blog);
+        }
+
         Long blogId = blog.getId();
 
         // 维护blog-tag表
@@ -308,7 +311,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlogById(Long id) {
         // 删除blog
-        blogMapper.deleteBlogTag(id);
+        blogMapper.deleteBlogById(id);
         // 维护blog_tag表
         blogMapper.deleteBlogTag(id);
         // 清除缓存

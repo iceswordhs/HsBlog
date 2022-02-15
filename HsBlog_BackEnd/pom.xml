@@ -9,6 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hs</groupId>
+    <!-- 打包成jar包 -->
+    <packaging>jar</packaging>
     <artifactId>HsBlog_BackEnd</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>HsBlog_BackEnd</name>

@@ -71,7 +71,7 @@
                          :filterable="true"
                          style="width: 100%;">
                 <el-option :label="item.name"
-                           :value="item.id"
+                           :value="item.name"
                            v-for="item in categoryList"
                            :key="item.id"></el-option>
               </el-select>

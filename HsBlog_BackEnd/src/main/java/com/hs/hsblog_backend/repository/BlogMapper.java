@@ -32,6 +32,8 @@ public interface BlogMapper {
 
     void deleteBlogTag(Long blogId);
 
+    void deleteBlogById(Long blogId);
+
     List<BlogListItem> getBlogByTagId(Long tagId);
 
     List<Blog> getBlogByCategory(Category category);
@@ -57,6 +59,8 @@ public interface BlogMapper {
     Boolean getPublishedByBlogId(Long id);
 
     List<BlogIdAndTitle> getIdAndTitleList();
+
+    void updateBlogById(Blog blog);
 }
 
 

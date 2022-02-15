@@ -44,6 +44,12 @@
     <update id="updateViews">
         update blog set views=#{views} where id=#{id}
     </update>
+    <update id="updateBlogById">
+        update blog set title=#{title},home_picture=#{homePicture},description=#{description},
+                        content=#{content},update_time=#{updateTime},views=#{views},words=#{words},
+                        published=#{published},top=#{top},comment_enable=#{commentEnable}
+                where id=#{id}
+    </update>
 
 
     <resultMap id="blogListItem" type="com.hs.hsblog_backend.model.vo.BlogListItem">
@@ -109,6 +115,9 @@
     <delete id="deleteBlogTag">
         delete from blog_tag where blog_id=#{blogId}
     </delete>
+    <delete id="deleteBlogById">
+        delete from blog where id=#{blogId}
+    </delete>
 
     <!--根据标签Id查询博客-->
     <select id="getBlogByTagId" resultMap="blogListItem">
@@ -158,7 +167,7 @@
         order by create_time desc
     </select>
     <select id="getBlogListByTitleAndCategoryId" resultMap="blog">
-        <bind name="title" value="'%'+title+'%'"/>
+        <bind name="titlePattern" value="'%'+title+'%'"/>
         select
         b.id id ,b.title,b.home_picture,
         b.content,
@@ -169,10 +178,10 @@
         from blog b join category c on b.category_id = c.id
         <where>
             <if test="title!=null and title!=''">
-                b.title like #{title}
+                b.title like #{titlePattern}
             </if>
             <if test="categoryId!=null">
-                c.category_id=#{categoryId}
+                and b.category_id=#{categoryId}
             </if>
         </where>
     </select>

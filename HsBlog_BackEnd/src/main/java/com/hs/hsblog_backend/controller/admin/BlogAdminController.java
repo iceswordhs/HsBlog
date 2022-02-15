@@ -8,6 +8,7 @@ import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.service.BlogService;
 import com.hs.hsblog_backend.service.CategoryService;
+import com.hs.hsblog_backend.service.CommentService;
 import com.hs.hsblog_backend.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,8 @@ public class BlogAdminController {
     BlogService blogService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    CommentService commentService;
 
     /**
      * 保存博客  前端传入 文章标题、分类、标签、描述、公开或私密、正文、文章展示图
@@ -53,6 +56,8 @@ public class BlogAdminController {
     @PostMapping("/deleteBlogById")
     public Result<NullObject> deleteBlogById(@RequestParam Long id){
         blogService.deleteBlogById(id);
+        // 清除评论
+        commentService.deleteCommentsByBlogId(id);
         return Result.success();
     }
 

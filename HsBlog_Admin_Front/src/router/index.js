@@ -85,31 +85,31 @@ const routes = [
         path: 'blogList',
         name: 'BlogList',
         component: () => import('@/views/blog/blog/BLogList'),
-        meta: {title: '文章管理',icon: 'el-icon-edit'}
+        meta: {title: '文章管理',icon: 'el-icon-s-order'}
       },
       {
         path: 'momentList',
         name: 'MomentList',
         component: () => import('@/views/blog/moment/MomentList'),
-        meta: {title: '动态管理',icon: 'el-icon-edit'}
+        meta: {title: '动态管理',icon: 'el-icon-chat-dot-round'}
       },
       {
         path: 'categoryList',
         name: 'CategoryList',
         component: () => import('@/views/blog/category/CategoryList'),
-        meta: {title: '分类管理',icon: 'el-icon-edit'}
+        meta: {title: '分类管理',icon: 'el-icon-s-opportunity'}
       },
       {
         path: 'tagList',
         name: 'TagList',
         component: () => import('@/views/blog/tag/TagList'),
-        meta: {title: '标签管理',icon: 'el-icon-edit'}
+        meta: {title: '标签管理',icon: 'biaoqian'}
       },
       {
         path: 'commentList',
         name: 'CommentList',
         component: () => import('@/views/blog/comment/CommentList'),
-        meta: {title: '评论管理',icon: 'el-icon-edit'}
+        meta: {title: '评论管理',icon: 'el-icon-s-comment'}
       },
     ]
   },
@@ -164,25 +164,25 @@ const routes = [
     name:'siteManage',
     redirect: '/siteManage/about',
     component:Layout,
-    meta:{title: '站点管理',icon: 'el-icon-picture'},
+    meta:{title: '站点管理',icon: 'el-icon-document-copy'},
     children: [
       {
         path: 'about',
         name:'About',
         component:() => import('@/views/siteManage/About'),
-        meta: {title: '关于我',icon: 'el-icon-picture'}
+        meta: {title: '关于我',icon: 'el-icon-tickets'}
       },
       {
         path: 'friend',
         name:'Friend',
         component:() => import('@/views/siteManage/FriendList'),
-        meta: {title: '友链管理',icon: 'el-icon-picture'}
+        meta: {title: '友链管理',icon: 'friend'}
       },
       {
         path: 'siteSetting',
         name:'SiteSetting',
         component:() => import('@/views/siteManage/SiteSetting'),
-        meta: {title: '页面设置',icon: 'el-icon-picture'}
+        meta: {title: '页面设置',icon: 'bianjizhandian'}
       }
     ]
   },
@@ -192,13 +192,13 @@ const routes = [
     name:'System',
     redirect: '/system/scheduleList',
     component:Layout,
-    meta:{title: '系统设置',icon: 'el-icon-picture'},
+    meta:{title: '系统设置',icon: 'el-icon-s-tools'},
     children: [
       {
         path: 'scheduleList',
         name:'ScheduleList',
         component:() => import('@/views/system/ScheduleJobList'),
-        meta: {title: '定时任务',icon: 'el-icon-picture'}
+        meta: {title: '定时任务',icon: 'el-icon-alarm-clock'}
       }
     ]
   },
@@ -207,31 +207,31 @@ const routes = [
     path: '/log/',
     name:'Log',
     component:Layout,
-    meta:{title: '日志',icon: 'el-icon-picture'},
+    meta:{title: '日志',icon: 'el-icon-document'},
     children: [
       {
         path: 'exceptionLog',
         name:'ExceptionLog',
         component:() => import('@/views/log/ExceptionLog'),
-        meta: {title: '异常日志',icon: 'el-icon-picture'}
+        meta: {title: '异常日志',icon: 'el-icon-document-delete'}
       },
       {
         path: 'operationLog',
         name:'OperationLog',
         component:() => import('@/views/log/OperationLog'),
-        meta: {title: '操作日志',icon: 'el-icon-picture'}
+        meta: {title: '操作日志',icon: 'el-icon-document-checked'}
       },
       {
         path: 'scheduleJobLog',
         name:'ScheduleJobLog',
         component:() => import('@/views/log/ScheduleJobLog'),
-        meta: {title: '任务日志',icon: 'el-icon-picture'}
+        meta: {title: '任务日志',icon: 'el-icon-alarm-clock'}
       },
       {
         path: 'visitLog',
         name:'VisitLog',
         component:() => import('@/views/log/VisitLog'),
-        meta: {title: '访客日志',icon: 'el-icon-picture'}
+        meta: {title: '访客日志',icon: 'el-icon-data-line'}
       }
     ]
   },
@@ -240,120 +240,15 @@ const routes = [
     path: '/dataStatistics',
     name:'DataStatistics',
     component:Layout,
-    meta:{title: '数据统计',icon: 'el-icon-picture'},
+    meta:{title: '数据统计',icon: 'el-icon-s-data'},
     children: [
       {
         path: 'visitor',
         name:'Visitor',
         component:() => import('@/views/dataStatistics/Visitor'),
-        meta: {title: '访客统计',icon: 'el-icon-picture'}
+        meta: {title: '访客统计',icon: 'el-icon-s-marketing'}
       }
       ]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
   },
 
   // 404 page must be placed at the end !!!

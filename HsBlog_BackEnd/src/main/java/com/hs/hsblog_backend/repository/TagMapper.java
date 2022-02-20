@@ -1,6 +1,7 @@
 package com.hs.hsblog_backend.repository;
 
 import com.hs.hsblog_backend.entity.Blog;
+import com.hs.hsblog_backend.model.vo.TagBlogCount;
 import org.apache.ibatis.annotations.Mapper;
 import com.hs.hsblog_backend.entity.Tag;
 
@@ -23,4 +24,6 @@ public interface TagMapper {
     void deleteTagById(Long tagId);
 
     List<Tag> getTagByBlogId(Long blogId);
+
+    List<TagBlogCount> getTagBlogCount();
 }

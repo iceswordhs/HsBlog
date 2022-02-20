@@ -60,6 +60,10 @@ public interface BlogMapper {
     List<BlogIdAndTitle> getIdAndTitleList();
 
     void updateBlogById(Blog blog);
+
+    List<CategoryBlogCount> getCategoryBlogCountList();
+
+    Integer countBlog();
 }
 
 

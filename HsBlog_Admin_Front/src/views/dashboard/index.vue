@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <el-row class="panel-group" :gutter="50">
       <el-col :span="6">
         <el-card class="card-panel" body-style="padding: 0">
@@ -80,7 +80,7 @@ import echarts from 'echarts'
 import 'echarts/map/js/china'
 import {getDashboard} from "@/api/dashboard";
 //城市经纬度数据来自 https://github.com/Naccl/region2coord
-import geoCoordMap from '@/util/city2coord.json'
+import geoCoordMap from '@/utils/city2coord.json'
 
 export default {
   name: "Dashboard",

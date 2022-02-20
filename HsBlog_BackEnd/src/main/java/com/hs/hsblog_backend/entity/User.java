@@ -1,13 +1,21 @@
 package com.hs.hsblog_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * User实体类
  * @author huangshuai
  * @Date 2021/11/30 14:11
  */
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
     /**
      * id
      */
@@ -69,6 +77,38 @@ public class User implements Serializable {
     private String role;
 
     private static final long serialVersionUID = 1L;
+
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorityList = new ArrayList<>();
+        authorityList.add(new SimpleGrantedAuthority(role));
+        return authorityList;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     /**
      * 
@@ -236,7 +276,7 @@ public class User implements Serializable {
 
     }
 
-    public User(String username,String password){
+    public User(String username,String password) {
         this.username=username;
         this.password=password;
     }

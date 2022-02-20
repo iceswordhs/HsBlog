@@ -105,7 +105,7 @@ public class SiteSettingServiceImpl implements SiteSettingService {
         List<SiteSetting> siteSettingByType = siteSettingMapper.getSiteSettingByType(1);
         HashMap<String, Object> map = new HashMap<>();
         for (SiteSetting setting : siteSettingByType) {
-            map.put(setting.getNameEn(),setting);
+            map.put(setting.getNameEn(),setting.getValue());
         }
         return map;
     }

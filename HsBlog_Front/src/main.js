@@ -36,7 +36,9 @@ Vue.prototype.$axios = axios
 
 // 添加拦截器
 axios.interceptors.request.use(function (config) {
-  config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token')
+  const adminToken = window.localStorage.getItem('adminToken')
+  const token = adminToken || ''
+  config.headers.Authorization = 'Bearer ' + token
   return config
 }, function (error) {
   return Promise.reject(error)

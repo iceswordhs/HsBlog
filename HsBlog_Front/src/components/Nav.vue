@@ -3,7 +3,7 @@
   <div class="ui fixed inverted stackable pointing menu">
     <div class="ui container">
       <router-link to="/">
-        <h3 class="ui header item blue">{{ blogName }}</h3>
+        <h3 class="ui header item m-blue">{{ blogName }}</h3>
       </router-link>
       <router-link to="/home" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Home'}">
         <i class="home icon"></i>首页

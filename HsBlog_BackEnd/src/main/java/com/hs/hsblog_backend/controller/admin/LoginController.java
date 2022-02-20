@@ -21,7 +21,6 @@ import java.util.Map;
  * @author Hs
  * @Date 2021/11/30 19:44
  */
-@RestController
 public class LoginController {
     @Autowired
     UserService userService;

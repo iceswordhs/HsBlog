@@ -17,8 +17,8 @@
             </div>
             <!--右侧-->
             <div class="three wide column m-mobile-hide decorator">
-<!--              <RandomBlog :randomBlogList="randomBlogList" :class="{'m-display-none':focusMode}"/>-->
-              <TagCloud :class="{'m-display-none':focusMode}"/>
+              <RandomBlog :randomBlogList="randomBlogList" :class="{'m-display-none':focusMode}"/>
+              <TagCloud :tagList="tagList" :class="{'m-display-none':focusMode}"/>
               <TimeLife :class="{'m-display-none':focusMode}"/>
               <!--只在文章页面显示目录-->
               <Tocbot v-if="$route.name==='Blog'"/>
@@ -37,8 +37,7 @@
       <img src="/static/paper-plane.png" style="width: 40px;height: 40px;">
     </el-backtop>
     <!--底部footer-->
-    <Footer :siteInfo="siteInfo" :badges="badges"></Footer>
-<!--    <Footer :siteInfo="siteInfo" :badges="badges" :newBlogList="newBlogList" :hitokoto="hitokoto"/>-->
+    <Footer :siteInfo="siteInfo" :badges="badges" :newBlogList="newBlogList"/>
   </div>
 </template>
 <script>
@@ -50,21 +49,24 @@ import MyAPlayer from '@/view/index/MyAPlayer'
 import TagCloud from '@/view/tag/TagCloud'
 import TimeLife from '@/view/index/TimeLife'
 import Introduction from '@/view/index/Introduction'
+import RandomBlog from '@/view/index/RandomBlog'
 
 import {getSite} from '@/api/index'
 import {mapState} from 'vuex'
-import {SAVE_CLIENT_SIZE, SAVE_INTRODUCTION, RESTORE_COMMENT_FORM} from '@/store/mutations-types'
+import {SAVE_CLIENT_SIZE, SAVE_SITE_INFO, SAVE_INTRODUCTION, RESTORE_COMMENT_FORM} from '@/store/mutations-types'
 
 export default {
   name: 'Index',
-  components: {TagCloud, Nav, Footer, BlogItem, Tocbot, MyAPlayer, TimeLife, Introduction},
+  components: {TagCloud, RandomBlog, Nav, Footer, BlogItem, Tocbot, MyAPlayer, TimeLife, Introduction},
   data () {
     return {
       siteInfo: {
         blogName: ''
       },
+      randomBlogList: [],
       categoryList: [],
       tagList: [],
+      newBlogList: [],
       badges: []
     }
   },
@@ -87,11 +89,17 @@ export default {
     getSite () {
       getSite().then(res => {
         if (res.data.code === 200) {
+          console.log(res.data.data)
           this.siteInfo = res.data.data.siteSetting
-          this.siteInfo.copyright.value = JSON.parse(this.siteInfo.copyright.value)
+          this.siteInfo.copyright = JSON.parse(this.siteInfo.copyright)
           this.badges = res.data.data.badges
+          this.newBlogList = res.data.data.newBlogList
+          this.randomBlogList = res.data.data.randomBlogList
+          this.tagList = res.data.data.tagList
+          console.log(this.tagList)
+          this.$store.commit(SAVE_SITE_INFO, this.siteInfo)
           this.$store.commit(SAVE_INTRODUCTION, res.data.data.introduction)
-          // document.title = this.$route.meta.title + this.siteInfo.webTitleSuffix
+          document.title = this.$route.meta.title + this.siteInfo.webTitleSuffix
         }
       })
     }

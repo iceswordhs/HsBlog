@@ -17,7 +17,7 @@ public class SiteSettingController {
     @Autowired
     SiteSettingService siteSettingService;
 
-    @GetMapping("site")
+    //@GetMapping("site")
     public Result<Map<String, Object>> getSite(){
         Map<String, Object> site = siteSettingService.getSite();
         return Result.success(site);

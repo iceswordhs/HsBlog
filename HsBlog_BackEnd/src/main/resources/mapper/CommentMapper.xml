@@ -65,7 +65,7 @@
         <result property="avatar" column="avatar"/>
         <result property="createTime" column="create_time"/>
         <result property="website" column="website"/>
-        <result property="adminComment" column="is_admin_comment"/>
+        <result property="adminComment" column="admin_comment"/>
         <result property="parentCommentId" column="parent_comment_id"/>
         <result property="parentCommentNickname" column="parent_comment_nickname"/>
     </resultMap>

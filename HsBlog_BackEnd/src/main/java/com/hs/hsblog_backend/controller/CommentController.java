@@ -136,9 +136,7 @@ public class CommentController {
         if (JwtUtil.checkTokenIsNotNull(jwt)) {
             String subject;
             try {
-                System.out.println(jwt);
                 Claims body = JwtUtil.getTokenBody(jwt);
-                System.out.println("body="+body);
                 subject = body.getSubject();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -148,7 +146,6 @@ public class CommentController {
             if (subject.startsWith("admin:")) {
                 //Token验证通过，获取Token中用户名
                 String username = subject.replace("admin:", "");
-                System.out.println("username="+username);
                 User admin = (User) userService.loadUserByUsername(username);
                 if (admin == null) {
                     return Result.fail("博主身份Token已失效，请重新登录！");

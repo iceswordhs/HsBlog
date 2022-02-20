@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
-/dist
 
+dist
 
 # local env files
 .env.local
@@ -73,8 +73,6 @@ target/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
-/dist/
-/nbdist/
 /.nb-gradle/
 build/
 !**/src/main/**/build/

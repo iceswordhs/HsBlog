@@ -65,10 +65,11 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         String token = JwtUtil.generateToken(authResult.getName(), authResult.getAuthorities());
         Map<String,Object> map=new HashMap<>(4);
         // Principal SpringSecurity中的主体，谁使用系统谁就是主体
-        //System.out.println(authResult.getPrincipal());
-        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) authResult.getPrincipal();
-        User user = new User(principal.getUsername(), principal.getPassword());
-        user.setAvatarImgUrl("https://typoraimage.smarths.cn/faivon.jpeg");
+        System.out.println(authResult.getPrincipal());
+        //org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) authResult.getPrincipal();
+        //User user = new User(principal.getUsername(), principal.getPassword());
+        //user.setAvatarImgUrl("https://typoraimage.smarths.cn/faivon.jpeg");
+        User user=(User) authResult.getPrincipal();
         //System.out.println("自定义User"+user);
         map.put("user",user);
         map.put("token",token);

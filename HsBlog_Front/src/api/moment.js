@@ -5,8 +5,7 @@ export function getMomentListByPageNum (token, pageNum) {
     url: 'moment',
     method: 'GET',
     params: {
-      pageNum: pageNum,
-      jwt: token
+      pageNum: pageNum
     }
   })
 }

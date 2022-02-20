@@ -3,7 +3,7 @@
     <div class="ui segments m-box">
       <div class="ui card">
         <div class="image">
-          <img :src="introduction.avatar.value">
+          <img :src="introduction.introductionImg.value">
         </div>
         <div class="content" align="center">
           <div class="header">{{ introduction.name }}</div>

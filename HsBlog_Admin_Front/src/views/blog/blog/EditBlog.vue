@@ -106,6 +106,9 @@
           <el-col>
             <el-switch v-model="article.published" active-text="公开"></el-switch>
           </el-col>
+          <el-col>
+            <el-switch v-model="article.recommend" active-text="推荐"></el-switch>
+          </el-col>
         </el-row>
         <el-row type="flex" justify="center" :gutter="20" style="margin-top: 20px">
           <el-button @click="saveArticles"
@@ -135,8 +138,8 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      categoryList: [{ id: 1, name: '生活随笔' }, { id: 2, name: '人生感悟' }, { id: 3, name: '学习技术' }],
-      tagList: [{ name: 'springboot', tagId: 'springboot' }, { name: 'springboot2', tagId: 'springboot2' }, { name: 'springboot3', tagId: 'springboot3' }],
+      categoryList: [{ id: 2, name: '人生感悟' }, { id: 3, name: '学习技术' }],
+      tagList: [{ name: 'springboot', tagId: 'springboot' }],
       article: {
         // 文章标题
         title: '',
@@ -161,6 +164,8 @@ export default {
         top: false,
         // 是否公开
         published: true,
+        // 是否推荐
+        recommend: true,
         //是否开启评论,
         commentEnable:true
       },
@@ -208,7 +213,7 @@ export default {
     getBlog(id) {
       getBlogById(id).then(res => {
         if (res.code === 200) {
-          this.computeCategoryAndTag(res.data)
+          //this.computeCategoryAndTag(res.data)
           this.article = res.data
           // this.radio = this.form.published ? (this.form.password !== '' ? 3 : 1) : 2
           this.successMsg(res.message)
@@ -220,8 +225,8 @@ export default {
       })
     },
     computeCategoryAndTag(blog) {
-      blog.cate = blog.category.id
-      blog.tagList = []
+      // blog.category = blog.category.id
+      blog.tags = []
       blog.tags.forEach(item => {
         blog.tagList.push(item.id)
       })

@@ -15,6 +15,7 @@
             <result property="views" column="views" jdbcType="INTEGER"/>
             <result property="words" column="words" jdbcType="INTEGER"/>
             <result property="published" column="published" jdbcType="BOOLEAN"/>
+            <result property="recommend" column="recommend" javaType="BOOLEAN"/>
             <result property="top" column="top" jdbcType="BOOLEAN"/>
             <result property="commentEnable" column="comment_enable" jdbcType="BOOLEAN"/>
         <!--关联查询文章类别-->
@@ -47,7 +48,7 @@
     <update id="updateBlogById">
         update blog set title=#{title},home_picture=#{homePicture},description=#{description},
                         content=#{content},update_time=#{updateTime},views=#{views},words=#{words},
-                        published=#{published},top=#{top},comment_enable=#{commentEnable}
+                        published=#{published},recommend=#{recommend},top=#{top},comment_enable=#{commentEnable}
                 where id=#{id}
     </update>
 
@@ -103,8 +104,8 @@
     </select>
 
     <insert id="saveBlog" parameterType="blog" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into blog(title,home_picture,description,content,category_id,create_time,update_time,views,words,published,top,comment_enable)
-        values(#{title},#{homePicture},#{description},#{content},#{category.id},#{createTime},#{updateTime},#{views},#{words},#{published},#{top},#{commentEnable})
+        insert into blog(title,home_picture,description,content,category_id,create_time,update_time,views,words,published,recommend,top,comment_enable)
+        values(#{title},#{homePicture},#{description},#{content},#{category.id},#{createTime},#{updateTime},#{views},#{words},#{published},#{recommend},#{top},#{commentEnable})
     </insert>
 
 
@@ -132,13 +133,13 @@
         where tag_id=#{tagId} and published=true
     </select>
 
-    <select id="getBlogByCategory" resultMap="blog">
+    <select id="getBlogByCategory" resultMap="blogListItem">
         select
             b.id id ,b.title,b.home_picture,
             b.content,
             b.description,
-            b.create_time,b.update_time,
-            b.views,b.words,b.published,b.top,b.comment_enable,
+            b.create_time,
+            b.views,b.words,b.published,b.top,
             c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
         where (b.category_id=#{id} or c.categoryName=#{name}) and published=true
@@ -191,7 +192,7 @@
             b.content,
             b.description,
             b.create_time,b.update_time,
-            b.views,b.words,b.published,b.top,b.comment_enable,
+            b.views,b.words,b.published,b.recommend,b.top,b.comment_enable,
             c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
         where b.id=#{id} and b.published=true
@@ -232,5 +233,19 @@
     </select>
     <select id="getIdAndTitleList" resultType="com.hs.hsblog_backend.model.vo.BlogIdAndTitle">
         select id,title from blog
+    </select>
+
+    <resultMap id="randomBlog" type="com.hs.hsblog_backend.model.vo.RandomBlog">
+        <result property="title" column="title"/>
+        <result property="id" column="id"/>
+        <result property="firstPicture" column="id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="getRandomBlogListByLimitNumAndIsPublishedAndIsRecommend"
+            resultMap="randomBlog">
+        select id,title,home_picture,create_time from blog
+        where published=true and recommend=true
+        order by rand() limit #{limitNum}
     </select>
 </mapper>

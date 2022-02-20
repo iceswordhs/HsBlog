@@ -42,4 +42,9 @@ public class BlogServiceTest {
         List<BlogListItem> allBlog = blogMapper.findAllBlog();
         System.out.println(allBlog.get(0));
     }
+
+    @Test
+    void testRandomBlog(){
+        System.out.println(blogService.getRandomBlogListByLimitNumAndIsPublishedAndIsRecommend());
+    }
 }

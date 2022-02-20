@@ -4,6 +4,7 @@ export default {
     beian: {}
   },
   introduction: {
+    introductionImg: '',
     avatar: '',
     name: 'Hs',
     rollText: []

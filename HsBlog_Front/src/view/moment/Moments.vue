@@ -7,7 +7,7 @@
       <div class="moments">
         <div class="moment" v-for="(moment,index) in momentList" :key="index">
           <div class="avatar">
-            <img :src="$store.state.introduction.avatar">
+            <img :src="$store.state.introduction.avatar.value">
           </div>
           <div class="ui card">
             <div class="content m-top">
@@ -63,15 +63,12 @@ export default {
   },
   methods: {
     getMomentList () {
-      // 如果有则发送博主身份Token
-      const adminToken = window.sessionStorage.getItem('adminToken')
-      const token = adminToken || ''
-      getMomentListByPageNum(token, this.pageNum).then(res => {
+      getMomentListByPageNum(this.pageNum).then(res => {
         if (res.data.code === 200) {
           this.momentList = res.data.data.list
           this.totalPage = res.data.data.pages
         } else {
-          this.errorMsg(res.data.message + ': ' + res.data.data)
+          this.errorMsg(res.data.message)
         }
       }).catch(() => {
         this.errorMsg('请求失败')

@@ -70,6 +70,11 @@ public class Blog implements Serializable {
     private Boolean published;
 
     /**
+     * 是否推荐观看
+     */
+    private Boolean recommend;
+
+    /**
      * 是否置顶
      */
     private Boolean top;
@@ -250,6 +255,20 @@ public class Blog implements Serializable {
     }
 
     /**
+     * 公开或私密
+     */
+    public Boolean getRecommend() {
+        return recommend;
+    }
+
+    /**
+     * 公开或私密
+     */
+    public void setRecommend(Boolean recommend) {
+        this.recommend = recommend;
+    }
+
+    /**
      * 是否置顶
      */
     public Boolean getTop() {
@@ -291,6 +310,7 @@ public class Blog implements Serializable {
                 ", views=" + views +
                 ", words=" + words +
                 ", published=" + published +
+                ", recommend=" + recommend +
                 ", top=" + top +
                 ", commentEnable=" + commentEnable +
                 '}';

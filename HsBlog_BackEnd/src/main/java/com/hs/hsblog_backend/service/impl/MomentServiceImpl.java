@@ -43,8 +43,10 @@ public class MomentServiceImpl implements MomentService {
         PageHelper.startPage(pageNum,pageSize,orderBy);
         List<Moment> moments = momentMapper.findAllMoment();
         for (Moment moment : moments) {
-            if (!moment.getPublished()) moment.setContent(PRIVATE_MOMENT_CONTENT);
-            moment.setContent(MarkDownToHTMLUtil.markdownToHtml(moment.getContent()));
+            if (adminIdentity||moment.getPublished())
+                moment.setContent(MarkDownToHTMLUtil.markdownToHtml(moment.getContent()));
+            else
+                moment.setContent(PRIVATE_MOMENT_CONTENT);
         }
         return new PageInfo<>(moments);
     }

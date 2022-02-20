@@ -18,6 +18,11 @@ const routes = [
     component: Comment
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/view/Login')
+  },
+  {
     path: '/',
     name: 'Index',
     component: Index,

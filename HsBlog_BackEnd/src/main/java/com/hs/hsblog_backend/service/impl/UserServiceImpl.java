@@ -29,11 +29,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.findByUsername(username);
-        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                // commaSeparatedStringToAuthorityList的意思是逗号分隔的String转换为权限list
-                .commaSeparatedStringToAuthorityList(user.getRole());
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),user.getPassword(),grantedAuthorities);
+        //List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+        //        // commaSeparatedStringToAuthorityList的意思是逗号分隔的String转换为权限list
+        //        .commaSeparatedStringToAuthorityList(user.getRole());
+        if (user==null){
+            throw new UsernameNotFoundException("用户不存在!");
+        }
+        return user;
     }
 
     @Override

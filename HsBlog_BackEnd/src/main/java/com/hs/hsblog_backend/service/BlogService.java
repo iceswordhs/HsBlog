@@ -4,10 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.Tag;
-import com.hs.hsblog_backend.model.vo.ArchiveBlog;
-import com.hs.hsblog_backend.model.vo.BlogIdAndTitle;
-import com.hs.hsblog_backend.model.vo.BlogListItem;
-import com.hs.hsblog_backend.model.vo.SearchBlog;
+import com.hs.hsblog_backend.model.vo.*;
 
 import java.util.List;
 import java.util.Map;
@@ -41,6 +38,8 @@ public interface BlogService {
      */
     Map<String,Object> getArchiveBlogIsPublished();
 
+    List<RandomBlog> getRandomBlogListByLimitNumAndIsPublishedAndIsRecommend();
+
     void deleteBlogById(Long id);
 
     List<Blog> getBlogListByTitleAndCategoryId(String title, Long categoryId);
@@ -56,6 +55,8 @@ public interface BlogService {
     Boolean getPublishedByBlogId(Long id);
 
     List<BlogIdAndTitle> getIdAndTitleList();
+
+    List<BlogIdAndTitle> getNewBlogListByIsPublished();
 
     // Redis
     void updateViewsToRedis(Long blogId);

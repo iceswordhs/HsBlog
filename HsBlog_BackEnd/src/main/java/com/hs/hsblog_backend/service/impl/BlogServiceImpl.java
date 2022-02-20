@@ -8,10 +8,7 @@ import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
 import com.hs.hsblog_backend.entity.Tag;
 import com.hs.hsblog_backend.model.dto.BlogView;
-import com.hs.hsblog_backend.model.vo.ArchiveBlog;
-import com.hs.hsblog_backend.model.vo.BlogIdAndTitle;
-import com.hs.hsblog_backend.model.vo.BlogListItem;
-import com.hs.hsblog_backend.model.vo.SearchBlog;
+import com.hs.hsblog_backend.model.vo.*;
 import com.hs.hsblog_backend.repository.BlogMapper;
 import com.hs.hsblog_backend.service.*;
 import com.hs.hsblog_backend.util.JacksonUtils;
@@ -41,6 +38,10 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     RedisService redisService;
 
+    //随机博客显示5条
+    private static final int randomBlogLimitNum = 5;
+    //最新博客显示3条
+    private static final int newBlogPageSize = 3;
     // 博客简介列表排序方式
     private static final String orderBy = "top desc, create_time desc";
     private static final Integer pageSize=5;
@@ -307,6 +308,11 @@ public class BlogServiceImpl implements BlogService {
         return map;
     }
 
+    @Override
+    public List<RandomBlog> getRandomBlogListByLimitNumAndIsPublishedAndIsRecommend() {
+        return blogMapper.getRandomBlogListByLimitNumAndIsPublishedAndIsRecommend(randomBlogLimitNum);
+    }
+
     @Transactional
     @Override
     public void deleteBlogById(Long id) {
@@ -357,6 +363,19 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<BlogIdAndTitle> getIdAndTitleList() {
         return blogMapper.getIdAndTitleList();
+    }
+
+    @Override
+    public List<BlogIdAndTitle> getNewBlogListByIsPublished() {
+        String redisKey = RedisKey.NEW_BLOG_LIST;
+        List<BlogIdAndTitle> newBlogListFromRedis = redisService.getListByValue(redisKey);
+        if (newBlogListFromRedis != null) {
+            return newBlogListFromRedis;
+        }
+        PageHelper.startPage(1, newBlogPageSize);
+        List<BlogIdAndTitle> newBlogList = blogMapper.getIdAndTitleList();
+        redisService.saveListToValue(redisKey, newBlogList);
+        return newBlogList;
     }
 
     /**

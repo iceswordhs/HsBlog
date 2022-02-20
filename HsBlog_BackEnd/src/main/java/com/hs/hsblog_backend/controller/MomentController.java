@@ -9,6 +9,7 @@ import com.hs.hsblog_backend.util.JwtUtil;
 import com.hs.hsblog_backend.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,11 +34,12 @@ public class MomentController {
         boolean adminIdentity = false;
         if (JwtUtil.checkTokenIsNotNull(jwt)) {
             try {
+                System.out.println(jwt);
                 String subject = JwtUtil.getTokenBody(jwt).getSubject();
                 System.out.println(subject);
                 if (subject.startsWith("admin:")) {//博主身份Token
                     String username = subject.replace("admin:", "");
-                    User admin = (User) userService.loadUserByUsername(username);
+                    UserDetails admin = userService.loadUserByUsername(username);
                     if (admin != null) {
                         adminIdentity = true;
                     }

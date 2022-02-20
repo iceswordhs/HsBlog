@@ -11,26 +11,12 @@
 </template>
 
 <script>
-import {getAllTags} from '../../api/tag'
 export default {
   name: 'TagCloud',
-  data () {
-    return {
-      tagList: []
-    }
-  },
-  mounted () {
-    this.setTagList()
-  },
-  methods: {
-    setTagList () {
-      getAllTags().then(res => {
-        if (res.data.code === 200) {
-          this.tagList = res.data.data
-        } else {
-          this.errorMsg(res.data.message + ': ' + res.data.data)
-        }
-      })
+  props: {
+    tagList: {
+      type: Array,
+      required: true
     }
   }
 }

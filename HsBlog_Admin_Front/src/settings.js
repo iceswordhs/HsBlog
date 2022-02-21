@@ -5,7 +5,7 @@ module.exports = {
    * 在main.js中引入 这个store
    */
 
-  title: 'HsBlog',
+  title: 'Icesword Blog',
 
   /**
    * @type {boolean} true | false
@@ -23,5 +23,5 @@ module.exports = {
    * @type {string}
    * @description logo URL
    */
-  logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
+  logo: 'https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/image/网站后台图标.png',
 }

@@ -70,6 +70,10 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         //User user = new User(principal.getUsername(), principal.getPassword());
         //user.setAvatarImgUrl("https://typoraimage.smarths.cn/faivon.jpeg");
         User user=(User) authResult.getPrincipal();
+        user.setPassword(null);
+        user.setTrueName(null);
+        user.setBirthday(null);
+        user.setPhone(null);
         //System.out.println("自定义User"+user);
         map.put("user",user);
         map.put("token",token);

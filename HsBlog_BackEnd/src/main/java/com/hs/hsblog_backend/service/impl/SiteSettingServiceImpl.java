@@ -85,7 +85,7 @@ public class SiteSettingServiceImpl implements SiteSettingService {
                 map.put("rollText",rollTexts);
                 continue;
             }
-            map.put(setting.getNameEn(),setting);
+            map.put(setting.getNameEn(),setting.getValue());
         }
         map.put("customizes",customizes);
         return map;

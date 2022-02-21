@@ -64,6 +64,13 @@ public class MarkDownToHTMLUtil {
             if (node instanceof TableBlock) {
                 attributes.put("class", "ui celled table");//针对 semantic-ui 的class属性
             }
+            // 如果节点是代码块并且没有对应的language，将其设置为java
+            if (node instanceof FencedCodeBlock) {
+                String nodeClass = attributes.get("class");
+                if (nodeClass==null||!nodeClass.contains("language")){
+                    attributes.put("class","language-java");
+                }
+            }
         }
     }
 

@@ -1,48 +1,46 @@
 <template lang="html">
-<div>
-  <div class="ui fixed inverted stackable pointing menu">
-    <div class="ui container">
-      <router-link to="/">
-        <h3 class="ui header item m-blue">{{ blogName }}</h3>
-      </router-link>
-      <router-link to="/home" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Home'}">
-        <i class="home icon"></i>首页
-      </router-link>
-      <el-dropdown trigger="click" @command="categoryRoute">
-        <span class="el-dropdown-link item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Category'}">
-          <i class="idea icon"></i>分类<i class="caret down icon"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item :command="category.name" v-for="(category,index) in categoryList" :key="index">{{ category.name }}</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <router-link to="/archives" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Archives'}">
-        <i class="clone icon"></i>归档
-      </router-link>
-      <router-link to="/moments" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Moments'}">
-        <i class="comment alternate outline icon"></i>动态
-      </router-link>
-      <router-link to="/friends" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Friends'}">
-        <i class="users icon"></i>友人帐
-      </router-link>
-      <router-link to="/about" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='About'}">
-        <i class="info icon"></i>关于我
-      </router-link>
-      <el-autocomplete v-model="queryString" :fetch-suggestions="debounceQuery" placeholder="Search..."
-                       class="right item m-search" :class="{'m-mobile-hide': mobileHide}"
-                       popper-class="m-search-item" @select="handleSelect">
-        <i class="search icon el-input__icon" slot="suffix"></i>
-        <template slot-scope="item">
-          <div class="title">{{ item.item.title}}</div>
-          <span class="content">{{ item.item.content }}</span>
-        </template>
-      </el-autocomplete>
-      <button class="ui menu black icon button m-right-top m-mobile-show" @click="toggle">
-        <i class="sidebar icon"></i>
-      </button>
-    </div>
-    </div>
-</div>
+<div ref="nav" class="ui fixed inverted stackable pointing menu" :class="{'transparent':$route.name==='home' && clientSize.clientWidth>768}">
+  <div class="ui container">
+    <router-link to="/">
+      <h3 class="ui header item m-blue">{{ $store.state.siteInfo.blogName }}</h3>
+    </router-link>
+    <router-link to="/home" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Home'}">
+      <i class="home icon"></i>首页
+    </router-link>
+    <el-dropdown trigger="click" @command="categoryRoute">
+      <span class="el-dropdown-link item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Category'}">
+        <i class="idea icon"></i>分类<i class="caret down icon"></i>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item :command="category.name" v-for="(category,index) in categoryList" :key="index">{{ category.name }}</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+    <router-link to="/archives" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Archives'}">
+      <i class="clone icon"></i>归档
+    </router-link>
+    <router-link to="/moments" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Moments'}">
+      <i class="comment alternate outline icon"></i>动态
+    </router-link>
+    <router-link to="/friends" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='Friends'}">
+      <i class="users icon"></i>友人帐
+    </router-link>
+    <router-link to="/about" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='About'}">
+      <i class="info icon"></i>关于我
+    </router-link>
+    <el-autocomplete v-model="queryString" :fetch-suggestions="debounceQuery" placeholder="Search..."
+                     class="right item m-search" :class="{'m-mobile-hide': mobileHide}"
+                     popper-class="m-search-item" @select="handleSelect">
+      <i class="search icon el-input__icon" slot="suffix"></i>
+      <template slot-scope="item">
+        <div class="title">{{ item.item.title}}</div>
+        <span class="content">{{ item.item.content }}</span>
+      </template>
+    </el-autocomplete>
+    <button class="ui menu black icon button m-right-top m-mobile-show" @click="toggle">
+      <i class="sidebar icon"></i>
+    </button>
+  </div>
+  </div>
 </template>
 
 <script>
@@ -62,7 +60,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['clientSize'])
+    ...mapState(['siteInfo', 'clientSize'])
   },
   watch: {
     // 路由改变时，收起导航栏

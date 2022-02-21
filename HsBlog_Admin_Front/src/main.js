@@ -15,6 +15,9 @@ import 'mavon-editor/dist/css/index.css'
 // 导入dateUtil
 import './utils/dateTimeFormatUtils.js'
 
+// 导入节流防抖组件
+import './utils/directive'
+
 import App from './App'
 import store from './store'
 import router from './router'

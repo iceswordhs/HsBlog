@@ -37,6 +37,9 @@ public class LoginController {
             return Result.success(CodeType.NO_HAVE_AUTHORITY);
         }
         user.setPassword(null);
+        user.setTrueName(null);
+        user.setBirthday(null);
+        user.setPhone(null);
         String jwt = JwtUtil.generateToken("admin:" + user.getUsername());
         Map<String, Object> map = new HashMap<>();
         map.put("user", user);

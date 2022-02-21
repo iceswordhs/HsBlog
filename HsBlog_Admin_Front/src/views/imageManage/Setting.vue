@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <el-row>
       <el-col :span="8">
         <el-input placeholder="请输入token进行初始化" v-model="token" :clearable="true" @keyup.native.enter="searchUser" style="min-width: 500px">

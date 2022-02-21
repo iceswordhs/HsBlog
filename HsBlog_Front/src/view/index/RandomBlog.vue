@@ -5,7 +5,7 @@
     <div class="ui yellow segment">
       <div class="ui divided items">
         <div class="m-item" v-for="blog in randomBlogList" :key="blog.id" @click.prevent="toBlog(blog)">
-          <div class="img" :style="{'background-image':'url(' + blog.firstPicture + ')'}"></div>
+          <div class="img" :style="{'background-image':'url(' + blog.homePicture + ')'}"></div>
           <div class="info">
             <div class="date">{{ blog.createTime | dateFormat('YYYY-MM-DD') }}</div>
             <div class="title">{{ blog.title }}</div>

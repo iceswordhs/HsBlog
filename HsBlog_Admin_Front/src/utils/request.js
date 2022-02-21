@@ -11,9 +11,21 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
+let CancelToken = axios.CancelToken
+
 // 请求拦截
 service.interceptors.request.use(
   config => {
+      //对于访客模式，除GET请求外，都拦截并提示
+      const userJson = window.localStorage.getItem('user') || '{}'
+      const user = JSON.parse(userJson)
+      if (userJson !== '{}' && !user.role.includes('ROLE_admin') && config.method !== 'get') {
+          config.cancelToken = new CancelToken(function executor(cancel) {
+              cancel('演示模式，不允许操作')
+          })
+          return config
+      }
+
     NProgress.start()
     const token = window.localStorage.getItem('token')
     if (token) {

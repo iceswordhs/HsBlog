@@ -9,7 +9,7 @@ import java.util.Date;
 public class RandomBlog {
     private Long id;
     private String title;//文章标题
-    private String firstPicture;//文章首图，用于随机文章展示
+    private String homePicture;//文章首图，用于随机文章展示
     private Date createTime;//创建时间
 
     public Long getId() {
@@ -28,12 +28,12 @@ public class RandomBlog {
         this.title = title;
     }
 
-    public String getFirstPicture() {
-        return firstPicture;
+    public String getHomePicture() {
+        return homePicture;
     }
 
-    public void setFirstPicture(String firstPicture) {
-        this.firstPicture = firstPicture;
+    public void setHomePicture(String homePicture) {
+        this.homePicture = homePicture;
     }
 
     public Date getCreateTime() {
@@ -50,7 +50,7 @@ public class RandomBlog {
         return "RandomBlog{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", firstPicture='" + firstPicture + '\'' +
+                ", homePicture='" + homePicture + '\'' +
                 ", createTime=" + createTime +
                 '}';
     }

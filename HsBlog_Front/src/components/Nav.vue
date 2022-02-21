@@ -37,6 +37,9 @@
           <span class="content">{{ item.item.content }}</span>
         </template>
       </el-autocomplete>
+      <button class="ui menu black icon button m-right-top m-mobile-show" @click="toggle">
+        <i class="sidebar icon"></i>
+      </button>
     </div>
     </div>
 </div>

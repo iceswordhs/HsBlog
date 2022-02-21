@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       loginForm: {
-        username: 'hs',
+        username: 'visitor',
         password: '123456'
       }
     }

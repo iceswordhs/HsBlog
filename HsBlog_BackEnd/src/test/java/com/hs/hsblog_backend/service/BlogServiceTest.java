@@ -47,4 +47,9 @@ public class BlogServiceTest {
     void testRandomBlog(){
         System.out.println(blogService.getRandomBlogListByLimitNumAndIsPublishedAndIsRecommend());
     }
+
+    @Test
+    void testGetBlogById(){
+        System.out.println(blogMapper.getBlogById(48L));
+    }
 }

@@ -214,7 +214,7 @@ public class BlogServiceImpl implements BlogService {
         // 判断是否有空值
         checkBLog(blog);
 
-        // 判断博客category是否是新添加的
+        // 判断博客category是否是新添加的 前端传入类别name，查询此name是否有对应id
         blog.setCategory(categoryService.addNewBlogCategory(blog.getCategory()));
 
         // 如果tag不存在，就新建tag,并返回带有主键的tags

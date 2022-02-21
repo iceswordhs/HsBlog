@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <el-row>
       <el-select v-model="activeRepos" placeholder="请选择仓库" :filterable="true" @change="changeRepos" style="min-width: 300px">
         <el-option v-for="item in reposList" :key="item.id" :label="item.name" :value="item.name"></el-option>

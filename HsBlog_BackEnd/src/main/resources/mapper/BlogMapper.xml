@@ -15,7 +15,7 @@
             <result property="views" column="views" jdbcType="INTEGER"/>
             <result property="words" column="words" jdbcType="INTEGER"/>
             <result property="published" column="published" jdbcType="BOOLEAN"/>
-            <result property="recommend" column="recommend" javaType="BOOLEAN"/>
+            <result property="recommend" column="recommend" jdbcType="BOOLEAN"/>
             <result property="top" column="top" jdbcType="BOOLEAN"/>
             <result property="commentEnable" column="comment_enable" jdbcType="BOOLEAN"/>
         <!--关联查询文章类别-->
@@ -97,7 +97,7 @@
             b.content,
             b.description,
             b.create_time,b.update_time,
-            b.views,b.words,b.published,b.top,b.comment_enable,
+            b.views,b.words,b.published,b.recommend,b.top,b.comment_enable,
             c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
         where b.id=#{id} and published=true
@@ -238,7 +238,7 @@
     <resultMap id="randomBlog" type="com.hs.hsblog_backend.model.vo.RandomBlog">
         <result property="title" column="title"/>
         <result property="id" column="id"/>
-        <result property="firstPicture" column="id"/>
+        <result property="homePicture" column="home_picture"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
 

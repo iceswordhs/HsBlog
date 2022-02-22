@@ -1,17 +1,16 @@
 package com.hs.hsblog_backend.service.impl;
 
+import com.hs.hsblog_backend.constants.RedisKey;
 import com.hs.hsblog_backend.entity.Comment;
 import com.hs.hsblog_backend.entity.Friend;
 import com.hs.hsblog_backend.entity.User;
 import com.hs.hsblog_backend.model.dto.CommentDto;
 import com.hs.hsblog_backend.model.vo.PageComment;
 import com.hs.hsblog_backend.repository.CommentMapper;
-import com.hs.hsblog_backend.service.AboutService;
-import com.hs.hsblog_backend.service.BlogService;
-import com.hs.hsblog_backend.service.CommentService;
-import com.hs.hsblog_backend.service.FriendService;
+import com.hs.hsblog_backend.service.*;
 import com.hs.hsblog_backend.util.EncodeUtil;
 import com.hs.hsblog_backend.util.IpAddressUtils;
+import com.hs.hsblog_backend.util.StringUtils;
 import com.hs.hsblog_backend.util.image.QQInfoUtils;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,8 @@ public class CommentServiceImpl implements CommentService {
     FriendService friendService;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    RedisService redisService;
 
     private String blogName;
     private String cmsUrl;
@@ -265,7 +266,15 @@ public class CommentServiceImpl implements CommentService {
             if (QQInfoUtils.isQQNumber(commentNickname)) {
                 comment.setQq(commentNickname);
                 comment.setNickname(QQInfoUtils.getQQNickname(commentNickname));
-                comment.setAvatar(QQInfoUtils.getQQAvatarURLByGithubUpload(commentNickname));
+                // 查询数据库，判断该QQ号的头像是否已上传
+                String urlByQQ = (String) redisService.getValueByHashKey(RedisKey.QQ_AVATAR_GITHUB_URL, commentNickname);
+                if (StringUtils.isEmpty(urlByQQ)){
+                    String avatar = QQInfoUtils.getQQAvatarURLByGithubUpload(commentNickname);
+                    comment.setAvatar(avatar);
+                    redisService.saveKVToHash(RedisKey.QQ_AVATAR_GITHUB_URL,commentNickname,avatar);
+                } else {
+                  comment.setAvatar(urlByQQ);
+                }
             } else {
                 comment.setNickname(comment.getNickname().trim());
                 setCommentRandomAvatar(comment);

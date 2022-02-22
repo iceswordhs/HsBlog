@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.constants.CodeType;
 import com.hs.hsblog_backend.constants.RedisKey;
 import com.hs.hsblog_backend.constants.exception.ServiceException;
 import com.hs.hsblog_backend.entity.Blog;
@@ -217,7 +218,7 @@ public class BlogServiceImpl implements BlogService {
         // 判断博客category是否是新添加的 前端传入类别name，查询此name是否有对应id
         blog.setCategory(categoryService.addNewBlogCategory(blog.getCategory()));
 
-        // 如果tag不存在，就新建tag,并返回带有主键的tags
+        // 前端传入tag名，根据tag名查询tag，如果tag不存在，就新建tag,并返回带有主键的tags，如果存在，就设置tag对应的id
         List<Tag> tags = tagService.saveNewBlogTags(blog.getTags());
 
         // 设置更新时间

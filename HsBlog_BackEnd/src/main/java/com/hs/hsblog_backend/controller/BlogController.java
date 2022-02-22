@@ -8,13 +8,13 @@ import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.model.vo.SearchBlog;
 import com.hs.hsblog_backend.service.BlogService;
+import com.hs.hsblog_backend.service.impl.UserServiceImpl;
+import com.hs.hsblog_backend.util.JwtUtil;
 import com.hs.hsblog_backend.util.Result;
 import com.hs.hsblog_backend.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +26,8 @@ import java.util.List;
 public class BlogController {
     @Autowired
     BlogService blogService;
+    @Autowired
+    UserServiceImpl userService;
 
     @RequestMapping("/getAllBlogs")
     public Result<PageInfo<BlogListItem>> getAllBlog(){
@@ -52,7 +54,24 @@ public class BlogController {
 
     @VisitLogger(behavior = "查看博客")
     @RequestMapping("/getBlogById")
-    public Result<Blog> getBlogById(@RequestParam Long id){
+    public Result getBlogById(@RequestParam Long id,
+                                    @RequestHeader(value = "Authorization",defaultValue = "") String jwt){
+        Boolean published = blogService.getPublishedByBlogId(id);
+        if (!published&&JwtUtil.checkTokenIsNotNull(jwt)) {
+            try {
+                String subject = JwtUtil.getTokenBody(jwt).getSubject();
+                if (subject.startsWith("admin:")) {
+                    subject.replace("admin:","");
+                    UserDetails user = userService.loadUserByUsername(subject);
+                    if (user==null){
+                        return Result.fail("用户不存在,请登录！");
+                    }
+                }
+            }catch (Exception e){
+                return Result.fail("token已过期，请重新登陆");
+            }
+
+        }
         Blog blogById = blogService.getBlogById(id);
         return Result.success(blogById);
     }

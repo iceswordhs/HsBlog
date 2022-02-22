@@ -48,11 +48,9 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag addTag(Tag tag) {
+    public void addTag(Tag tag) {
         redisService.deleteCacheByKey(RedisKey.TAG_CLOUD_LIST);
         tagMapper.addTag(tag);
-        System.out.println("********************"+tag);
-        return tag;
     }
 
     @Override
@@ -71,8 +69,6 @@ public class TagServiceImpl implements TagService {
                 }
                 // mybatis会自动将主键插入实体类
                 addTag(tag);
-                tag.setTagId(tag.getTagId());
-                tag.setTagName(tag.getTagName());
             }else tag.setTagId(byIdOrName.getTagId());
         }
         return tags;

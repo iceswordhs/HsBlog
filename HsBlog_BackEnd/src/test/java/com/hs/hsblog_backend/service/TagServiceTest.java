@@ -21,4 +21,11 @@ public class TagServiceTest {
         List<Tag> tagByBlogId = tagService.getTagByBlogId(1L);
         System.out.println(tagByBlogId);
     }
+
+    @Test
+    void addTag(){
+        Tag tag = new Tag("测试标签");
+        tagService.addTag(tag);
+        System.out.println(tag);
+    }
 }

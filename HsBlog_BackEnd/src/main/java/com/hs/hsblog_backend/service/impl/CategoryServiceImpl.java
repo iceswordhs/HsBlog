@@ -46,11 +46,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category addNewBlogCategory(Category category) {
-        if(findCategoryByName(category.getName())==null){
+        Category categoryByName = findCategoryByName(category.getName());
+        if(categoryByName==null){
             addCategory(category);
             return findCategoryByName(category.getName());
         }else {
-            return category;
+            return categoryByName;
         }
     }
 

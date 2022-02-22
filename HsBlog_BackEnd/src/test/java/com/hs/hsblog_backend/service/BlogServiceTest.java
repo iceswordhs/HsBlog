@@ -50,6 +50,6 @@ public class BlogServiceTest {
 
     @Test
     void testGetBlogById(){
-        System.out.println(blogMapper.getBlogById(48L));
+        System.out.println(blogMapper.getBlogById(50L));
     }
 }

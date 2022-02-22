@@ -45,7 +45,7 @@ public interface TagService {
      * @param null
      * @return
      */
-    Tag addTag(Tag tag);
+    void addTag(Tag tag);
 
     /**
      * 删除tag

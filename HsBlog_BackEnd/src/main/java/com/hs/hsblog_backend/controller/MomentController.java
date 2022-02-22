@@ -1,6 +1,8 @@
 package com.hs.hsblog_backend.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.annotation.AccessLimit;
+import com.hs.hsblog_backend.annotation.VisitLogger;
 import com.hs.hsblog_backend.entity.Moment;
 import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.service.MomentService;
@@ -28,6 +30,7 @@ public class MomentController {
     @Autowired
     UserServiceImpl userService;
 
+    @VisitLogger(behavior = "访问页面", content = "动态")
     @RequestMapping("/moment")
     public Result<PageInfo<Moment>> getMoment(@RequestParam(defaultValue = "1") Integer pageNum,
                                           @RequestHeader(value = "Authorization", defaultValue = "") String jwt){
@@ -54,6 +57,8 @@ public class MomentController {
         return Result.success(moments);
     }
 
+    @AccessLimit(seconds = 86400, maxCount = 1, message = "不可以重复点赞哦")
+    @VisitLogger(behavior = "点赞动态")
     @RequestMapping("/updateMomentLikes")
     public Result<NullObject> updateMomentLikes(@RequestParam Long id){
         momentService.updateMomentLikes(id);

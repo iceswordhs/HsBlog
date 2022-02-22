@@ -32,7 +32,7 @@ public class AccessLimitInterceptor implements HandlerInterceptor {
             if (methodAnnotation==null) return true;
 
             int seconds=methodAnnotation.seconds();
-            int maxCounts= methodAnnotation.maxCounts();
+            int maxCounts= methodAnnotation.maxCount();
             String ip= IpAddressUtils.getIpAddress(request);
             String requestMethod=request.getMethod();
             String requestURI=request.getRequestURI();

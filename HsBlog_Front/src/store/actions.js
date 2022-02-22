@@ -12,15 +12,13 @@ import router from '../router'
 import tvMapper from '@/plugins/tvMapper.json'
 import aruMapper from '@/plugins/aruMapper.json'
 import paopaoMapper from '@/plugins/paopaoMapper.json'
-// import sanitizeHtml from 'sanitize-html'
+// import VueSanitize from 'vue-sanitize'
 
 export default {
   getCommentList ({commit, rootState}) {
-    // 密码保护的文章，需要发送密码验证通过后保存在localStorage的Token
-    const blogToken = window.localStorage.getItem(`blog${rootState.commentQuery.blogId}`)
     // 如果有则发送博主身份Token
     const adminToken = window.localStorage.getItem('adminToken')
-    const token = adminToken || (blogToken || '')
+    const token = adminToken || ''
 
     function replaceEmoji (comment, emoji) {
       comment.content = comment.content.replace(new RegExp(emoji.reg, 'g'), `<img src="${emoji.src}">`)
@@ -40,21 +38,12 @@ export default {
 
     getCommentListByQuery(token, rootState.commentQuery).then(res => {
       if (res.data.code === 200) {
-        // let sanitizeHtmlConfig = {
-        //   allowedTags: [],
-        //   allowedAttributes: false,
-        //   disallowedTagsMode: 'recursiveEscape'
-        // }
         res.data.data.comments.list.forEach(comment => {
-          // 转义评论中的html
-          // comment.content = sanitizeHtml(comment.content, sanitizeHtmlConfig)
           // 查找评论中是否有表情
           if (comment.content.indexOf('@[') !== -1) {
             convertEmoji(comment)
           }
           comment.replyComments.forEach(comment => {
-            // 转义评论中的html
-            // comment.content = sanitizeHtml(comment.content, sanitizeHtmlConfig)
             // 查找评论中是否有表情
             if (comment.content.indexOf('@[') !== -1) {
               convertEmoji(comment)

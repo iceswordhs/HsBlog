@@ -77,16 +77,23 @@ public class BlogAdminController {
     }
 
     @OperationAnnotation("更新博客置顶状态")
-    @PostMapping("/updateBlogTop")
+    @PostMapping("/blog/top")
     public Result<NullObject> updateBlogTop(@RequestParam Long id, @RequestParam Boolean top){
         blogService.updateBlogTopById(id, top);
         return Result.success();
     }
 
     @OperationAnnotation("更新博客公开状态")
-    @PostMapping("/updateBlogPublished")
+    @PostMapping("/blog/published")
     public Result<NullObject> updateBlogPublished(@RequestParam Long id, @RequestParam Boolean published){
         blogService.updateBlogPublishedById(id, published);
+        return Result.success();
+    }
+
+    @OperationAnnotation("更新博客推荐状态")
+    @PostMapping("/blog/recommend")
+    public Result<NullObject> updateBlogRecommend(@RequestParam Long id, @RequestParam Boolean published){
+        blogService.updateBlogRecommendById(id, published);
         return Result.success();
     }
 }

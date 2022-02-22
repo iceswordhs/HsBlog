@@ -8,6 +8,8 @@ import com.hs.hsblog_backend.repository.BlogMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +18,8 @@ import java.util.List;
  * @Date 2021/12/27 14:20
  */
 @SpringBootTest
+@Transactional
+@Rollback
 public class BlogServiceTest {
     @Autowired
     BlogService blogService;

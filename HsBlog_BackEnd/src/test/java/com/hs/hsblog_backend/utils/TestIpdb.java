@@ -12,7 +12,7 @@ import java.io.*;
  */
 @SpringBootTest
 public class TestIpdb {
-    @Test
+    //@Test
     void testReadFile() throws IOException {
         ClassPathResource classPathResource = new ClassPathResource("ipdb/ip2region.db");
         System.out.println(classPathResource);

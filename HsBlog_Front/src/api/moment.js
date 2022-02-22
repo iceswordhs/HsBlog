@@ -4,6 +4,9 @@ export function getMomentListByPageNum (token, pageNum) {
   return axios({
     url: 'moment',
     method: 'GET',
+    header: {
+      Authorization: token
+    },
     params: {
       pageNum: pageNum
     }

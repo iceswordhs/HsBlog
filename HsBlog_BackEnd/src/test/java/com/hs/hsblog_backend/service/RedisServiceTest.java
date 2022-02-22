@@ -20,7 +20,7 @@ public class RedisServiceTest {
     @Autowired
     AboutMapper aboutMapper;
 
-    @Test
+    //@Test
     void test(){
         redisTemplate.opsForHash().put("k1","field1","hv1");
         String value=(String) redisTemplate.opsForHash().get("k1","field1");
@@ -28,7 +28,7 @@ public class RedisServiceTest {
         System.out.println(value);
     }
 
-    @Test
+    //@Test
     void testAboutRedis(){
         About about = aboutMapper.findAbout();
         redisService.saveObjectToString("aObject",about);

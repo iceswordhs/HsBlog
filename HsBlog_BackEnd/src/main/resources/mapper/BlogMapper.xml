@@ -42,6 +42,13 @@
         set published=#{published}
         where id=#{id}
     </update>
+
+    <update id="updateBlogRecommendById">
+        update blog
+        set recommend=#{recommend}
+        where id=#{id}
+    </update>
+
     <update id="updateViews">
         update blog set views=#{views} where id=#{id}
     </update>

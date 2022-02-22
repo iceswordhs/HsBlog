@@ -24,7 +24,7 @@ public @interface AccessLimit {
      * 一个周期最多访问多少次
      * @return
      */
-    int maxCounts() default 2;
+    int maxCount() default 2;
 
     /**
      * 当触发限制时的消息提示

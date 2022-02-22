@@ -72,7 +72,7 @@ public class VisitLogAspect {
     }
 
     /**
-     * 校验访客标识码
+     * 校验访客标识码 如果没有标识码创建标识码
      *
      * @param request
      * @return
@@ -103,6 +103,7 @@ public class VisitLogAspect {
 
     /**
      * 签发UUID，并保存至数据库和Redis
+     * 标识码由ip和userAgent和当前小时组成
      *
      * @param request
      * @return
@@ -191,12 +192,12 @@ public class VisitLogAspect {
                 content = query;
                 remark = "搜索内容：" + query;
             }
-        } else if (behavior.equals("查看分类")) {
+        } else if (behavior.equals("查看分类下的所有博客")) {
             String categoryName = (String) requestParams.get("categoryName");
             int pageNum = (int) requestParams.get("pageNum");
             content = categoryName;
             remark = "分类名称：" + categoryName + "，第" + pageNum + "页";
-        } else if (behavior.equals("查看标签")) {
+        } else if (behavior.equals("查看标签下的所有博客")) {
             String tagName = (String) requestParams.get("tagName");
             int pageNum = (int) requestParams.get("pageNum");
             content = tagName;

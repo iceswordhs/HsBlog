@@ -63,7 +63,9 @@ export default {
   },
   methods: {
     getMomentList () {
-      getMomentListByPageNum(this.pageNum).then(res => {
+      const adminToken = window.localStorage.getItem('adminToken')
+      const token = adminToken || ''
+      getMomentListByPageNum(token, this.pageNum).then(res => {
         if (res.data.code === 200) {
           this.momentList = res.data.data.list
           this.totalPage = res.data.data.pages

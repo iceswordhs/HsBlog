@@ -5,12 +5,16 @@ import com.hs.hsblog_backend.repository.FriendMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Hs
  * @Date 2022/1/24 19:54
  */
 @SpringBootTest
+@Transactional
+@Rollback
 public class FriendServiceTest {
     @Autowired
     FriendService friendService;
@@ -23,7 +27,7 @@ public class FriendServiceTest {
         System.out.println(friendInfo);
     }
 
-    @Test
+    //@Test
     void testFriendMapper(){
         friendService.updateCommentEnable(false);
     }

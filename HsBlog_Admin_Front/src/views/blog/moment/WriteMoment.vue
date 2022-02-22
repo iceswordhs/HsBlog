@@ -2,7 +2,11 @@
   <div class="app-container">
     <el-form :model="form" label-position="top">
       <el-form-item label="动态内容" prop="content">
-        <mavon-editor v-model="form.content"/>
+        <MarkdownEditor :article_content="form.content"
+                        v-model="form.content"
+                        ref="editor">
+
+        </MarkdownEditor>
       </el-form-item>
 
       <el-form-item label="点赞数" prop="likes" style="width: 50%">
@@ -23,8 +27,13 @@
 
 <script>
 import {getMomentById, saveMoment, updateMoment} from '@/api/moment'
+import MarkdownEditor from "@/components/MarkdownEditor";
+
 export default {
   name: 'WriteMoment',
+  components: {
+    MarkdownEditor
+  },
   data () {
     return {
       form: {

@@ -47,6 +47,8 @@ public interface BlogMapper {
 
     void updateBlogPublishedById(Long id,Boolean published);
 
+    void updateBlogRecommendById(Long id, Boolean recommend);
+
     List<BlogView> getBlogViewsList();
 
     int updateViews(Long id, Integer views);

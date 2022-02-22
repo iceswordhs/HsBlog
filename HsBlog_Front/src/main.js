@@ -34,15 +34,30 @@ axios.defaults.baseURL = 'https://backend.smarths.cn'
 // axios.defaults.baseURL = 'http://localhost:10000'
 Vue.prototype.$axios = axios
 
-// 添加拦截器
-axios.interceptors.request.use(function (config) {
-  const adminToken = window.localStorage.getItem('adminToken')
-  const token = adminToken || ''
-  config.headers.Authorization = 'Bearer ' + token
-  return config
-}, function (error) {
-  return Promise.reject(error)
-})
+// 添加请求拦截器
+axios.interceptors.request.use(
+  config => {
+    const identification = window.localStorage.getItem('identification')
+    // identification存在，且是基于baseURL的请求
+    if (identification && !(config.url.startsWith('http://') || config.url.startsWith('https://'))) {
+      config.headers.identification = identification
+    }
+    return config
+  }, function (error) {
+    return Promise.reject(error)
+  })
+
+// 响应拦截
+axios.interceptors.response.use(
+  config => {
+    const identification = config.headers.identification
+    if (identification) {
+      // 保存身份标识到localStorage
+      window.localStorage.setItem('identification', identification)
+    }
+    return config
+  }
+)
 
 Vue.use(ElementUI)
 Vue.use(SuiVue)

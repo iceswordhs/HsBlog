@@ -52,7 +52,7 @@ export function getDataByQuery(queryInfo){
 
 export function updateTop(id,top){
   return axios({
-    url:'updateBlogTop',
+    url:'/blog/top',
     method:'POST',
     params:{
       id,
@@ -61,9 +61,20 @@ export function updateTop(id,top){
   })
 }
 
+export function updateRecommend(id, recommend) {
+  return axios({
+    url: 'blog/recommend',
+    method: 'POST',
+    params: {
+      id,
+      recommend
+    }
+  })
+}
+
 export function updatePublished(id,published){
   return axios({
-    url:'updateBlogPublished',
+    url:'/blog/published',
     method:'POST',
     params:{
       id,

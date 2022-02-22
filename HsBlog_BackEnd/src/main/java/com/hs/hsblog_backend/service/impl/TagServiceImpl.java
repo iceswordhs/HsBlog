@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Hs
@@ -61,11 +62,14 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> saveNewBlogTags(List<Tag> tags){
+        String[] colors=new String[]{"red","orange","yellow","olive","green","teal","blue","violet","purple","pink","brown","grey","black"};
         for (Tag tag:tags){
             Tag byIdOrName = tagMapper.findByIdOrName(tag);
             if (byIdOrName==null){
                 if (tag.getColor()==null){
-                    tag.setColor("red");
+                    Random random = new Random();
+                    int colorRandomInt = random.nextInt(colors.length);
+                    tag.setColor(colors[colorRandomInt]);
                 }
                 // mybatis会自动将主键插入实体类
                 addTag(tag);

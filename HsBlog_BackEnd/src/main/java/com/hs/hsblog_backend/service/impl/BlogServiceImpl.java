@@ -347,6 +347,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public void updateBlogRecommendById(Long id, Boolean recommend) {
+        blogMapper.updateBlogRecommendById(id, recommend);
+
+        // 删除Redis缓存
+        deleteBlogRedisCache();
+    }
+
+    @Override
     public String getBlogTitleById(Long id) {
         return blogMapper.getTitleById(id);
     }

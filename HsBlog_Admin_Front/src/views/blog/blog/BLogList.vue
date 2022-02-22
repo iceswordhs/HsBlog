@@ -21,12 +21,12 @@
           <el-switch v-model="scope.row.top" @change="blogTopChanged(scope.row)"></el-switch>
         </template>
       </el-table-column>
-<!--      <el-table-column label="推荐" width="80">-->
-<!--        <template v-slot="scope">-->
-<!--          <el-switch v-model="scope.row.recommend" @change="blogRecommendChanged(scope.row)"></el-switch>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-      <el-table-column label="可见性" width="100">
+      <el-table-column label="推荐" width="80">
+        <template v-slot="scope">
+          <el-switch v-model="scope.row.recommend" @change="blogRecommendChanged(scope.row)"></el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column label="公开" width="100">
 <!--        <template v-slot="scope">-->
 <!--          <el-link icon="el-icon-edit" :underline="false" @click="editBlogVisibility(scope.row)">-->
 <!--            {{ scope.row.published ? (scope.row.password !== '' ? '密码保护' : '公开') : '私密' }}-->
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import {getDataByQuery, deleteBlogById, updateTop, updatePublished} from '@/api/blog'
+import {getDataByQuery, deleteBlogById, updateTop, updateRecommend, updatePublished} from '@/api/blog'
 
 export default {
   name: "BlogList",
@@ -160,6 +160,12 @@ export default {
         }
       }).catch(() => {
         this.errorMsg("请求失败")
+      })
+    },
+    //切换博客推荐状态
+    blogRecommendChanged(row) {
+      updateRecommend(row.id, row.recommend).then(res => {
+        this.successMsg(res.message);
       })
     },
     //修改博客可见性

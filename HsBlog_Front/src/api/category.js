@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export function getAllCategories () {
+  console.log('getAllCategories')
   return axios({
     url: '/getAllCategories',
     method: 'GET'

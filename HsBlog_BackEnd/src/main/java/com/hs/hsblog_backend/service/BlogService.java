@@ -48,6 +48,8 @@ public interface BlogService {
 
     void updateBlogPublishedById(Long id,Boolean published);
 
+    void updateBlogRecommendById(Long id,Boolean recommend);
+
     String getBlogTitleById(Long id);
 
     Boolean getCommentEnabledByBlogId(Long id);

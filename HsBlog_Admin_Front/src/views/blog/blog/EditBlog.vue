@@ -139,7 +139,7 @@ export default {
     return {
       dialogVisible: false,
       categoryList: [{ id: 2, name: '人生感悟' }, { id: 3, name: '学习技术' }],
-      tagList: [{ name: 'springboot', tagId: 'springboot' }],
+      tagList: [{tagId: 26, tagName: "JVM", color: "violet"}, {tagId: 25, tagName: "学习习惯", color: "red"}],
       article: {
         // 文章标题
         title: '',
@@ -151,7 +151,6 @@ export default {
         content: '',
         // 文章分类
         category: {
-          id:0,
           name:''
         },
         // 文章标签
@@ -213,7 +212,7 @@ export default {
     getBlog(id) {
       getBlogById(id).then(res => {
         if (res.code === 200) {
-          //this.computeCategoryAndTag(res.data)
+          this.computeTags(res.data)
           this.article = res.data
           // this.radio = this.form.published ? (this.form.password !== '' ? 3 : 1) : 2
           this.successMsg(res.message)
@@ -224,12 +223,15 @@ export default {
         this.errorMsg('请求失败')
       })
     },
-    computeCategoryAndTag(blog) {
+    // 对后端返回的blog进行处理，让它与选择器的value相匹配
+    computeTags(blog) {
       // blog.category = blog.category.id
-      blog.tags = []
+      // 遍历从后端返回的blog的tags，将这些tags的tagName推到blog的tags数组中
+      const tagsSelections = [];
       blog.tags.forEach(item => {
-        blog.tagList.push(item.id)
+        tagsSelections.push(item.tagName)
       })
+      blog.tags=tagsSelections
     },
     // uploadImg (pos,file) {
     //   // 无论是点击上传图片还是直接在编辑栏中粘贴 都会触发

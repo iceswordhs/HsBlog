@@ -55,7 +55,6 @@ public class UploadImageUtil {
 
     @Value("${upload.github.token}")
     public void setGithubToken(String githubToken) {
-        System.out.println("注入githubToken"+githubToken);
         UploadImageUtil.githubToken = githubToken;
     }
 
@@ -160,13 +159,13 @@ public class UploadImageUtil {
     //}
 
     /**
-     * 将图片上传至github
+     * 将图片上传至github 上传QQ头像使用
      * @author huangshuai
      * @Date 2022/2/10 20:03
      * @param image 图片
      * @return java.lang.String
      */
-    public static String push2Github(ImageResource image) {
+    public static String push2Github(ImageResource image,String githubReposPath) {
         // 通过当前时间生成图片名
         LocalDateTime time = LocalDateTime.now();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
@@ -179,7 +178,7 @@ public class UploadImageUtil {
         headers.put("Authorization", Collections.singletonList("token " + githubToken));
 
         HashMap<String, String> body = new HashMap<>();
-        body.put("message", "Add image to HsResource");
+        body.put("message", "Add comment avatar to HsResource");
         body.put("content", imgBase64);
 
         HttpEntity httpEntity = new HttpEntity(body, headers);

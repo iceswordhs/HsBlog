@@ -1,16 +1,24 @@
 package com.hs.hsblog_backend.util.image;
 
-import com.hs.hsblog_backend.util.image.UploadImageUtil;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
  * @author Hs
  * @Date 2022/2/10 19:52
  */
+@Component
 public class QQInfoUtils {
+    private static String commentQQImageReposPath;
+
+    @Value("${upload.github.commentAvatar.repos.path}")
+    public void setCommentQQImageReposPath(String path){
+        QQInfoUtils.commentQQImageReposPath=path;
+    }
+
     private static RestTemplate restTemplate = new RestTemplate();
     private static final String QQ_NICKNAME_URL = "https://r.qzone.qq.com/fcg-bin/cgi_get_portrait.fcg?uins={1}";
     private static final String QQ_AVATAR_URL = "https://q.qlogo.cn/g?b=qq&nk=%s&s=100";
@@ -54,7 +62,7 @@ public class QQInfoUtils {
      * @return 指向该图片的jsDelivr CDN链接
      */
     public static String getQQAvatarURLByGithubUpload(String qq) {
-        return UploadImageUtil.push2Github(getImageResourceByQQ(qq));
+        return UploadImageUtil.push2Github(getImageResourceByQQ(qq), commentQQImageReposPath);
     }
 
     public static boolean isQQNumber(String nickname) {

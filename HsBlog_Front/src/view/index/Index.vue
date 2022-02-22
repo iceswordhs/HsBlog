@@ -89,14 +89,12 @@ export default {
     getSite () {
       getSite().then(res => {
         if (res.data.code === 200) {
-          console.log(res.data.data)
           this.siteInfo = res.data.data.siteSetting
           this.siteInfo.copyright = JSON.parse(this.siteInfo.copyright)
           this.badges = res.data.data.badges
           this.newBlogList = res.data.data.newBlogList
           this.randomBlogList = res.data.data.randomBlogList
           this.tagList = res.data.data.tagList
-          console.log(this.tagList)
           this.$store.commit(SAVE_SITE_INFO, this.siteInfo)
           this.$store.commit(SAVE_INTRODUCTION, res.data.data.introduction)
           document.title = this.$route.meta.title + this.siteInfo.webTitleSuffix

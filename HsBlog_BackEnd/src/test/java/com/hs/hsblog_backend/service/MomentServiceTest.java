@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest
 @Transactional
-@Rollback
 public class MomentServiceTest {
     @Autowired
     MomentService momentService;

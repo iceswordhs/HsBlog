@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @ResponseBody
     public Result<Exception> handlerPasswordIncorrectException(Exception ex,HttpServletRequest request){
-        return Result.fail(CodeType.Password_Incorrect, ex);
+        return Result.fail(CodeType.PASSWORD_INCORRECT, ex);
     }
 
     //用户不存在
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @ResponseBody
     public Result<String> handlerHttpMessageConversionException(Exception ex){
-        return Result.fail(CodeType.SERVICE_ERROR, ex.getMessage());
+        return Result.fail(CodeType.HTTP_MESSAGE_CONVERT_ERROR, ex.getMessage());
     }
 
     // Service层异常
@@ -83,7 +83,7 @@ public class GlobalExceptionHandler {
 
     //自定义异常处理结果类，为前后端分离返回统一样式结果做准备。
     @ExceptionHandler(Throwable.class)
-    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR) //设置状态码为500服务器错误
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
     @ResponseBody
     public Result<Exception> handlerExceptionReturnResult(Exception ex,HttpServletRequest request){
         return Result.<Exception>generate(1000, "报错URI为" +request.getRequestURI()

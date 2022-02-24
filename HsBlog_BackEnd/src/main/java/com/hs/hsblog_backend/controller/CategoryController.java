@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.hs.hsblog_backend.annotation.VisitLogger;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.entity.Category;
+import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.service.BlogService;
 import com.hs.hsblog_backend.service.CategoryService;
 import com.hs.hsblog_backend.util.Result;
@@ -35,9 +36,9 @@ public class CategoryController {
 
     @VisitLogger(behavior = "查看分类下的所有博客")
     @GetMapping("/category")
-    public Result<PageInfo<Blog>> getBLogByCategory(String categoryName,@RequestParam(defaultValue = "1") Integer pageNum){
+    public Result<PageInfo<BlogListItem>> getBLogByCategory(String categoryName,@RequestParam(defaultValue = "1") Integer pageNum){
         Category categoryByName = categoryService.findCategoryByName(categoryName);
-        PageInfo<Blog> blogs = blogService.getBlogByCategory(categoryByName, pageNum);
+        PageInfo<BlogListItem> blogs = blogService.getBlogByCategory(categoryByName, pageNum);
         return Result.success(blogs);
     }
 }

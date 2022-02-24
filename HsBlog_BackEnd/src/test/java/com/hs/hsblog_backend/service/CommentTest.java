@@ -25,14 +25,12 @@ public class CommentTest {
         String commentNickname="2760463774";
 
         // 查询数据库，判断该QQ号的头像是否已上传
-        // String urlByQQ = qqGbAvatarUrlMapper.getAvatarUrlByQQ(commentNickname);
         String urlByQQ = (String) redisService.getValueByHashKey(RedisKey.QQ_AVATAR_GITHUB_URL, commentNickname);
         System.out.println(urlByQQ);
         if (StringUtils.isEmpty(urlByQQ)){
             String avatar = QQInfoUtils.getQQAvatarURLByGithubUpload(commentNickname);
             comment.setAvatar(avatar);
             redisService.saveKVToHash(RedisKey.QQ_AVATAR_GITHUB_URL,commentNickname,avatar);
-            //qqGbAvatarUrlMapper.saveQQAndAvatarUrl(commentNickname,avatar);
         } else {
             comment.setAvatar(urlByQQ);
         }

@@ -20,7 +20,7 @@ public interface BlogService {
 
     Blog getBlogById(Long id);
 
-    Blog getBlogEditById(Long id);
+    Blog getBlogEditById(Long id,Boolean admin);
 
     PageInfo<BlogListItem> getPageBlogIsPublished(int pageNum);
 
@@ -28,7 +28,7 @@ public interface BlogService {
 
     PageInfo<BlogListItem> getBlogByTag(Tag tag,Integer pageNum);
 
-    PageInfo<Blog> getBlogByCategory(Category category, Integer pageNum);
+    PageInfo<BlogListItem> getBlogByCategory(Category category, Integer pageNum);
 
     /**
      * 获取所有公开的blog的标题及id及创建时间

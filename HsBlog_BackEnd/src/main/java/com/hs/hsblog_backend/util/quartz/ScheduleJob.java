@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.util.quartz;
 
 import com.hs.hsblog_backend.entity.ScheduleJobLog;
 import com.hs.hsblog_backend.service.ScheduleJobService;
+import com.hs.hsblog_backend.util.StringUtils;
 import com.hs.hsblog_backend.util.common.SpringContextUtils;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public class ScheduleJob extends QuartzJobBean {
             jobLog.setTimes((int) times);
             //任务执行结果
             jobLog.setStatus(false);
-            jobLog.setError(e.toString());
+            jobLog.setError(e.getMessage()+StringUtils.getStackTrace(e));
             log.error("任务执行失败，任务ID：{}", scheduleJob.getJobId(), e);
         } finally {
             scheduleJobService.saveJobLog(jobLog);

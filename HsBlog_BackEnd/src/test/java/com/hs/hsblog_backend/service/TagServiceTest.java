@@ -16,8 +16,6 @@ import java.util.Random;
  */
 @SpringBootTest
 @Transactional
-@Rollback
-// Rollback要和Transactional一起使用才会生效
 public class TagServiceTest {
     @Autowired
     TagService tagService;

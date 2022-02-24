@@ -2,6 +2,7 @@ package com.hs.hsblog_backend.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.hsblog_backend.constants.RedisKey;
 import com.hs.hsblog_backend.entity.Blog;
 import com.hs.hsblog_backend.model.vo.BlogListItem;
 import com.hs.hsblog_backend.repository.BlogMapper;
@@ -12,6 +13,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Hs
@@ -19,7 +22,6 @@ import java.util.List;
  */
 @SpringBootTest
 @Transactional
-@Rollback
 public class BlogServiceTest {
     @Autowired
     BlogService blogService;

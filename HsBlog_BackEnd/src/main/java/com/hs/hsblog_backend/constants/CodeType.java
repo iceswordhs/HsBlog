@@ -10,14 +10,15 @@ public enum CodeType {
     /**
      * 状态码
      */
-    SUCCESS(200,"success"),
+    SUCCESS(200,"请求成功"),
     NETWORK_ANOMALY(500,"网络异常"),
     SERVICE_ERROR(400,"service层出现异常"),
     UN_LOGIN(401,"请登录"),
+    HTTP_MESSAGE_CONVERT_ERROR(402,"http参数无法解析"),
     VOUCHER_HAS_EXPIRED(403,"凭证已失效，请重新登录！"),
     BAD_REQUEST(410,"非法请求"),
     LOGIN_FAIL(411,"登陆失败"),
-    Password_Incorrect(412,"密码错误"),
+    PASSWORD_INCORRECT(412,"密码错误"),
     USER_NOT_EXIST(413,"用户不存在"),
     NO_HAVE_AUTHORITY(414,"没有相应权限"),
     Http_Message_Convert_FAIL(415,"http参数转换失败"),

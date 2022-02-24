@@ -108,8 +108,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog getBlogEditById(Long id) {
+    public Blog getBlogEditById(Long id,Boolean admin) {
+        if (!admin&&!blogMapper.getPublishedByBlogId(id)){
+            return new Blog();
+        }
         Blog blog = blogMapper.getBlogEditById(id);
+        if (blog==null){
+            throw ServiceException.create("该博客不存在");
+        }
         // 添加标签
         blog.setTags(tagService.getTagByBlogId(blog.getId()));
         return blog;
@@ -276,10 +282,10 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public PageInfo<Blog> getBlogByCategory(Category category, Integer pageNum) {
+    public PageInfo<BlogListItem> getBlogByCategory(Category category, Integer pageNum) {
         PageHelper.startPage(pageNum,pageSize,orderBy);
-        List<Blog> blogs = blogMapper.getBlogByCategory(category);
-        processBlog(blogs);
+        List<BlogListItem> blogs = blogMapper.getBlogByCategory(category);
+        processBlogListItem(blogs);
         return new PageInfo<>(blogs);
     }
 
@@ -399,7 +405,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void updateViews(Long blogId, Integer views) {
         if (blogMapper.updateViews(blogId, views) != 1) {
-            throw new PersistenceException("更新失败");
+            throw new PersistenceException("更新浏览量失败,博客Id为"+blogId+"浏览数为"+views);
         }
     }
 }

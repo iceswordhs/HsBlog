@@ -34,7 +34,7 @@ public class ExceptionLogAspect {
     @Autowired
     ExceptionLogService exceptionLogService;
 
-    @Pointcut(value = "execution(* com.hs.hsblog_backend.controller.*.*(..))")
+    @Pointcut(value = "execution(* com.hs.hsblog_backend.controller..*.*(..))")
     public void exceptionLogCut(){
     }
 
@@ -50,6 +50,7 @@ public class ExceptionLogAspect {
         String uri = request.getRequestURI();
         String method = request.getMethod();
         String ip = IpAddressUtils.getIpAddress(request);
+        // 获取用户操作系统和浏览器类型及版本
         String userAgent = request.getHeader("User-Agent");
         //todo 使用swagger后，可以直接使用注解上的内容作为 ExceptionLog 的 description
         String description = getDescriptionFromAnnotations(joinPoint);

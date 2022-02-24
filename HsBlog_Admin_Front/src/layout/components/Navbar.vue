@@ -10,7 +10,7 @@
           <img :src="user.avatarImgUrl" class="user-avatar">
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <a target="_blank" href="https://localhost:8080/">
+          <a target="_blank" href="https://smarths.cn/">
             <el-dropdown-item>Home</el-dropdown-item>
           </a>
           <a target="_blank" href="https://github.com/iceswordhs/hsblog">

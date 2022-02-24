@@ -9,8 +9,13 @@ import com.hs.hsblog_backend.entity.NullObject;
 import com.hs.hsblog_backend.service.BlogService;
 import com.hs.hsblog_backend.service.CategoryService;
 import com.hs.hsblog_backend.service.CommentService;
+import com.hs.hsblog_backend.util.JwtUtil;
 import com.hs.hsblog_backend.util.Result;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -47,8 +52,17 @@ public class BlogAdminController {
     }
 
     @GetMapping("/blog")
-    public Result<Blog> getBlogById(@RequestParam Long id){
-        Blog blogById = blogService.getBlogEditById(id);
+    public Result<Blog> getBlogById(@RequestParam Long id,
+                                    @RequestHeader(value = "Authorization",defaultValue = "") String jwt){
+        Boolean admin=false;
+        Claims tokenBody = JwtUtil.getTokenBody(jwt);
+        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) tokenBody.get("authorities"));
+        for (GrantedAuthority a : authorities) {
+            if (a.getAuthority().equals("ROLE_admin")) {
+                admin=true;
+            }
+        }
+        Blog blogById = blogService.getBlogEditById(id,admin);
         return Result.success(blogById);
     }
 

@@ -181,7 +181,7 @@
         b.content,
         b.description,
         b.create_time,b.update_time,
-        b.views,b.words,b.published,b.top,b.top,b.comment_enable,
+        b.views,b.words,b.published,b.top,b.recommend,b.comment_enable,
         c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
         <where>
@@ -202,7 +202,7 @@
             b.views,b.words,b.published,b.recommend,b.top,b.comment_enable,
             c.id as category_id,c.categoryName
         from blog b join category c on b.category_id = c.id
-        where b.id=#{id} and b.published=true
+        where b.id=#{id}
     </select>
     <select id="getBlogViewsList" resultType="com.hs.hsblog_backend.model.dto.BlogView">
         select id,views from blog

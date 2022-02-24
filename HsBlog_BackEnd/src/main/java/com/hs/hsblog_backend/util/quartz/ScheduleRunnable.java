@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Method;
 
 /**
+ * 定时任务线程类
  * @author Hs
  * @Date 2022/2/6 13:12
  */

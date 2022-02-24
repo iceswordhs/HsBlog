@@ -35,7 +35,7 @@ public interface BlogMapper {
 
     List<BlogListItem> getBlogByTagId(Long tagId);
 
-    List<Blog> getBlogByCategory(Category category);
+    List<BlogListItem> getBlogByCategory(Category category);
 
     List<String> getGroupYearMonthByIsPublished();
 

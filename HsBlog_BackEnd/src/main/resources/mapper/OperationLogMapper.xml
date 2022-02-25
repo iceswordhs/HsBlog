@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.OperationLogMapper">
+<mapper namespace="com.hs.repository.OperationLogMapper">
 
-    <resultMap id="OperationLogBaseResultMap" type="com.hs.hsblog_backend.entity.OperationLog">
+    <resultMap id="OperationLogBaseResultMap" type="com.hs.entity.OperationLog">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
             <result property="uri" column="uri" jdbcType="VARCHAR"/>
@@ -41,7 +41,7 @@
     </select>
 
     <!--添加日志-->
-    <insert id="saveOperationLog" parameterType="com.hs.hsblog_backend.entity.OperationLog" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveOperationLog" parameterType="com.hs.entity.OperationLog" useGeneratedKeys="true" keyProperty="id">
         insert into operation_log (username, uri, method, param, description, ip, ip_source, os, browser, times, create_time, user_agent)
         values (#{username}, #{uri}, #{method}, #{param}, #{description}, #{ip}, #{ipSource}, #{os}, #{browser}, #{times}, #{createTime}, #{userAgent})
     </insert>

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.MomentMapper">
+<mapper namespace="com.hs.repository.MomentMapper">
 
-    <resultMap id="BaseResultMap" type="com.hs.hsblog_backend.entity.Moment">
+    <resultMap id="BaseResultMap" type="com.hs.entity.Moment">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>

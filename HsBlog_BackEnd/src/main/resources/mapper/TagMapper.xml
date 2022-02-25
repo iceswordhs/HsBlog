@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.TagMapper">
+<mapper namespace="com.hs.repository.TagMapper">
 
     <resultMap id="BaseResultMap" type="Tag">
             <id property="tagId" column="tag_id" jdbcType="BIGINT"/>
@@ -48,7 +48,7 @@
         join tag t on a.tag_id = t.tag_id
         where a.blog_id=#{blogId}
     </select>
-    <resultMap id="tagBlogCount" type="com.hs.hsblog_backend.model.vo.TagBlogCount">
+    <resultMap id="tagBlogCount" type="com.hs.model.vo.TagBlogCount">
         <id property="id" column="tag_id"/>
         <result property="value" column="blog_count"/>
     </resultMap>

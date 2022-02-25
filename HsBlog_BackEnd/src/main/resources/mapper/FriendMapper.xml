@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.FriendMapper">
+<mapper namespace="com.hs.repository.FriendMapper">
 
-    <resultMap id="Friend" type="com.hs.hsblog_backend.entity.Friend">
+    <resultMap id="Friend" type="com.hs.entity.Friend">
             <result property="content" column="content" jdbcType="VARCHAR"/>
             <result property="commentEnable" column="comment_enable" jdbcType="BOOLEAN"/>
     </resultMap>

@@ -9,8 +9,9 @@
         class="board-column-content"
         :set-data="setData"
     >
-      <div v-for="element in list" :key="element.id" class="board-item">
-        {{ element.name }} {{ element.id }}
+      <div v-for="element in list" :key="element.id">
+<!--        {{ element.name }} {{ element.id }}-->
+        <el-input v-model="element.name" placeholder="请输入内容"></el-input>
       </div>
     </draggable>
   </div>

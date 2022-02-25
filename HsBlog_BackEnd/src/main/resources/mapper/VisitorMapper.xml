@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.VisitorMapper">
+<mapper namespace="com.hs.repository.VisitorMapper">
 
-    <resultMap id="VisitorBaseResultMap" type="com.hs.hsblog_backend.entity.Visitor">
+    <resultMap id="VisitorBaseResultMap" type="com.hs.entity.Visitor">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
             <result property="ip" column="ip" jdbcType="VARCHAR"/>
@@ -46,7 +46,7 @@
     </select>
 
     <!--添加访客-->
-    <insert id="saveVisitor" parameterType="com.hs.hsblog_backend.entity.Visitor" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveVisitor" parameterType="com.hs.entity.Visitor" useGeneratedKeys="true" keyProperty="id">
         insert into visitor (uuid, ip, ip_source, os, browser, create_time, last_time, pv, user_agent)
         values (#{uuid}, #{ip}, #{ipSource}, #{os}, #{browser}, #{createTime}, #{lastTime}, #{pv}, #{userAgent})
     </insert>

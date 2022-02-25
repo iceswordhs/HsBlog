@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.ExceptionLogMapper">
+<mapper namespace="com.hs.repository.ExceptionLogMapper">
 
-    <resultMap id="LogBaseResultMap" type="com.hs.hsblog_backend.entity.ExceptionLog">
+    <resultMap id="LogBaseResultMap" type="com.hs.entity.ExceptionLog">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="uri" column="uri" jdbcType="VARCHAR"/>
             <result property="method" column="method" jdbcType="VARCHAR"/>
@@ -38,7 +38,7 @@
     </select>
 
     <!--添加日志-->
-    <insert id="saveExceptionLog" parameterType="com.hs.hsblog_backend.entity.ExceptionLog" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveExceptionLog" parameterType="com.hs.entity.ExceptionLog" useGeneratedKeys="true" keyProperty="id">
         insert into exception_log (uri, method, param, description, error, ip, ip_source, os, browser, create_time, user_agent)
         values (#{uri}, #{method}, #{param}, #{description}, #{error}, #{ip}, #{ipSource}, #{os}, #{browser}, #{createTime}, #{userAgent})
     </insert>

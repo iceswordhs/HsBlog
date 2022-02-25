@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.CityVisitorMapper">
+<mapper namespace="com.hs.repository.CityVisitorMapper">
 
-    <resultMap id="CityVisitorBaseResultMap" type="com.hs.hsblog_backend.entity.CityVisitor">
+    <resultMap id="CityVisitorBaseResultMap" type="com.hs.entity.CityVisitor">
             <id property="city" column="city" jdbcType="VARCHAR"/>
             <result property="uv" column="uv" jdbcType="INTEGER"/>
     </resultMap>
@@ -19,7 +19,7 @@
     </select>
 
     <!--添加访问记录-->
-    <insert id="saveCityVisitor" parameterType="com.hs.hsblog_backend.entity.CityVisitor">
+    <insert id="saveCityVisitor" parameterType="com.hs.entity.CityVisitor">
         insert into city_visitor (city, uv) values (#{city}, #{uv})
         on duplicate key update
             uv=uv+#{uv}

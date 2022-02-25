@@ -37,7 +37,7 @@ export default {
 </script>
 <style lang="scss">
 .board {
-  width: 1000px;
+  //width: 1000px;
   margin-left: 20px;
   display: flex;
   justify-content: space-around;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.CategoryMapper">
+<mapper namespace="com.hs.repository.CategoryMapper">
     <resultMap id="category" type="Category">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="name" column="categoryName" jdbcType="VARCHAR"/>
@@ -25,14 +25,14 @@
         <include refid="Base_Column_List"/>
         from category
     </select>
-    <select id="findCategoryByName" resultType="com.hs.hsblog_backend.entity.Category">
+    <select id="findCategoryByName" resultType="com.hs.entity.Category">
         select
         <include refid="Base_Column_List"/>
         from category
         where categoryName=#{name}
     </select>
 
-    <select id="getBlogByCategoryName" resultMap="com.hs.hsblog_backend.repository.BlogMapper.blog">
+    <select id="getBlogByCategoryName" resultMap="com.hs.repository.BlogMapper.blog">
         select
             b.id id ,b.title,b.home_picture,b.description,
             b.content,b.published,

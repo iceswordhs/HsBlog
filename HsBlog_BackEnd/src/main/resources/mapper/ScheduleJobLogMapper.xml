@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.ScheduleJobLogMapper">
+<mapper namespace="com.hs.repository.ScheduleJobLogMapper">
 
-    <resultMap id="ScheduleLogBaseResultMap" type="com.hs.hsblog_backend.entity.ScheduleJobLog">
+    <resultMap id="ScheduleLogBaseResultMap" type="com.hs.entity.ScheduleJobLog">
             <id property="logId" column="log_id" jdbcType="BIGINT"/>
             <result property="jobId" column="job_id" jdbcType="BIGINT"/>
             <result property="beanName" column="bean_name" jdbcType="VARCHAR"/>
@@ -32,7 +32,7 @@
         </where>
     </select>
 
-    <insert id="saveJobLog" parameterType="com.hs.hsblog_backend.entity.ScheduleJobLog" useGeneratedKeys="true" keyProperty="logId">
+    <insert id="saveJobLog" parameterType="com.hs.entity.ScheduleJobLog" useGeneratedKeys="true" keyProperty="logId">
         insert into schedule_job_log (job_id, bean_name, method_name, params, status, error, times, create_time)
         values (#{jobId}, #{beanName}, #{methodName}, #{params}, #{status}, #{error}, #{times}, #{createTime})
     </insert>

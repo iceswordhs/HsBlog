@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hs.hsblog_backend.repository.CommentMapper">
+<mapper namespace="com.hs.repository.CommentMapper">
 
-    <resultMap id="CommentBaseResultMap" type="com.hs.hsblog_backend.entity.Comment">
+    <resultMap id="CommentBaseResultMap" type="com.hs.entity.Comment">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
             <result property="email" column="email" jdbcType="VARCHAR"/>
@@ -20,7 +20,7 @@
             <result property="parentCommentId" column="parent_comment_id" jdbcType="BIGINT"/>
             <result property="website" column="website" jdbcType="VARCHAR"/>
             <result property="qq" column="qq" jdbcType="VARCHAR"/>
-        <association property="blog" javaType="com.hs.hsblog_backend.model.vo.BlogIdAndTitle">
+        <association property="blog" javaType="com.hs.model.vo.BlogIdAndTitle">
             <id property="id" column="blog_id"/>
             <result property="title" column="title"/>
         </association>
@@ -58,7 +58,7 @@
         where c.parent_comment_id=#{parentCommentId}
     </select>
 
-    <resultMap id="pageComment" type="com.hs.hsblog_backend.model.vo.PageComment">
+    <resultMap id="pageComment" type="com.hs.model.vo.PageComment">
         <id property="id" column="id"/>
         <result property="nickname" column="nickname"/>
         <result property="content" column="content"/>

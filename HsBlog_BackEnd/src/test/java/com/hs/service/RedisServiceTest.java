@@ -1,7 +1,10 @@
 package com.hs.service;
 
+import com.hs.constants.RedisKey;
 import com.hs.entity.About;
 import com.hs.repository.AboutMapper;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -33,5 +36,11 @@ public class RedisServiceTest {
         redisService.saveObjectToString("aObject",about);
         About aObject = redisService.getObjectByKeyFromString("aObject",About.class);
         System.out.println(aObject);
+    }
+
+    @Test
+    @Disabled
+    void testDeleteCacheByKey(){
+        redisService.deleteCacheByKey(RedisKey.SITE_INFO_MAP);
     }
 }

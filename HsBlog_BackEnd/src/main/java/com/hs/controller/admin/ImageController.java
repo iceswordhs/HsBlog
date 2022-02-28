@@ -18,7 +18,6 @@ import java.io.IOException;
 public class ImageController {
     @RequestMapping("/uploadImage")
     public Result<String> UploadImage(@RequestPart("image") MultipartFile file) throws IOException {
-        System.out.println(file.getOriginalFilename());
         // https://cdn.jsdelivr.net/gh/Naccl/blog-resource/NBlogApp/img/avatar.jpg
         // https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/image/test1.jpg
         return Result.success(UploadImageUtil.pushBlogImageGithub(file));

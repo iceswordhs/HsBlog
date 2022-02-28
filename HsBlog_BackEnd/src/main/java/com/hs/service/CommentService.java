@@ -34,13 +34,18 @@ public interface CommentService {
     void saveComment(CommentDto comment);
 
     int judgeCommentEnabled(Integer page, Long blogId);
+
     List<Comment> getAllReplyComments(Long parentCommentId);
+
     void setAdminComment(CommentDto comment, HttpServletRequest request, User admin);
+
     void setVisitorComment(CommentDto comment, HttpServletRequest request);
+
     void setCommentRandomAvatar(CommentDto comment);
 
     void judgeSendMail(CommentDto comment, boolean isVisitorComment, Comment parentComment);
 
     void sendMailToParentComment(Comment parentComment, CommentDto comment);
+
     void sendMailToMe(CommentDto comment);
 }

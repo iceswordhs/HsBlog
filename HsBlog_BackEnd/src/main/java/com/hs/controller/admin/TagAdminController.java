@@ -33,7 +33,7 @@ public class TagAdminController {
                                               @RequestParam(defaultValue = "10") Integer pageSize){
         String orderBy="tag_id desc";
         PageHelper.startPage(pageNum,pageSize,orderBy);
-        List<Tag> tags = tagService.getAllTags();
+        List<Tag> tags = tagService.getTagLists();
         PageInfo<Tag> tagPageInfo = new PageInfo<>(tags);
         return Result.success(tagPageInfo);
     }

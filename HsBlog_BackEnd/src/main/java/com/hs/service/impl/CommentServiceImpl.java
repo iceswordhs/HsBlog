@@ -175,29 +175,31 @@ public class CommentServiceImpl implements CommentService {
      *
      * @param page   页面分类（0普通文章，1关于我，2友链）
      * @param blogId 如果page==0，需要博客id参数，校验文章是否公开状态
-     * @return 0:公开可查询状态 1:评论关闭 2:该博客不存在 3:文章受密码保护
+     * @return 0:公开可查询状态 1:评论关闭 2:该博客不存在
      */
     @Override
     public int judgeCommentEnabled(Integer page, Long blogId) {
-        if (page == 0) {//普通博客
-            Boolean commentEnabled = blogService.getCommentEnabledByBlogId(blogId);
-            Boolean published = blogService.getPublishedByBlogId(blogId);
-            if (commentEnabled == null || published == null) {//未查询到此博客
-                return 2;
-            } else if (!published) {//博客未公开
-                return 2;
-            } else if (!commentEnabled) {//博客评论已关闭
-                return 1;
-            }
-        } else if (page == 1) {//关于我页面
-            if (!aboutService.getAboutCommentEnabled()) {//页面评论已关闭
-                return 1;
-            }
-        } else if (page == 2) {//友链页面
-            Friend friend = friendService.getFriendInfo();
-            if (!friend.getCommentEnable()) {
-                return 1;
-            }
+        switch (page){
+            case 0:
+                //普通博客
+                Boolean commentEnabled = blogService.getCommentEnabledByBlogId(blogId);
+                Boolean published = blogService.getPublishedByBlogId(blogId);
+                if (commentEnabled == null || published == null) {//未查询到此博客
+                    return 2;
+                } else if (!published) {//博客未公开
+                    return 2;
+                } else if (!commentEnabled) {//博客评论已关闭
+                    return 1;
+                }
+            case 1:
+                if (!aboutService.getAboutCommentEnabled()) {//页面评论已关闭
+                    return 1;
+                }
+            case 2:
+                Friend friend = friendService.getFriendInfo();
+                if (!friend.getCommentEnable()) {
+                    return 1;
+                }
         }
         return 0;
     }
@@ -351,18 +353,24 @@ public class CommentServiceImpl implements CommentService {
     public void sendMailToParentComment(Comment parentComment, CommentDto comment) {
         String path = "";
         String title = "";
-        if (comment.getPage() == 0) {
-            //普通博客
-            title = parentComment.getBlog().getTitle();
-            path = "/blog/" + comment.getBlogId();
-        } else if (comment.getPage() == 1) {
-            //关于我页面
-            title = "关于我";
-            path = "/about";
-        } else if (comment.getPage() == 2) {
-            //友链页面
-            title = "友人帐";
-            path = "/friends";
+        switch (comment.getPage()){
+            case 0:
+                //普通博客
+                title = parentComment.getBlog().getTitle();
+                path = "/blog/" + comment.getBlogId();
+                break;
+            case 1:
+                //关于我页面
+                title = "关于我";
+                path = "/about";
+                break;
+            case 2:
+                //友链页面
+                title = "友人帐";
+                path = "/friends";
+                break;
+            default:
+                break;
         }
         Map<String, Object> map = new HashMap<>();
         map.put("parentNickname", parentComment.getNickname());
@@ -387,18 +395,21 @@ public class CommentServiceImpl implements CommentService {
     public void sendMailToMe(CommentDto comment) {
         String path = "";
         String title = "";
-        if (comment.getPage() == 0) {
-            //普通博客
-            title = blogService.getBlogTitleById(comment.getBlogId());
-            path = "/blog/" + comment.getBlogId();
-        } else if (comment.getPage() == 1) {
-            //关于我页面
-            title = "关于我";
-            path = "/about";
-        } else if (comment.getPage() == 2) {
-            //友链页面
-            title = "友人帐";
-            path = "/friends";
+        switch (comment.getPage()){
+            case 0:
+                //普通博客
+                title = blogService.getBlogTitleById(comment.getBlogId());
+                path = "/blog/" + comment.getBlogId();
+                break;
+            case 1:
+                //关于我页面
+                title = "关于我";
+                path = "/about";
+                break;
+            case 2:
+                //友链页面
+                title = "友人帐";
+                path = "/friends";
         }
         Map<String, Object> map = new HashMap<>();
         map.put("title", title);

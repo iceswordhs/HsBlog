@@ -67,6 +67,8 @@ public interface BlogMapper {
     List<CategoryBlogCount> getCategoryBlogCountList();
 
     Integer countBlog();
+
+    List<BlogIdAndTitle> getNewBlogListByIsPublished();
 }
 
 

@@ -17,9 +17,9 @@
             </div>
             <!--右侧-->
             <div class="three wide column m-mobile-hide decorator">
-              <RandomBlog :randomBlogList="randomBlogList" :class="{'m-display-none':focusMode}"/>
-              <TagCloud :tagList="tagList" :class="{'m-display-none':focusMode}"/>
               <TimeLife :class="{'m-display-none':focusMode}"/>
+              <TagCloud :tagList="tagList" :class="{'m-display-none':focusMode}"/>
+              <RandomBlog :randomBlogList="randomBlogList" :class="{'m-display-none':focusMode}"/>
               <!--只在文章页面显示目录-->
               <Tocbot v-if="$route.name==='Blog'"/>
             </div>
@@ -37,7 +37,7 @@
       <img src="/static/paper-plane.png" style="width: 40px;height: 40px;">
     </el-backtop>
     <!--底部footer-->
-    <Footer :siteInfo="siteInfo" :badges="badges" :newBlogList="newBlogList"/>
+    <Footer :siteInfo="siteInfo" :badges="badges" :newBlogList="newBlogList" :sentence="sentence"/>
   </div>
 </template>
 <script>
@@ -51,7 +51,7 @@ import TimeLife from '@/view/index/TimeLife'
 import Introduction from '@/view/index/Introduction'
 import RandomBlog from '@/view/index/RandomBlog'
 
-import {getSite} from '@/api/index'
+import {getSite, getSentence} from '@/api/index'
 import {mapState} from 'vuex'
 import {SAVE_CLIENT_SIZE, SAVE_SITE_INFO, SAVE_INTRODUCTION, RESTORE_COMMENT_FORM} from '@/store/mutations-types'
 
@@ -64,6 +64,7 @@ export default {
         blogName: ''
       },
       randomBlogList: [],
+      sentence: '',
       categoryList: [],
       tagList: [],
       newBlogList: [],
@@ -98,6 +99,11 @@ export default {
           this.$store.commit(SAVE_SITE_INFO, this.siteInfo)
           this.$store.commit(SAVE_INTRODUCTION, res.data.data.introduction)
           document.title = this.$route.meta.title + this.siteInfo.webTitleSuffix
+        }
+      })
+      getSentence().then(res => {
+        if (res.data.code === 200) {
+          this.sentence = res.data.data
         }
       })
     }

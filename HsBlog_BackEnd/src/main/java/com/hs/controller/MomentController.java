@@ -34,9 +34,7 @@ public class MomentController {
         boolean adminIdentity = false;
         if (JwtUtil.checkTokenIsNotNull(jwt)) {
             try {
-                System.out.println(jwt);
                 String subject = JwtUtil.getTokenBody(jwt).getSubject();
-                System.out.println(subject);
                 if (subject.startsWith("admin:")) {//博主身份Token
                     String username = subject.replace("admin:", "");
                     UserDetails admin = userService.loadUserByUsername(username);

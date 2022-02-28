@@ -23,6 +23,10 @@ public interface SiteSettingMapper {
     List<SiteSetting> getSiteSettingByType(Integer type);
 
     List<Integer> getAllType();
+
+    List<SiteSetting> getSomeSentences();
+
+    SiteSetting getOneSentence();
 }
 
 

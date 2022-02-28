@@ -29,6 +29,12 @@ public interface TagService {
     List<Tag> getAllTags();
 
     /**
+     * 管理端按页差询Tag
+     * @return
+     */
+    List<Tag> getTagLists();
+
+    /**
      * 根据tagid或tagName查询tag
      * @author huangshuai
      * @Date 2021/12/16 17:51

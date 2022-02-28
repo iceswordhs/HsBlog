@@ -183,6 +183,12 @@ const routes = [
         name:'SiteSetting',
         component:() => import('@/views/siteManage/SiteSetting'),
         meta: {title: '页面设置',icon: 'bianjizhandian'}
+      },
+      {
+        path: 'myLoveSentences',
+        name:'MyLoveSentences',
+        component:() => import('@/views/siteManage/MyLoveSentence'),
+        meta: {title: '我的格言',icon: 'mylovesentence'}
       }
     ]
   },

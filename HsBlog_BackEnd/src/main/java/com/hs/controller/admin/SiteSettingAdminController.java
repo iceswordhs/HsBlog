@@ -2,6 +2,7 @@ package com.hs.controller.admin;
 
 import com.hs.entity.NullObject;
 import com.hs.annotation.OperationAnnotation;
+import com.hs.entity.SiteSetting;
 import com.hs.service.SiteSettingService;
 import com.hs.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,15 @@ public class SiteSettingAdminController {
         List<LinkedHashMap> siteSettings = (List<LinkedHashMap>) map.get("settings");
         List<Long> deleteIds = (List<Long>) map.get("deleteIds");
         siteSettingService.updateSiteSetting(siteSettings, deleteIds);
+        return Result.success(NullObject.INSTANCE,"更新成功");
+    }
+
+    @OperationAnnotation("添加警醒语句")
+    @PostMapping("sentences")
+    public Result updateSentences(@RequestBody Map<String, Object> map){
+        List<LinkedHashMap> sentences = (List<LinkedHashMap>) map.get("sentences");
+        List<Long> deleteIds = (List<Long>) map.get("deleteIds");
+        siteSettingService.updateSiteSetting(sentences, deleteIds);
         return Result.success(NullObject.INSTANCE,"更新成功");
     }
 }

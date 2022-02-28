@@ -6,3 +6,10 @@ export function getSite () {
     method: 'GET'
   })
 }
+
+export function getSentence () {
+  return axios({
+    url: 'sentence',
+    method: 'GET'
+  })
+}

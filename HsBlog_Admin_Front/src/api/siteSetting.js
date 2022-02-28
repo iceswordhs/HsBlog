@@ -18,6 +18,24 @@ export function update(settings, deleteIds) {
     })
 }
 
+export function getSentences() {
+    return axios({
+        url: 'sentences',
+        method: 'GET'
+    })
+}
+
+export function updateSentence(sentences, deleteIds) {
+    return axios({
+        url: 'sentences',
+        method: 'POST',
+        data: {
+            sentences,
+            deleteIds
+        }
+    })
+}
+
 export function getWebTitleSuffix() {
     return axios({
         url: 'webTitleSuffix',

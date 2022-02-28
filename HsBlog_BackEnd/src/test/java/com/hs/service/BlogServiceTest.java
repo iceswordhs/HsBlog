@@ -2,8 +2,11 @@ package com.hs.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.entity.Blog;
+import com.hs.model.vo.BlogIdAndTitle;
 import com.hs.model.vo.BlogListItem;
 import com.hs.repository.BlogMapper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,7 +53,24 @@ public class BlogServiceTest {
     }
 
     @Test
+    void testNewBlogListByIsPublished(){
+        List<BlogIdAndTitle> blogs = blogService.getNewBlogListByIsPublished();
+        for (BlogIdAndTitle blog : blogs) {
+            System.out.println(blog.getId()+blog.getTitle());
+        }
+    }
+
+    @Test
+    @Disabled
     void testGetBlogById(){
         System.out.println(blogMapper.getBlogById(50L));
+    }
+
+    @Test
+    void testManageBlog(){
+        String orderBy = "create_time desc";
+        PageHelper.startPage(1, 10, orderBy);
+        PageInfo<Blog> pageInfo = new PageInfo<>(blogService.getBlogListByTitleAndCategoryId("",null));
+        System.out.println(pageInfo);
     }
 }

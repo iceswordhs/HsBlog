@@ -6,9 +6,9 @@ import 'nprogress/nprogress.css'
 
 // 创建一个实例
 const service = axios.create({
-  baseURL: 'https://backend.smarths.cn/admin',
-  // baseURL: 'http://localhost:10000/admin',
-  timeout: 5000 // request timeout
+  // baseURL: 'https://backend.smarths.cn/admin',
+  baseURL: 'http://localhost:10000/admin',
+  timeout: 50000 // request timeout
 })
 
 let CancelToken = axios.CancelToken

@@ -15,7 +15,7 @@ import java.util.List;
  */
 @SpringBootTest
 public class TestJwtUtil {
-    @Test
+    //@Test
     void testJwt(){
         Claims tokenBody = JwtUtil.getTokenBody("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIcyIsImF1dGhvcml0aWVzIjoiUk9MRV92aXNpdG9yLFJPTEVfYWRtaW4sIiwiZXhwIjoxNjQ1Nzc1Mzc0fQ.YwhDG5CiTs8sYgCBDEnfygPkVVU4w5dOXwl4lg4-xf4");
         List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) tokenBody.get("authorities"));

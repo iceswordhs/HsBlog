@@ -64,7 +64,6 @@ public class FriendAdminController {
     @OperationAnnotation("更新友链页面评论开启状态")
     @PutMapping("friendInfo/commentEnable")
     public Result<NullObject> updateCommentEnabled(@RequestParam Boolean commentEnable){
-        System.out.println(commentEnable);
         friendService.updateCommentEnable(commentEnable);
         return Result.success();
     }
@@ -72,7 +71,6 @@ public class FriendAdminController {
     @OperationAnnotation("更新友链页面描述")
     @PutMapping("friendInfo/content")
     public Result<NullObject> updateContent(@RequestParam String content){
-        System.out.println(content);
         friendService.updateContent(content);
         return Result.success();
     }

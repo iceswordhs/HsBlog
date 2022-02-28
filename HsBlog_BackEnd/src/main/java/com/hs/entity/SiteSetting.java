@@ -104,4 +104,15 @@ public class SiteSetting implements Serializable {
     public void setType(Integer type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "SiteSetting{" +
+                "id=" + id +
+                ", nameEn='" + nameEn + '\'' +
+                ", nameZh='" + nameZh + '\'' +
+                ", value='" + value + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

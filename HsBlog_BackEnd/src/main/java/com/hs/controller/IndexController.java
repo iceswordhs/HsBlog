@@ -1,5 +1,6 @@
 package com.hs.controller;
 
+import com.hs.entity.SiteSetting;
 import com.hs.entity.Tag;
 import com.hs.model.vo.BlogIdAndTitle;
 import com.hs.model.vo.RandomBlog;
@@ -37,5 +38,11 @@ public class IndexController {
         map.put("tagList", tagList);
         map.put("randomBlogList", randomBlogList);
         return Result.success(map,"请求成功");
+    }
+
+    @GetMapping("sentence")
+    public Result updateSentences(){
+        SiteSetting sentence = siteSettingService.getOneSentences();
+        return Result.success(sentence);
     }
 }

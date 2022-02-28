@@ -52,30 +52,6 @@ public class CommentController {
             return Result.fail("该博客不存在");
         } else if (judgeResult == 1) {
             return Result.fail("评论已关闭");
-        } else if (judgeResult == 3) {//文章受密码保护，需要验证Token
-            if (JwtUtil.checkTokenIsNotNull(jwt)) {
-                try {
-                    String subject = JwtUtil.getTokenBody(jwt).getSubject();
-                    if (subject.startsWith("admin:")) {//博主身份Token
-                        String username = subject.replace("admin:", "");
-                        User admin = (User) userService.loadUserByUsername(username);
-                        if (admin == null) {
-                            return Result.fail("博主身份Token已失效，请重新登录！");
-                        }
-                    } else {//经密码验证后的Token
-                        Long tokenBlogId = Long.parseLong(subject);
-                        //博客id不匹配，验证不通过，可能博客id改变或客户端传递了其它密码保护文章的Token
-                        if (!tokenBlogId.equals(blogId)) {
-                            return Result.fail("Token不匹配，请重新验证密码！");
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return Result.fail("Token已失效，请重新验证密码！");
-                }
-            } else {
-                return Result.fail("此文章受密码保护，请验证密码！");
-            }
         }
         //查询该页面所有评论的数量
         Integer allComment = commentService.countByPageAndIsPublished(page, blogId, null);
@@ -132,6 +108,7 @@ public class CommentController {
         }
         //有Token则为博主评论
         if (JwtUtil.checkTokenIsNotNull(jwt)) {
+            // 获取token的subject
             String subject;
             try {
                 Claims body = JwtUtil.getTokenBody(jwt);
@@ -140,7 +117,8 @@ public class CommentController {
                 e.printStackTrace();
                 return Result.fail("Token已失效，请重新登录");
             }
-            //博主评论，根据博主信息设置评论属性
+
+            // 博主评论，根据博主信息设置评论属性
             if (subject.startsWith("admin:")) {
                 //Token验证通过，获取Token中用户名
                 String username = subject.replace("admin:", "");

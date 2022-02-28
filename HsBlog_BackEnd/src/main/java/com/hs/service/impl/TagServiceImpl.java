@@ -43,6 +43,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public List<Tag> getTagLists() {
+        return tagMapper.getAllTag();
+    }
+
+    @Override
     public Tag getTagByIdOrName(Tag tag) {
         return tagMapper.findByIdOrName(tag);
     }

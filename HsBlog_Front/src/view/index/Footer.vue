@@ -12,10 +12,12 @@
           <div class="eight wide column">
             <h4 class="ui inverted header m-text-thin m-text-spaced">那些有意义的</h4>
 
+            <p id="hitokotoText" class="m-text-thin m-text-spaced m-opacity-mini">{{ sentence.value }}</p>
+            <p id="hitokotoFrom" class="m-text-thin m-text-spaced m-opacity-mini" style="float: right" v-text="sentence.nameZh?`——《${sentence.nameZh}》`:''"></p>
           </div>
           <div class="four wide column">
 <!--            <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>-->
-            <div class="ui inverted link list">
+            <div class="ui inverted link list" style="margin-top: 30px">
               {{runTime}}
             </div>
           </div>
@@ -82,6 +84,10 @@ export default {
     },
     newBlogList: {
       type: Array,
+      required: true
+    },
+    sentence: {
+      type: String,
       required: true
     }
   },

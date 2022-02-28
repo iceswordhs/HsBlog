@@ -341,12 +341,14 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.getBlogListByTitleAndCategoryId(title,categoryId);
     }
 
+    @Transactional
     @Override
     public void updateBlogTopById(Long id, Boolean top) {
         blogMapper.updateBlogTopById(id,top);
         redisService.deleteCacheByKey(RedisKey.HOME_BLOG_INFO_LIST);
     }
 
+    @Transactional
     @Override
     public void updateBlogPublishedById(Long id, Boolean published) {
         blogMapper.updateBlogPublishedById(id, published);
@@ -355,12 +357,14 @@ public class BlogServiceImpl implements BlogService {
         deleteBlogRedisCache();
     }
 
+    @Transactional
     @Override
     public void updateBlogRecommendById(Long id, Boolean recommend) {
         blogMapper.updateBlogRecommendById(id, recommend);
 
         // 删除Redis缓存
-        deleteBlogRedisCache();
+        redisService.deleteCacheByKey(RedisKey.HOME_BLOG_INFO_LIST);
+        redisService.deleteCacheByKey(RedisKey.NEW_BLOG_LIST);
     }
 
     @Override
@@ -391,7 +395,7 @@ public class BlogServiceImpl implements BlogService {
             return newBlogListFromRedis;
         }
         PageHelper.startPage(1, newBlogPageSize);
-        List<BlogIdAndTitle> newBlogList = blogMapper.getIdAndTitleList();
+        List<BlogIdAndTitle> newBlogList = blogMapper.getNewBlogListByIsPublished();
         redisService.saveListToValue(redisKey, newBlogList);
         return newBlogList;
     }
@@ -402,6 +406,7 @@ public class BlogServiceImpl implements BlogService {
     private void deleteBlogRedisCache() {
         redisService.deleteCacheByKey(RedisKey.HOME_BLOG_INFO_LIST);
         redisService.deleteCacheByKey(RedisKey.ARCHIVE_BLOG_MAP);
+        redisService.deleteCacheByKey(RedisKey.NEW_BLOG_LIST);
     }
 
     @Transactional

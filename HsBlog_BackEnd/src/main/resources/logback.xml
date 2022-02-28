@@ -15,7 +15,7 @@
     <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/Log/%d{yyyy, aux}/%d{MM, aux}/%d{yyyy-MM-dd}%i.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/Log/%d{yyyy, aux}/%d{MM, aux}/%d{yyyy-MM-dd}_%i.log</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>365</MaxHistory>
             <!--日志文件最大的大小-->
@@ -32,7 +32,7 @@
     <appender name="ExceptionFILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/ExceptionLog/%d{yyyy, aux}/%d{MM, aux}/%d{yyyy-MM-dd}%i.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/ExceptionLog/%d{yyyy, aux}/%d{MM, aux}/%d{yyyy-MM-dd}_%i.log</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>365</MaxHistory>
             <!--日志文件最大大小-->

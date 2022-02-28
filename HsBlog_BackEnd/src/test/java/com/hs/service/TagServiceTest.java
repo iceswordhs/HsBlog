@@ -1,5 +1,7 @@
 package com.hs.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,14 @@ public class TagServiceTest {
             int colorRandomInt = random.nextInt(8);
             System.out.println(colorRandomInt);
         }
+    }
+
+    @Test
+    void testGetTagListByPage(){
+        String orderBy="tag_id desc";
+        PageHelper.startPage(2,10,orderBy);
+        List<Tag> tags = tagService.getTagLists();
+        PageInfo<Tag> tagPageInfo = new PageInfo<>(tags);
+        System.out.println(tagPageInfo);
     }
 }

@@ -1,5 +1,6 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.hs.constants.RedisKey;
 import com.hs.entity.SiteSetting;
 import com.hs.model.bean.Badge;
@@ -118,6 +119,8 @@ public class SiteSettingServiceImpl implements SiteSettingService {
         List<Integer> types = siteSettingMapper.getAllType();
         HashMap<String, Object> map = new HashMap<>();
         for (Integer type : types) {
+            // type大于3的不在这个页面
+            if (type>3) continue;
             List<SiteSetting> siteSettingByType = siteSettingMapper.getSiteSettingByType(type);
             map.put("type"+type,siteSettingByType);
         }
@@ -165,5 +168,40 @@ public class SiteSettingServiceImpl implements SiteSettingService {
 
     private void deleteRedisCache(){
         redisService.deleteCacheByKey(RedisKey.SITE_INFO_MAP);
+    }
+
+    /**
+     * 获取不同的格言,暂时废弃
+     * @return
+     */
+    @Override
+    public List<SiteSetting> getSomeSentences(){
+        return siteSettingMapper.getSomeSentences();
+    }
+
+    @Override
+    public List<SiteSetting> getSentences(){
+        List<SiteSetting> sentences = siteSettingMapper.getSiteSettingByType(4);
+        return sentences;
+    }
+
+    @Override
+    public void updateSentences(List<LinkedHashMap> sentences, List<Long> deleteIds){
+        for (Long id : deleteIds) {//删除
+            deleteOneSiteSettingById(id);
+        }
+        for (LinkedHashMap s : sentences) {
+            SiteSetting sentence = JacksonUtils.convertValue(s, SiteSetting.class);
+            if (sentence.getId() != null) {//修改
+                updateOneSiteSetting(sentence);
+            } else {//添加
+                saveOneSiteSetting(sentence);
+            }
+        }
+    }
+
+    @Override
+    public SiteSetting getOneSentences() {
+        return siteSettingMapper.getOneSentence();
     }
 }

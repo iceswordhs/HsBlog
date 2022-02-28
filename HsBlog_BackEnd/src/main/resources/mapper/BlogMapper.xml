@@ -268,4 +268,12 @@
     <select id="countBlog" resultType="java.lang.Integer">
         select count(*) from blog
     </select>
+
+    <!--查询最新公开博客-->
+    <select id="getNewBlogListByIsPublished" resultType="com.hs.model.vo.BlogIdAndTitle">
+        select id, title
+        from blog
+        where published=true
+        order by create_time desc
+    </select>
 </mapper>

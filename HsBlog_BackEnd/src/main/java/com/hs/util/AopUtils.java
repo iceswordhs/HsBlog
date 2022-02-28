@@ -59,7 +59,7 @@ public class AopUtils {
      * @return
      */
     private static boolean isIgnoreParams(String params) {
-        System.out.println(ignoreParams.contains(params));
+        System.out.println("是否是忽略参数jwt："+ignoreParams.contains(params));
         return ignoreParams.contains(params);
     }
 }

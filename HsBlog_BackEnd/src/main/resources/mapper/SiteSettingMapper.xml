@@ -47,5 +47,19 @@
     <select id="getAllType" resultType="java.lang.Integer">
         select type from site_setting
     </select>
+    <select id="getSomeSentences" resultMap="SiteSettingBaseResultMap">
+        select
+        <include refid="SiteSetting_Base_Column_List"/>
+        from site_setting
+        where type=4
+        order by rand() limit 3
+    </select>
+    <select id="getOneSentence" resultMap="SiteSettingBaseResultMap">
+        select
+        <include refid="SiteSetting_Base_Column_List"/>
+        from site_setting
+        where type=4
+        order by rand() limit 1
+    </select>
 
 </mapper>

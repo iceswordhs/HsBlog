@@ -131,7 +131,7 @@ const routes = [
       {
         path: 'kanban2',
         name: 'dialogKanban',
-        component: () => import('@/views/components/drag-kanban'),
+        component: () => import('@/views/components/mykanban'),
         meta: {title: '计划板2', icon: 'el-icon-date'}
       }
     ]

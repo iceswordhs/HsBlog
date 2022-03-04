@@ -1,5 +1,6 @@
 package com.hs.service;
 
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Category;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
  */
 public interface CategoryService {
     List<Category> getAllCategories();
+
+    PageInfo<Category> getCategoriesByPage(Integer pageNum, Integer pageSize);
 
     Category findCategoryByName(String categoryName);
 

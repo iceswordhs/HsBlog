@@ -54,7 +54,8 @@ public class JwtFilter extends GenericFilterBean {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,null, authorities);
             SecurityContextHolder.getContext().setAuthentication(token);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                System.out.println("token已过期，重新登录！");
                 response.setContentType("application/json;charset=utf-8");
                 Result<NullObject> result = Result.fail(CodeType.VOUCHER_HAS_EXPIRED);
                 PrintWriter out = response.getWriter();

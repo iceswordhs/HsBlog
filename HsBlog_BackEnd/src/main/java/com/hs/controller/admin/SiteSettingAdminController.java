@@ -37,12 +37,18 @@ public class SiteSettingAdminController {
         return Result.success(NullObject.INSTANCE,"更新成功");
     }
 
-    @OperationAnnotation("添加警醒语句")
+    @OperationAnnotation("更新警醒语句")
     @PostMapping("sentences")
     public Result updateSentences(@RequestBody Map<String, Object> map){
         List<LinkedHashMap> sentences = (List<LinkedHashMap>) map.get("sentences");
         List<Long> deleteIds = (List<Long>) map.get("deleteIds");
         siteSettingService.updateSiteSetting(sentences, deleteIds);
         return Result.success(NullObject.INSTANCE,"更新成功");
+    }
+
+    @GetMapping("sentences")
+    public Result updateSentences(){
+        List<SiteSetting> sentences = siteSettingService.getSentences();
+        return Result.success(sentences);
     }
 }

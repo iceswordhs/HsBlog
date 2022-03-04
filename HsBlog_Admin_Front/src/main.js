@@ -17,6 +17,9 @@ import './utils/dateTimeFormatUtils.js'
 
 // 导入节流防抖组件
 import './utils/directive'
+import VueDraggable from './directives/draggable'
+Vue.config.productionTip = false
+Vue.directive('draggable', VueDraggable)
 
 import App from './App'
 import store from './store'

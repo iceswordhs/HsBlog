@@ -265,7 +265,7 @@ public class BlogServiceImpl implements BlogService {
     private void checkBLog(Blog blog){
         if (StringUtils.isEmpty(blog.getTitle(),blog.getContent(),
                 blog.getDescription())||blog.getWords()<0){
-            throw ServiceException.create("博客信息有误，正文或者标题为空！");
+            throw ServiceException.create("博客信息有误，某些属性为空！");
         }
         if (blog.getCategory()==null){
             throw ServiceException.create("博客分类不能为空！");
@@ -379,7 +379,11 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Boolean getPublishedByBlogId(Long id) {
-        return blogMapper.getPublishedByBlogId(id);
+        Boolean published = blogMapper.getPublishedByBlogId(id);
+        if (published==null){
+            throw ServiceException.create("该博客不存在");
+        }
+        return published;
     }
 
     @Override

@@ -14,6 +14,8 @@ public interface RedisService {
     // 从Redis中获取每页的缓存
     PageInfo<BlogListItem> getBlogListItemPageResultByHash(String key, Integer pageNum);
 
+
+
     // 将一个键值对保存到hash中
     void saveKVToHash(String key, Object field, Object value);
 

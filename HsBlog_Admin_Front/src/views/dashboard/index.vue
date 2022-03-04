@@ -77,7 +77,8 @@
 <script>
 import SvgIcon from "@/components/SvgIcon";
 import echarts from 'echarts'
-import 'echarts/map/js/china'
+// import 'echarts/map/js/china'
+import '@/utils/china.js'
 import {getDashboard} from "@/api/dashboard";
 //城市经纬度数据来自 https://github.com/Naccl/region2coord
 import geoCoordMap from '@/utils/city2coord.json'

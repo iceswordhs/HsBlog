@@ -30,7 +30,7 @@
                 <i class="small pencil alternate icon"></i><span>字数≈{{ item.words }}字</span>
               </div>
               <div class="item m-common-black">
-                <i class="small clock icon"></i><span>阅读时长≈{{ parseInt(item.words/140) }}分</span>
+                <i class="small clock icon"></i><span>阅读时长≈{{ parseInt(item.words/500) }}分</span>
               </div>
             </div>
           </div>

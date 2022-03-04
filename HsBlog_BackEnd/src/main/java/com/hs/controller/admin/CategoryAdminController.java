@@ -31,9 +31,7 @@ public class CategoryAdminController {
     @GetMapping("/getCategoriesByPage")
     public Result<PageInfo<Category>> getCategoriesByPage(@RequestParam(defaultValue = "1") Integer pageNum,
                                                       @RequestParam(defaultValue = "10") Integer pageSize){
-        PageHelper.startPage(pageNum,pageSize);
-        List<Category> allCategory = categoryService.getAllCategories();
-        PageInfo<Category> categoryPageInfo = new PageInfo<>(allCategory);
+        PageInfo<Category> categoryPageInfo = categoryService.getCategoriesByPage(pageNum,pageSize);
         return Result.success(categoryPageInfo);
     }
 

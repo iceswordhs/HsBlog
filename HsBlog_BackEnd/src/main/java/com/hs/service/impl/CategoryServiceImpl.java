@@ -1,5 +1,7 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.constants.RedisKey;
 import com.hs.entity.Category;
 import com.hs.repository.CategoryMapper;
@@ -31,6 +33,13 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categories = categoryMapper.getAllCategories();
         redisService.saveListToValue(redisKey,categories);
         return categories;
+    }
+
+    @Override
+    public PageInfo<Category> getCategoriesByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Category> categories = categoryMapper.getAllCategories();
+        return new PageInfo<>(categories);
     }
 
     @Override

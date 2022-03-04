@@ -50,7 +50,7 @@
     </el-pagination>
 
     <!-- 异常信息 -->
-    <el-dialog title="异常信息" append-to-body top="20px" width="80%" :visible.sync="detailDialogVisible" destroy-on-close>
+    <el-dialog title="异常信息" append-to-body top="20px" @close="detailDialogVisible" width="80%" :visible.sync="detailDialogVisible" destroy-on-close>
       <div class="match-braces rainbow-braces">
 				<pre>
 					<code class="language-java">{{ detail }}</code>

@@ -10,8 +10,7 @@
         <el-input :class="'textarea'" type="textarea" :rows="5" v-model="commentForm.content" placeholder="评论千万条，友善第一条"
                   maxlength="250" show-word-limit :validate-event="false"></el-input>
       </el-row>
-      <el-row :gutter="5">
-        <el-col :span="1">
+      <el-row :gutter="5" type="justify" justify="space-between">
           <div class="el-form-item el-form-item--small emoji">
             <img src="https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/paopao/1.png" @click="showEmojiBox">
             <div class="mask" v-show="emojiShow" @click="hideEmojiBox"></div>
@@ -47,41 +46,30 @@
               </div>
             </div>
           </div>
-        </el-col>
-        <el-col :span="5">
           <el-form-item prop="nickname">
             <el-popover ref="nicknamePopover" placement="bottom" trigger="focus" content="输入QQ号将自动拉取昵称和头像"></el-popover>
             <el-input v-model="commentForm.nickname" placeholder="昵称（必填）" :validate-event="false" v-popover:nicknamePopover>
               <i slot="prefix" class="el-input__icon el-icon-user"></i>
             </el-input>
           </el-form-item>
-        </el-col>
-        <el-col :span="5">
           <el-form-item prop="email">
             <el-popover ref="emailPopover" placement="bottom" trigger="focus" content="用于接收回复邮件"></el-popover>
             <el-input v-model="commentForm.email" placeholder="邮箱（必填）" :validate-event="false" v-popover:emailPopover>
               <i slot="prefix" class="el-input__icon el-icon-message"></i>
             </el-input>
           </el-form-item>
-        </el-col>
-        <el-col :span="5">
           <el-form-item>
             <el-popover ref="websitePopover" placement="bottom" trigger="focus" content="可以让我参观一下吗😊"></el-popover>
             <el-input v-model="commentForm.website" placeholder="https://（可选）" v-popover:websitePopover>
               <i slot="prefix" class="el-input__icon el-icon-map-location"></i>
             </el-input>
           </el-form-item>
-        </el-col>
-        <el-col :span="4">
           <el-form-item label="订阅回复">
             <el-switch v-model="commentForm.notice"></el-switch>
           </el-form-item>
-        </el-col>
-        <el-col :span="4">
           <el-form-item>
             <el-button type="primary" size="medium" v-throttle="[postForm,`click`,3000]">发表评论</el-button>
           </el-form-item>
-        </el-col>
       </el-row>
     </el-form>
   </div>

@@ -64,7 +64,10 @@ export default {
         blogName: ''
       },
       randomBlogList: [],
-      sentence: '',
+      sentence: {
+        value: ' ',
+        nameZh: ''
+      },
       categoryList: [],
       tagList: [],
       newBlogList: [],

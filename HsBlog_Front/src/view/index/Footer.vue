@@ -87,7 +87,7 @@ export default {
       required: true
     },
     sentence: {
-      type: String,
+      type: Object,
       required: true
     }
   },

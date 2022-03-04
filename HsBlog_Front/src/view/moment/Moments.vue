@@ -7,7 +7,7 @@
       <div class="moments">
         <div class="moment" v-for="(moment,index) in momentList" :key="index">
           <div class="avatar">
-            <img :src="$store.state.introduction.avatar.value">
+            <img :src="$store.state.introduction.avatar">
           </div>
           <div class="ui card">
             <div class="content m-top">

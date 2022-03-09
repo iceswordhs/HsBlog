@@ -37,4 +37,7 @@ public class RedisKey {
 
     // qq号与对应头像链接key
     public static final String QQ_AVATAR_GITHUB_URL = "qqAvatarGithubUrl";
+
+    // 格言语句对应key
+    public static final String SENTENCES_SET = "sentencesSet";
 }

@@ -60,6 +60,8 @@ public interface RedisService {
 
     boolean hasValueInSet(String key, Object value);
 
+    Object getRandomValueFromSet(String key);
+
     // 根据key清除key对应的值(缓存)
     void deleteCacheByKey(String key);
 

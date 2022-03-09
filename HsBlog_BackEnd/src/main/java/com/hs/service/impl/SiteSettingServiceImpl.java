@@ -198,10 +198,20 @@ public class SiteSettingServiceImpl implements SiteSettingService {
                 saveOneSiteSetting(sentence);
             }
         }
+        redisService.deleteCacheByKey(RedisKey.SENTENCES_SET);
     }
 
     @Override
     public SiteSetting getOneSentences() {
-        return siteSettingMapper.getOneSentence();
+        String redisKey=RedisKey.SENTENCES_SET;
+        if (redisService.hasKey(redisKey)){
+            return (SiteSetting) redisService.getRandomValueFromSet(redisKey);
+        }
+        // 如果不存在 就把sentences全部保存到redis
+        List<SiteSetting> sentences = siteSettingMapper.getSiteSettingByType(4);
+        for (SiteSetting sentence : sentences) {
+            redisService.saveValueToSet(redisKey,sentence);
+        }
+        return (SiteSetting) redisService.getRandomValueFromSet(redisKey);
     }
 }

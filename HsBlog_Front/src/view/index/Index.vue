@@ -51,7 +51,7 @@ import TimeLife from '@/view/index/TimeLife'
 import Introduction from '@/view/index/Introduction'
 import RandomBlog from '@/view/index/RandomBlog'
 
-import {getSite, getSentence} from '@/api/index'
+import {getSite} from '@/api/index'
 import {mapState} from 'vuex'
 import {SAVE_CLIENT_SIZE, SAVE_SITE_INFO, SAVE_INTRODUCTION, RESTORE_COMMENT_FORM} from '@/store/mutations-types'
 
@@ -97,16 +97,12 @@ export default {
           this.siteInfo.copyright = JSON.parse(this.siteInfo.copyright)
           this.badges = res.data.data.badges
           this.newBlogList = res.data.data.newBlogList
+          this.sentence = res.data.data.sentence
           this.randomBlogList = res.data.data.randomBlogList
           this.tagList = res.data.data.tagList
           this.$store.commit(SAVE_SITE_INFO, this.siteInfo)
           this.$store.commit(SAVE_INTRODUCTION, res.data.data.introduction)
           document.title = this.$route.meta.title + this.siteInfo.webTitleSuffix
-        }
-      })
-      getSentence().then(res => {
-        if (res.data.code === 200) {
-          this.sentence = res.data.data
         }
       })
     }

@@ -127,7 +127,10 @@ public class RedisServiceImpl implements RedisService {
         return redisTemplate.opsForSet().isMember(key, value);
     }
 
-
+    @Override
+    public Object getRandomValueFromSet(String key) {
+        return redisTemplate.opsForSet().randomMember(key);
+    }
 
     @Override
     public void deleteCacheByKey(String key) {

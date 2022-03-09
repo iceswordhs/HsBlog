@@ -16,8 +16,11 @@ public class SiteSettingTest {
 
     @Test
     void testSentences(){
-        for (SiteSetting sentence : siteSettingService.getSomeSentences()) {
-            System.out.println(sentence);
+        //for (SiteSetting sentence : siteSettingService.getSomeSentences()) {
+        //    System.out.println(sentence);
+        //}
+        for(int i=0;i<5;i++){
+            System.out.println(siteSettingService.getOneSentences());
         }
     }
 }

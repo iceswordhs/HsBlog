@@ -34,9 +34,11 @@ public class IndexController {
         List<BlogIdAndTitle> newBlogList = blogService.getNewBlogListByIsPublished();
         List<Tag> tagList = tagService.getAllTags();
         List<RandomBlog> randomBlogList = blogService.getRandomBlogListByLimitNumAndIsPublishedAndIsRecommend();
+        SiteSetting sentence = siteSettingService.getOneSentences();
         map.put("newBlogList", newBlogList);
         map.put("tagList", tagList);
         map.put("randomBlogList", randomBlogList);
+        map.put("sentence",sentence);
         return Result.success(map,"请求成功");
     }
 

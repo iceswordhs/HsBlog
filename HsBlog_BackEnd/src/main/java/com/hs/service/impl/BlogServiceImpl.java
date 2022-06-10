@@ -233,7 +233,7 @@ public class BlogServiceImpl implements BlogService {
         // 设置更新时间
         blog.setUpdateTime(new Date());
         // 如果是新建
-        if (blogMapper.getBlogById(blog.getId())==null){
+        if (blogMapper.adminGetBlogById(blog.getId())==null){
             blog.setCreateTime(new Date());
             blogMapper.saveBlog(blog);
         }else {

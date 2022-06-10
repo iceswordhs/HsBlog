@@ -12,7 +12,7 @@
       </el-row>
       <el-row :gutter="5" type="justify" justify="space-between">
           <div class="el-form-item el-form-item--small emoji">
-            <img src="https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/paopao/1.png" @click="showEmojiBox">
+            <img src="https://fastly.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/paopao/1.png" @click="showEmojiBox">
             <div class="mask" v-show="emojiShow" @click="hideEmojiBox"></div>
             <div class="emoji-box" v-show="emojiShow">
               <div class="emoji-title">
@@ -35,13 +35,13 @@
               </div>
               <div class="emoji-tabs">
                 <a class="tab-link" :class="{'on':activeEmojiTab===0}" @click="activeEmojiTab=0">
-                  <img src="https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/tv/1.png">
+                  <img src="https://fastly.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/tv/1.png">
                 </a>
                 <a class="tab-link" :class="{'on':activeEmojiTab===1}" @click="activeEmojiTab=1">
-                  <img src="https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/aru/1.png">
+                  <img src="https://fastly.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/aru/1.png">
                 </a>
                 <a class="tab-link" :class="{'on':activeEmojiTab===2}" @click="activeEmojiTab=2">
-                  <img src="https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/paopao/1.png">
+                  <img src="https://fastly.jsdelivr.net/gh/iceswordhs/HsResource/Blog/comment_expression/paopao/1.png">
                 </a>
               </div>
             </div>

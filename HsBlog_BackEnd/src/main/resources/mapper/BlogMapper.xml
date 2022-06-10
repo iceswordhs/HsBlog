@@ -110,6 +110,18 @@
         where b.id=#{id} and published=true
     </select>
 
+    <select id="adminGetBlogById" resultMap="blog">
+        select
+            b.id id ,b.title,b.home_picture,
+            b.content,
+            b.description,
+            b.create_time,b.update_time,
+            b.views,b.words,b.published,b.recommend,b.top,b.comment_enable,
+            c.id as category_id,c.categoryName
+        from blog b join category c on b.category_id = c.id
+        where b.id=#{id}
+    </select>
+
     <insert id="saveBlog" parameterType="blog" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into blog(title,home_picture,description,content,category_id,create_time,update_time,views,words,published,recommend,top,comment_enable)
         values(#{title},#{homePicture},#{description},#{content},#{category.id},#{createTime},#{updateTime},#{views},#{words},#{published},#{recommend},#{top},#{commentEnable})

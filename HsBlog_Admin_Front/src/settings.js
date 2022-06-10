@@ -23,5 +23,5 @@ module.exports = {
    * @type {string}
    * @description logo URL
    */
-  logo: 'https://cdn.jsdelivr.net/gh/iceswordhs/HsResource/Blog/image/网站后台图标.png',
+  logo: 'https://fastly.jsdelivr.net/gh/iceswordhs/HsResource/Blog/image/网站后台图标.png',
 }

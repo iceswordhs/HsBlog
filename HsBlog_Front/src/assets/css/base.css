@@ -14,7 +14,7 @@ body,
 
   /*鼠标改变*/
   -webkit-font-smoothing: antialiased;
-  cursor: url(//cdn.jsdelivr.net/gh/qinhua/halo-theme-joe2.0@master/source/cursor/simple_cursor/normal.cur),auto;
+  cursor: url(//fastly.jsdelivr.net/gh/qinhua/halo-theme-joe2.0@master/source/cursor/simple_cursor/normal.cur),auto;
 }
 
 ::selection {

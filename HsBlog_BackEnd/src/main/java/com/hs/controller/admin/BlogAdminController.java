@@ -105,8 +105,8 @@ public class BlogAdminController {
 
     @OperationAnnotation("更新博客推荐状态")
     @PostMapping("/blog/recommend")
-    public Result<NullObject> updateBlogRecommend(@RequestParam Long id, @RequestParam Boolean published){
-        blogService.updateBlogRecommendById(id, published);
+    public Result<NullObject> updateBlogRecommend(@RequestParam Long id, @RequestParam Boolean recommend){
+        blogService.updateBlogRecommendById(id, recommend);
         return Result.success();
     }
 }

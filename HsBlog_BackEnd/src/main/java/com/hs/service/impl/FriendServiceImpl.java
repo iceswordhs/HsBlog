@@ -9,6 +9,7 @@ import com.hs.repository.FriendItemMapper;
 import com.hs.repository.FriendMapper;
 import com.hs.service.FriendService;
 import com.hs.service.RedisService;
+import com.hs.util.commarkUtil.MarkDownToHTMLUtil;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,6 +106,7 @@ public class FriendServiceImpl implements FriendService {
         List<FriendItem> friendItemList = friendItemMapper.getPublishedFriendItemList();
         Friend friend = friendMapper.getFriendInfo();
         friend.setFriendItemList(friendItemList);
+        friend.setContent(MarkDownToHTMLUtil.markdownToHtml(friend.getContent()));
         redisService.saveObjectToString(friendInfoMap,friend);
         return friend;
     }

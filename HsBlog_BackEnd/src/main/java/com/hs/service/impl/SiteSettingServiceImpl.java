@@ -168,6 +168,7 @@ public class SiteSettingServiceImpl implements SiteSettingService {
 
     private void deleteRedisCache(){
         redisService.deleteCacheByKey(RedisKey.SITE_INFO_MAP);
+        redisService.deleteCacheByKey(RedisKey.SENTENCES_SET);
     }
 
     /**

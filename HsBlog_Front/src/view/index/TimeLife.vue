@@ -52,7 +52,7 @@ export default {
       return this.isLeapYear() ? 366 : 365
     },
     getDayOfMouth () {
-      return new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate()
+      return new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()
     },
     styleInitialize () {
       document.getElementsByClassName('el-progress-bar__inner')[0].style.background = '#bde6ff linear-gradient(135deg, #50bfff 25%, transparent 25%, transparent 50%, #50bfff 50%, #50bfff 75%, transparent 75%, transparent 100%)'

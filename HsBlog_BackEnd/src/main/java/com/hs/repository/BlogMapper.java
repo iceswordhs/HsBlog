@@ -22,6 +22,8 @@ public interface BlogMapper {
 
     Blog getBlogById(Long id);
 
+    Blog adminGetBlogById(Long id);
+
     Blog getBlogEditById(Long id);
 
     Integer saveBlog(Blog blog);

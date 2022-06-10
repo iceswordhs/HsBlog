@@ -26,7 +26,7 @@ public class UploadImageUtil {
     //GitHub上传文件API
     private static final String githubUploadApi = "https://api.github.com/repos/%s/%s/contents%s/%s";
     //GitHub上传文件API
-    private static final String cdnUrl4Github = "https://cdn.jsdelivr.net/gh/%s/%s%s/%s";
+    private static final String cdnUrl4Github = "https://fastly.jsdelivr.net/gh/%s/%s%s/%s";
 
     ////服务访问地址，用于返回图片url
     //private static String serverUploadPath;

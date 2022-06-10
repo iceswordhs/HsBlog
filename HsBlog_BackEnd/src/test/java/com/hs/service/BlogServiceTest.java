@@ -73,4 +73,11 @@ public class BlogServiceTest {
         PageInfo<Blog> pageInfo = new PageInfo<>(blogService.getBlogListByTitleAndCategoryId("",null));
         System.out.println(pageInfo);
     }
+
+    @Test
+    void testSaveBlog(){
+        Blog blogById = blogMapper.adminGetBlogById(54L);
+        if (blogById==null) System.out.println("博客不存在");
+        else System.out.println("该博客标题为"+blogById.getTitle());
+    }
 }

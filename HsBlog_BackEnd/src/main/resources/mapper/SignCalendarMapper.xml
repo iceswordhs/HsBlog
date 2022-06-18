@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.repository.SignCalendarMapper">
+
+    <resultMap id="signStatus" type="com.hs.model.vo.SignStatus">
+            <result property="morningStatus" column="morning_status" jdbcType="INTEGER"/>
+            <result property="nightStatus" column="night_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        dt,yyyy,mm,
+        dd,day_of_week,week_num,
+        morning_status,night_status,merchant_id
+    </sql>
+
+    <select id="findDateSignStatus" resultMap="signStatus">
+        select morning_status,night_status from sign_calendar where dt>=#{firstDay} limit 0,42
+    </select>
+
+    <update id="morningSign">
+        update sign_calendar set morning_status=1 where dt=#{today}
+    </update>
+
+    <update id="nightSign">
+        update sign_calendar set night_status=1 where dt=#{today}
+    </update>
+</mapper>

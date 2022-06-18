@@ -77,6 +77,7 @@ export default {
 /* sidebar component styles */
 $sidebar-bg: $denim;
 
+/*save弹框配置*/
 .sidebar {
     top: 0;
     bottom: 0;
@@ -126,7 +127,7 @@ $sidebar-bg: $denim;
     position: absolute;
     bottom: 0;
     font-size: 0.6em;
-    padding: 1em;
+    //padding: 1em;
     right: 0;
   }
 }

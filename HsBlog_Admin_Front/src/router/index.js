@@ -133,6 +133,12 @@ const routes = [
         name: 'dialogKanban',
         component: () => import('@/views/components/mykanban'),
         meta: {title: '计划板2', icon: 'el-icon-date'}
+      },
+      {
+        path: 'daka',
+        name: 'signCalendar',
+        component: () => import('@/views/components/SignCalendar'),
+        meta: {title: '打卡日记', icon: 'el-icon-date'}
       }
     ]
   },

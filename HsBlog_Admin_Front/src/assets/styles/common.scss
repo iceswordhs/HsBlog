@@ -6,9 +6,9 @@
 }
 
 body, html {
-  font-family: sans-serif;
-  background-color: $light-grey;
-  font-size: 14px;
+  //font-family: sans-serif;
+  //background-color: $light-grey;
+  //font-size: 14px;
 }
 
 textarea, input {
@@ -26,8 +26,9 @@ textarea, input {
 #app {
   position:absolute;
   top: 0; right:0; bottom: 0; left: 0;
-  overflow:hidden;
-  padding: 1em;
+  // 隐藏进度条
+  //overflow:hidden;
+  //padding: 1em;
 }
 
 button {
@@ -89,7 +90,7 @@ button + button {
 /*Heading styles*/
 span.heading {
   color: $dark-grey;
-  font-size: 1.5em;
+  //font-size: 1.5em;
   vertical-align: initial;
   margin-right: 1em;
 }

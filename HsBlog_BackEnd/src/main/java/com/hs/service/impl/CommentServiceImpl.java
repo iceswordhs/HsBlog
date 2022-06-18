@@ -383,7 +383,7 @@ public class CommentServiceImpl implements CommentService {
         String toAccount = parentComment.getEmail();
         String subject = "您在 " + blogName + " 的评论有了新回复";
         // TODO: 2022/2/10
-        //mailUtils.sendHtmlTemplateMail(map, toAccount, subject, "guest.html");
+        //mailUtils.sendHtmlTemplateMail(map, toAccount, subject, "reminderOfMorning.html");
     }
 
     /**

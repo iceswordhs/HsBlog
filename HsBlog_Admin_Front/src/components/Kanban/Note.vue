@@ -45,7 +45,11 @@ export default {
         return {x: 0, y: 0}
       }
     },
+    'positionX':{type: Number, default: 0},
+    'positionY':{type: Number, default: 0},
     'noteSize': Object,
+    'noteSizeW':{type: Number, default: 0},
+    'noteSizeH':{type: Number, default: 0},
     'fontSize': {type: Number, default: 1},
     'votes': {type: Number, default: 0}
   },
@@ -60,13 +64,17 @@ export default {
   computed: {
     cStyle () {
       var style = {}
-      if (this.position) {
-        style.left = `${this.position.x}px`
-        style.top = `${this.position.y}px`
+      if (this.positionX&&this.positionY) {
+        // style.left = `${this.position.x}px`
+        // style.top = `${this.position.y}px`
+        style.left=`${this.positionX}px`
+        style.top=`${this.positionY}px`
       }
-      if (this.noteSize) {
-        style.width = `${this.noteSize.w}px`
-        style.height = `${this.noteSize.h}px`
+      if (this.noteSizeW&&this.noteSizeH) {
+        // style.width = `${this.noteSize.w}px`
+        // style.height = `${this.noteSize.h}px`
+        style.width = `${this.noteSizeW}px`
+        style.height = `${this.noteSizeH}px`
       }
       style.zIndex = this.order
 
@@ -112,12 +120,18 @@ export default {
         return
       }
 
-      let newX, newY, position
-      newX = this.position.x + d.dx
-      newY = this.position.y + d.dy
-      position = {x: newX, y: newY}
+      let newX, newY
+      // newX = this.position.x + d.dx
+      // newY = this.position.y + d.dy
+      // let position
+      // position = {x: newX, y: newY}
+      //
+      //
+      // this.$emit('update', this.id, { position: position })
 
-      this.$emit('update', this.id, { position: position })
+      newX=this.positionX+d.dx
+      newY=this.positionY+d.dy
+      this.$emit('update', this.id, { positionX: newX,positionY: newY})
     },
 
     onPositionMouseMoveStart () {
@@ -130,14 +144,18 @@ export default {
     },
 
     onSizeMouseMove (d) {
-      var newW = this.noteSize.w + d.dx
-      var newH = this.noteSize.h + d.dy
+      // var newW = this.noteSize.w + d.dx
+      // var newH = this.noteSize.h + d.dy
+      var newW=this.noteSizeW+d.dx
+      var newH=this.noteSizeH+d.dy
 
       if (newW < 100) { newW = 100 }
       if (newH < 50) { newH = 50 }
 
-      var noteSize = {w: newW, h: newH}
-      this.$emit('update', this.id, { noteSize: noteSize })
+      // var noteSize = {w: newW, h: newH}
+      // this.$emit('update', this.id, { noteSize: noteSize })
+      this.$emit('update',this.id,{noteSizeW:newW})
+      this.$emit('update',this.id,{noteSizeH:newH})
     }
   },
 

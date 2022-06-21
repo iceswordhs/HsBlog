@@ -3,7 +3,7 @@
     <saved-boards :boards="boards" :active-board-index="activeBoardIndex"></saved-boards>
     <div class="board-content">
       <div class="main_menu">
-        <span class="heading">事务梳理</span>
+        <span class="heading">工作计划板</span>
         <div class="note_actions">
           <button class="positive" @click="$refs.board.addNote('positive')">成果记录</button>
           <button class="neutral" @click="$refs.board.addNote('neutral')">提醒的标记</button>
@@ -31,6 +31,7 @@ import SavedBoards from '@/components/Kanban/SavedBoards'
 import BoardExport from '@/utils/kanban/boardexport'
 import bus from '@/utils/kanban/bus.js'
 import moment from 'moment'
+import {getKanbanData,saveKanbanData} from '@/api/kanban'
 
 export default {
   name: 'app',
@@ -131,6 +132,7 @@ export default {
       this.migrateState()
       var loadedContent = storage.getItem('retrospective-board')
       if (loadedContent) {
+        console.log('loadedContent'+loadedContent)
         this.boards = JSON.parse(loadedContent)
       }
     },
@@ -140,15 +142,36 @@ export default {
       var storage = window.localStorage
       var content = JSON.stringify(this.boards)
       storage.setItem('retrospective-board', content)
-      this.unsavedChanges = false
+
+      // 将数据存储到后端
+      saveKanbanData(this.boards).then(resp => {
+        if (resp && resp.code === 200) {
+          this.successMsg(resp.data)
+          this.unsavedChanges = false
+        } else {
+          this.errorMsg(resp.message)
+        }
+      })
     },
 
     migrateState () {
       var storage = window.localStorage
 
+      const userJson = window.localStorage.getItem('user') || '{}'
+      const user = JSON.parse(userJson)
+      if (userJson !== '{}' && !user.role.includes('ROLE_admin') ) {
+          return
+      }
+
       var i = 0
       // Try to migrate data from older versions
-      var oldState = storage.getItem('retrospective-board')
+      // var oldState = storage.getItem('retrospective-board')
+      var oldState
+      getKanbanData().then(res=>{
+        this.successMsg(res.message)
+        oldState=JSON.stringify(res.data)
+        storage.setItem('retrospective-board', JSON.stringify(res.data))
+      })
 
       // Data to migrate
       if (oldState) {
@@ -168,6 +191,7 @@ export default {
         // Write updated item back to localStorage
         storage.setItem('retrospective-board', data)
       }
+
 
       // If migration succeeds, save version number in localStorage
       // storage.setItem('retrospective-version', VERSION)

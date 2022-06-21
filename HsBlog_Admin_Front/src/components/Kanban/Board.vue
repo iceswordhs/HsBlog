@@ -6,8 +6,10 @@
     <div class="notes">
       <div class="empty-state" v-show="!board.notes.length">this is a very empty screen</div>
       <note v-for="note in board.notes" :key="note.id" :content="note.text"
-        :type="note.note_type" :position="note.position" :id="note.id" :note-size="note.noteSize"
-        :font-size="note.fontSize" :votes="note.votes" :order="note.order" :active="note.id == activeDrag"
+        :type="note.noteType" :position="note.position"
+            :position-x="note.positionX" :position-y="note.positionY"
+            :id="note.id" :note-size="note.noteSize" :note-size-h="note.noteSizeH" :note-size-w="note.noteSizeW"
+        :font-size="note.fontSize" :votes="note.votes" :order="note.order" :active="note.id === activeDrag"
         @update="updateNote" @stop-drag="stopDrag" @start-drag="startDrag">
         </note>
     </div>
@@ -111,9 +113,15 @@ export default {
       // Note default props
       var note = {
         text: placeholderText,
-        note_type: type,
+        // note_type: type,
+        // 修改note_type为noteType
+        noteType: type,
         position: this.positioner.getPositionforNew(terciary),
+        positionX:this.positioner.getPositionforNew(terciary).x,
+        positionY:this.positioner.getPositionforNew(terciary).y,
         noteSize: {w: 200, h: 150},
+        noteSizeW: 200,
+        noteSizeH: 150,
         fontSize: 1,
         votes: 0,
         order: this.getMaxOrder() + 1,
@@ -124,6 +132,7 @@ export default {
     },
 
     reArrange () {
+      // 将笔记赋给创建的positioner
       this.positioner.setState(this.board.notes)
       this.positioner.reArrange()
     }

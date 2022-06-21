@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.repository.JobBoardMapper">
+
+    <resultMap id="jobBoard" type="com.hs.entity.JobBoard">
+        <id property="id" column="jid" jdbcType="INTEGER"/>
+        <result property="initial" column="initial" jdbcType="TINYINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <collection property="notes" javaType="java.util.ArrayList" ofType="com.hs.entity.Note">
+            <id property="id" column="nid"/>
+            <result property="fontSize" column="fontSize"/>
+            <result property="noteSizeW" column="noteSizeW"/>
+            <result property="noteSizeH" column="noteSizeH"/>
+            <result property="noteType" column="note_type"/>
+            <result property="order" column="order"/>
+            <result property="positionX" column="positionX"/>
+            <result property="positionY" column="positionY"/>
+            <result property="text" column="text"/>
+            <result property="votes" column="votes"/>
+        </collection>
+    </resultMap>
+    <delete id="clearBoardTable">
+        delete from job_board
+    </delete>
+    <delete id="clearNotesTable">
+        delete from notes
+    </delete>
+    <delete id="clearBoardNoteTable">
+        delete from job_board_note
+    </delete>
+
+
+    <select id="getBoardJob" resultMap="jobBoard">
+        select
+            jb.id jid ,jb.title,
+            n.id nid,
+            n.fontSize,
+            n.noteSizeW,n.noteSizeH,
+            n.note_type,n.`order`,n.positionX,n.positionY,n.text,n.votes
+        from job_board jb
+        left join job_board_note jbn  on jb.id = jbn.job_board_id
+        left join notes n on n.id=jbn.note_id
+    </select>
+
+    <insert id="addBoardJob">
+        insert into job_board(id,initial,title) values(#{id},#{initial},#{title})
+    </insert>
+    <insert id="addNote">
+        insert into
+        notes(id,fontSize,noteSizeW,noteSizeH,note_type,`order`,positionX,positionY,text,votes)
+        values(#{id},#{fontSize},#{noteSizeW},#{noteSizeH},#{noteType},#{order},#{positionX},#{positionY},#{text},#{votes})
+    </insert>
+    <insert id="addJobBoardNote">
+        insert into
+        job_board_note(job_board_id, note_id) VALUES (#{boardId},#{noteId})
+    </insert>
+</mapper>

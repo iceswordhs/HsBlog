@@ -7,7 +7,9 @@ class BoardExport {
     this.output = ''
     this.appendtoOutput(data.title)
 
-    const grouped = _.groupBy(data.notes, 'note_type')
+    // const grouped = _.groupBy(data.notes, 'note_type')
+    // 修改note_type为noteType
+    const grouped = _.groupBy(data.notes, 'noteType')
 
     Object.keys(grouped).forEach((notegroup) => {
       this.appendtoOutput(`\r\nCategory ${notegroup}`)

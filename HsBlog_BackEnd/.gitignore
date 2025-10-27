@@ -32,3 +32,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# 忽略所有以 application- 开头的 properties 文件，但不包括 application-prod.properties
+**/application-dev.properties

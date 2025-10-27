@@ -44,9 +44,6 @@ pnpm-debug.log*
 *.tar.gz
 *.rar
 
-*.properties
-
-
 
 LP.md
 target/

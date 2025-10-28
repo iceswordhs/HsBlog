@@ -32,8 +32,8 @@ public class DailyHabitEmailScheduleTask {
     public void sendDailyHabitMailScheduleTask(String template){
         // 如果是空或者包含html，那么就是早晨邮件
         if (StringUtils.isEmpty(template)||template.equals("reminderOfMorning.html")){
-            mailUtil.sendHtmlTemplateMail(toAccount,subject,"reminderOfMorning.html");
+            mailUtil.sendHtmlTemplateMail(null, toAccount,subject,"reminderOfMorning.html");
         }
-        else mailUtil.sendHtmlTemplateMail(toAccount,"夜晚总结与雷神的鼓舞",template);
+        else mailUtil.sendHtmlTemplateMail(null, toAccount,"夜晚总结与雷神的鼓舞",template);
     }
 }

@@ -9,12 +9,14 @@ import com.hs.model.vo.PageComment;
 import com.hs.repository.CommentMapper;
 import com.hs.util.EncodeUtil;
 import com.hs.util.IpAddressUtils;
+import com.hs.util.MailUtil;
 import com.hs.util.StringUtils;
 import com.hs.util.image.QQInfoUtils;
 import com.hs.service.*;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +39,10 @@ public class CommentServiceImpl implements CommentService {
     CommentMapper commentMapper;
     @Autowired
     RedisService redisService;
+    @Autowired
+    MailProperties mailProperties;
+    @Autowired
+    MailUtil mailUtil;
 
     private String blogName;
     private String cmsUrl;
@@ -421,9 +427,8 @@ public class CommentServiceImpl implements CommentService {
         map.put("status", comment.getPublished() ? "公开" : "待审核");
         map.put("url", websiteUrl + path);
         map.put("manageUrl", cmsUrl + "/comments");
-        // TODO: 2022/2/10  
-        //String toAccount = mailProperties.getUsername();
+        String toAccount = mailProperties.getUsername();
         String subject = blogName + " 收到新评论";
-        //mailUtils.sendHtmlTemplateMail(map, toAccount, subject, "owner.html");
+        mailUtil.sendHtmlTemplateMail(map, toAccount, subject, "owner.html");
     }
 }

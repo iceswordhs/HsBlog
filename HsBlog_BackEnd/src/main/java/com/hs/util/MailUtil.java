@@ -1,5 +1,7 @@
 package com.hs.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.SimpleMailMessage;
@@ -30,6 +32,8 @@ public class MailUtil {
     @Autowired
     TemplateEngine templateEngine;
 
+    private static final Logger logger = LoggerFactory.getLogger(MailUtil.class);
+
     @Async
     public void sendSimpleMail(String toAccount, String subject, String content) {
         try {
@@ -40,17 +44,17 @@ public class MailUtil {
             message.setText(content);
             javaMailSender.send(message);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("发送邮件失败：", e);
         }
     }
 
     @Async
-    public void sendHtmlTemplateMail(String toAccount, String subject, String template) {
+    public void sendHtmlTemplateMail(Map<String, Object> map, String toAccount, String subject, String template) {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,"UTF-8");
             Context context = new Context();
-            context.setVariables(new HashMap<>());
+            context.setVariables(map);
             String process = templateEngine.process(template,context);
             messageHelper.setFrom(mailProperties.getUsername());
             messageHelper.setTo(toAccount);
@@ -58,7 +62,7 @@ public class MailUtil {
             messageHelper.setText(process, true);
             javaMailSender.send(mimeMessage);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("发送邮件失败：", e);
         }
     }
 }

@@ -21,10 +21,17 @@
         <div class="title">{{year}}年已经过去了{{days}}天</div>
         <el-progress class="progress3" :stroke-width="10" :percentage='percentYear' ></el-progress>
       </div>
+
+      <div>
+        <div class="title">听老师的话好好学习 已过{{pastDays}}天 共1173天</div>
+        <el-progress class="progress3" :stroke-width="10" :percentage='percentTeacherAdmonitionDays' ></el-progress>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import moment from 'moment'
+
 export default {
   name: 'TimeLife',
   data () {
@@ -63,6 +70,8 @@ export default {
       document.getElementsByClassName('el-progress-bar__inner')[2].style.backgroundSize = '30px 30px'
       document.getElementsByClassName('el-progress-bar__inner')[3].style.background = '#ffd980 linear-gradient(135deg, #f7ba2a 25%, transparent 25%, transparent 50%, #f7ba2a 50%, #f7ba2a 75%, transparent 75%, transparent 100%)'
       document.getElementsByClassName('el-progress-bar__inner')[3].style.backgroundSize = '30px 30px'
+      document.getElementsByClassName('el-progress-bar__inner')[4].style.background = '#ffd980 linear-gradient(135deg, #f7ba2a 25%, transparent 25%, transparent 50%, #f7ba2a 50%, #f7ba2a 75%, transparent 75%, transparent 100%)'
+      document.getElementsByClassName('el-progress-bar__inner')[4].style.backgroundSize = '30px 30px'
     }
   },
   computed: {
@@ -84,8 +93,11 @@ export default {
       let offset = new Date().getTime() - start.getTime()
       return parseInt(offset / 1000 / 60 / 60 / 24) + 1
     },
+    pastDays () {
+      return moment().diff(moment('2025-03-30'), 'days')
+    },
     daysOfWeek () {
-      return new Date().getDay()
+      return new Date().getDay() === 0 ? 7 : new Date().getDay()
     },
     daysOfMouth () {
       return new Date().getDate()
@@ -101,6 +113,10 @@ export default {
     },
     percentYear () {
       return parseFloat((this.days * 100 / this.getDayOfYear()).toFixed(1))
+    },
+    percentTeacherAdmonitionDays () {
+      let allDays = 1173
+      return parseFloat((moment().diff(moment('2025-03-30'), 'days') * 100 / allDays).toFixed(3))
     }
   }
 }

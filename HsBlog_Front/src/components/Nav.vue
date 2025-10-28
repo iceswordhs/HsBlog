@@ -84,6 +84,7 @@ export default {
     })
     // 监听点击事件，收起导航菜单
     document.addEventListener('click', (e) => {
+      console.log(e)
       // 遍历冒泡
       let flag = e.path.some(item => {
         if (item === this.$refs.nav) return true

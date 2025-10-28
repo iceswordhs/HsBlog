@@ -30,10 +30,7 @@ public class VisitorSyncScheduleTask {
     CityVisitorService cityVisitorService;
 
     /**
-     * 清空当天Redis访客标识
-     * 记录当天的PV和UV
-     * 更新当天所有访客的PV和最后访问时间
-     * 更新城市新增访客UV数
+     *
      */
     public void syncVisitInfoToDatabase() {
         //清空当天Redis的访客标识Set，以便统计每日UV

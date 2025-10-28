@@ -132,7 +132,7 @@ export default {
 </script>
 
 <style scoped>
-@import '/badge.css';
+@import 'badge.css';
 
 .github-badge a {
   color: #fff;

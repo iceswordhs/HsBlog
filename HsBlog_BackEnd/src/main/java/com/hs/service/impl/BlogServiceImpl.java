@@ -278,6 +278,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public PageInfo<BlogListItem> getBlogByTag(Tag tag,Integer pageNum) {
         Tag blogTag = tagService.getTagByIdOrName(tag);
+        if (Objects.isNull(blogTag)) return new PageInfo<>();
         PageHelper.startPage(pageNum,pageSize,orderBy);
         List<BlogListItem> blogs = blogMapper.getBlogByTagId(blogTag.getTagId());
         processBlogListItem(blogs);

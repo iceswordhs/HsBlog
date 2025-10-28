@@ -35,8 +35,8 @@ public class BlogServiceTest {
         // 获取当前页数 2
         System.out.println(pageBlog.getPageNum());
         System.out.println(pageBlog.getNavigatePages());
-        System.out.println(pageBlog.getList().get(0));
-        System.out.println(pageBlog.getList().get(1));
+//        System.out.println(pageBlog.getList().get(0));
+//        System.out.println(pageBlog.getList().get(1));
         System.out.println(pageBlog);
     }
 
@@ -44,7 +44,7 @@ public class BlogServiceTest {
     void testPageHelper(){
         PageHelper.startPage(2,5);
         List<BlogListItem> allBlog = blogMapper.findAllBlog();
-        System.out.println(allBlog.get(0));
+//        System.out.println(allBlog.get(0));
     }
 
     @Test

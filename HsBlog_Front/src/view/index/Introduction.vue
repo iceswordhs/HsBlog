@@ -55,8 +55,14 @@
 
         <div>
           <el-collapse accordion>
-            <el-collapse-item :title="item.title" :name="index" v-if="item.title" v-for="(item,index) in introduction.customizes" :key="index">
-              <div>{{ item.content }}</div>
+            <el-collapse-item
+              :title="JSON.parse(item).title"
+              :name="index"
+              v-if="JSON.parse(item).title"
+              v-for="(item,index) in introduction.customizes"
+              :key="index"
+            >
+              <div>{{ JSON.parse(item).content }}</div>
             </el-collapse-item>
           </el-collapse>
         </div>

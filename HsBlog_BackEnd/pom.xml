@@ -198,14 +198,15 @@
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>application-dev.properties</exclude>
-                </excludes>
-            </resource>
-        </resources>
+<!--        打包时需要使用这个把dev文件排除出去-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <excludes>-->
+<!--                    <exclude>application-dev.properties</exclude>-->
+<!--                </excludes>-->
+<!--            </resource>-->
+<!--        </resources>-->
     </build>
 
 </project>

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
  * 每天发送一封邮件提醒自己是否完成习惯，并通过点击进行确认
  * @author huangshuai
  * @Date 2022/6/13 18:16
- * @param null
  * @return
  */
 @Component

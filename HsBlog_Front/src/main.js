@@ -31,7 +31,9 @@ Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 // axios.defaults.baseURL = 'http://110.40.179.194/'
-axios.defaults.baseURL = 'https://api.icesword.site'
+// axios.defaults.baseURL = 'https://api.icesword.site'
+// axios.defaults.baseURL = 'https://icesword.site'
+axios.defaults.baseURL = '/api'
 // axios.defaults.baseURL = 'http://localhost:10000'
 Vue.prototype.$axios = axios
 

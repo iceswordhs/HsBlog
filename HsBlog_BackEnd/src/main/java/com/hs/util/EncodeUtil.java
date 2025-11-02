@@ -23,4 +23,8 @@ public class EncodeUtil {
         long num = i < 0 ? Integer.MAX_VALUE - (long) i : i;
         return num;
     }
+
+    public static void main(String[] args) {
+        System.out.println(bc.encode("hspassword"));
+    }
 }

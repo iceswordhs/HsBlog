@@ -1,13 +1,13 @@
 # HsBlog
 前后端分离的博客
 
-
-# 下载env.example文件
+# 如何使用docker在自己电脑上一键启动项目
+## 1.下载env.example文件
 ![image.png](https://fastly.jsdelivr.net/gh/iceswordhs/HsResource/Blog/image/2025/11/20251104075720671image.png)
 并在本地将其改名为.env文件
 同时可以自己填写相关配置(不填也能启动，只是部分功能无法使用)
 
-# 下载docker.compose文件
+## 2.下载docker.compose文件
 如果你电脑上还没下载docker，请先安装docker，同时设置镜像仓库
 可参考网络教程
 或者https://icesword.site/blog/8
@@ -23,7 +23,7 @@
 即可登陆后台管理页面
 
 
-# 在服务器上部署该项目并绑定域名
+## (可选)在服务器上部署该项目并绑定域名
 要求必须有自己的域名以及一个子域名
 域名用于前台展示，子域名用于后台管理页面
 将docker-compose-ssl.yaml文件和.env_example文件下载到服务器同一文件夹下，创建nginx文件夹，在此文件夹下放入下载的nginx-ssl.conf文件，同时修改nginx-ssl.conf文件中的域名，改为你自己的域名。
@@ -68,7 +68,8 @@ acme.sh --install-cert -d icesword.site \
 - [x] 管理页面图标美化
 - [x] 新增标签颜色、无用标签清理
 - [x] 文章管理推荐选项
-- [ ] 每天发邮件提醒自己定时任务完成结果，并附带昨天列出的工作事项以及喜欢的警示语录
+- [x] 每天发邮件提醒自己定时任务完成结果，并附带昨天列出的工作事项以及喜欢的警示语录
+- [x] 项目docker化，并可以一键启动
 
      
 

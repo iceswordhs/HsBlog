@@ -94,9 +94,9 @@ services:
       # ⚠️ 1. 挂载共享的证书 Volume 
       - ./nginx/ssl:/etc/letsencrypt:ro 
       # 2. 挂载 Nginx 配置文件 (使用一个支持 SSL 的配置)
-      # - ./nginx/nginx-ssl.conf:/etc/nginx/nginx.conf:rw
+      - ./nginx/nginx-ssl.conf:/etc/nginx/nginx.conf:rw
       # 由于配置文件中使用了环境变量，无法直接挂载，需要使用模版文件让nginx先把环境变量替换成对应的值。之后nginx会自动根据生成的配置文件启动
-      - ./nginx/nginx-ssl.conf.template:/etc/nginx/templates/nginx.conf.template
+      # - ./nginx/nginx-ssl.conf.template:/etc/nginx/templates/nginx.conf.template
       # 移除原有的 /etc/nginx/conf.d/default.conf
       - /dev/null:/etc/nginx/conf.d/default.conf
       - ./nginx_logs:/var/log/nginx
